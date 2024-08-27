@@ -1,1 +1,1 @@
-# 2024SIS_Team18
+# Whiteboard AI
