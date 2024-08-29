@@ -29,7 +29,6 @@ export default Navbar;
 
 
 
-// IconWrapper Component
 const IconWrapper = ({ IconComponent }) => {
   return (
     <div className='h-10 w-10 hover:bg-gray-100 rounded-md p-2 cursor-pointer'>
