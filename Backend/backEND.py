@@ -24,3 +24,8 @@ response = model.generate_content(prompt)
 
 #print the generated text
 print(response.text)
+
+#current idea for setting up the ai with the chatbox:
+#we build out the framework for the chatbox
+#we make the output and user input appear into the chatbox
+#have input get put throught the 'prompt'
