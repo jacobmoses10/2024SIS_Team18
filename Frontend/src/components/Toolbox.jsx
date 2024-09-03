@@ -1,38 +1,62 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   PaintBrushIcon,
   PencilIcon,
   ServerIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
 
-export function Icons({ IconComponent }) {
+const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleErase, clearCanvas }) => {
   return (
-    <div className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 cursor-pointer">
-      <IconComponent className="w-6 h-6" />
-    </div>
-  );
-}
+    <div>
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[400px] shadow-lg">
+        {/* icons */}
+        <Icons IconComponent={PaintBrushIcon} />
+        <Icons IconComponent={PencilIcon} />
 
-const Toolbox = () => {
-  return (
-    <div className="flex bg-white p-2 items-center justify-between space-x-4 rounded-md w-[300px] shadow-lg">
-     
-    {/* icons  */}
-      <Icons IconComponent={PaintBrushIcon} />
-      <Icons IconComponent={PencilIcon} />
-      <Icons IconComponent={ServerIcon} />
+        <div onClick={toggleErase} className="cursor-pointer">
+          <Icons IconComponent={ServerIcon} />
+        </div>
 
-      <div className="w-full">
-  <input
-    type="range"
-    min="0"
-    max="100"
-    className="w-[100px] appearance-none h-2 bg-gray-200 rounded-lg cursor-pointer"
-  />
-</div>
+        {/* Color Chooser */}
+        <div className="p-2 cursor-pointer flex justify-center items-center hover:bg-gray-100 rounded-md h-10 w-10 relative">
+          <div className="w-5 h-5 border-2 border-black rounded relative">
+            <input
+              type="color"
+              onChange={(event) => changePenColor(event.target.value)}
+              value={penColor}
+              className="absolute inset-0 opacity-0 cursor-pointer"
+            />
+          </div>
+        </div>
 
+        {/* Pen Width */}
+        <div className="w-full flex">
+          <input
+            type="range"
+            onChange={(event) => changePenWidth(event.target.value)}
+            value={penWidth}
+            min="1"
+            max="30"
+            className="w-[100px] appearance-none h-2 bg-gray-200 rounded-lg cursor-pointer"
+          />
+        </div>
+
+        {/* Clear the Canvas */}
+        <div onClick={clearCanvas} className="cursor-pointer">
+          <Icons IconComponent={TrashIcon} />
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Toolbox;
+
+const Icons = ({ IconComponent }) => {
+  return (
+    <div className="h-10 w-10 hover:bg-gray-100 rounded-md p-2">
+      <IconComponent className="w-6 h-6" />
+    </div>
+  );
+};
