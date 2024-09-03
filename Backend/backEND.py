@@ -16,9 +16,11 @@ if GEMINI_API_KEY is None:
 genai.configure(api_key=GEMINI_API_KEY)
 
 #choose the Gemini model
+#this will be updated in future to a Gemini model fine-tuned for whiteboard tutoring
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 #make a request to the Gemini API
+#prompt example to be changed specific to use case
 prompt = "Write a story about a magic backpack."
 response = model.generate_content(prompt)
 
