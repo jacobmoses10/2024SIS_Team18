@@ -33,7 +33,7 @@ const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penC
         </div>
 
         {/* Add Text Element to Canvas */}
-        <div onClick={addText} className="cursor-pointer">
+        <div onClick={() => addText()} className="cursor-pointer">
           <Icons IconComponent={PlusIcon} />
         </div>
 

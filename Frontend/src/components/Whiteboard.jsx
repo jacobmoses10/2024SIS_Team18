@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import Toolbox from "./Toolbox";
 import { fabric } from 'fabric';
 
-const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, penWidth, changePenColor, penColor, setFabricCanvas, fabricCanvas, clearCanvas }) => {
-  // Drawing mode state
-  
+const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, penWidth, changePenColor, penColor, setFabricCanvas, fabricCanvas, addText, clearCanvas }) => {
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -26,7 +24,7 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
       fabricCanvas.freeDrawingBrush.width = penWidth;
       fabricCanvas.freeDrawingBrush.color = penColor;
     }
-  }, [penWidth, penColor, fabricCanvas]);
+  }, [penWidth, penColor, fabricCanvas, tool]);
 
   // Change drawing mode based on selected tool.
   useEffect(() => {
@@ -34,18 +32,6 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
       fabricCanvas.isDrawingMode = drawingMode;
     }
   }, [drawingMode, fabricCanvas]);
-
-  const addText = () => {
-    setTool("cursor");
-    if (fabricCanvas) {
-      const text = new fabric.IText("Text", {
-        left: 100,
-        top: 200,
-        fill: penColor
-      });
-      fabricCanvas.add(text);
-    }
-  };
 
   return (
     <div className="relative w-full h-screen rounded-md">

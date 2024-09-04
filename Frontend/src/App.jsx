@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import Navbar from './components/Navbar';
 import Whiteboard from './components/Whiteboard';
-// import { fabric } from 'fabric';
+import { fabric } from 'fabric';
 
 const App = () => {
   const canvasRef = useRef(null);
@@ -17,15 +17,22 @@ const App = () => {
   // Selected tool
   useEffect(() => {
     if (tool === "cursor") {
+      if (penColor === defaultBackgroundColor) {
+        setPenColor("black");
+      }
       setDrawingMode(false);
-    } else if (tool === "pencil") {
-      setDrawingMode(true);
-      setPenColor("black");
-    } else if (tool === "eraser") {
-      setDrawingMode(true);
-      setPenColor(defaultBackgroundColor);
     }
-  }, [tool]);
+    if (tool === "pencil") {
+      if (penColor === defaultBackgroundColor) {
+        setPenColor("black");
+      }
+      setDrawingMode(true);
+    }
+    if (tool === "eraser") {
+      setPenColor(defaultBackgroundColor);
+      setDrawingMode(true);
+    }
+  }, [tool, penColor]);
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -53,6 +60,18 @@ const App = () => {
       downloadLink.href = pngData;
       downloadLink.download = fileName;
       downloadLink.click();
+    }
+  };
+
+  const addText = () => {
+    if (fabricCanvas) {
+      const text = new fabric.IText("Text", {
+        left: 100,
+        top: 200,
+        fill: penColor === defaultBackgroundColor ? "black" : penColor
+      });
+      fabricCanvas.add(text);
+      setTool("cursor");
     }
   };
 
@@ -84,6 +103,8 @@ const App = () => {
 
         changePenColor={changePenColor}
         penColor={penColor}
+
+        addText={addText}
         
         clearCanvas={clearCanvas} 
       />
