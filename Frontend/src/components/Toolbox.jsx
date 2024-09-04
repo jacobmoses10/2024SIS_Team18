@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   PaintBrushIcon,
-  PencilIcon,
   ServerIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 
 const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleErase, clearCanvas }) => {
+  const [isPencil, setIsPencil] = useState(true); 
+
+  //toggle between pencil and eraser animation
+  const handleIconToggle = () => {
+    setIsPencil(!isPencil); 
+    toggleErase(); 
+  };
+
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[400px] shadow-lg">
-        {/* icons */}
-        <Icons IconComponent={PaintBrushIcon} />
-        <Icons IconComponent={PencilIcon} />
-
-        <div onClick={toggleErase} className="cursor-pointer">
-          <Icons IconComponent={ServerIcon} />
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[280px] shadow-lg">
+        {/* toggle between pencil and eraser */}
+        <div onClick={handleIconToggle} className="cursor-pointer">
+          {isPencil ? <Icons IconComponent={PaintBrushIcon} /> : <Icons IconComponent={ServerIcon} />}
         </div>
 
         {/* Color Chooser */}

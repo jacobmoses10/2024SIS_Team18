@@ -7,8 +7,8 @@ const Whiteboard = ({ canvasRef, toggleErase, changePenWidth, penWidth, changePe
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: '#e5e7eb',
-      width: 1920,
-      height: 1080,
+      width: window.innerWidth,
+      height: window.innerHeight,
       isDrawingMode: true,
     });
 
@@ -27,18 +27,18 @@ const Whiteboard = ({ canvasRef, toggleErase, changePenWidth, penWidth, changePe
   }, [penWidth, penColor, fabricCanvas]);
 
   return (
-    <div className="w-full h-screen bg-gray-200 rounded-md">
-      <div className="p-4">
+    <div className="relative w-full h-screen rounded-md">
+      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full"></canvas>
+      <div className="absolute top-4 left-4 bg-white rounded-md z-10 shadow-lg">
         <Toolbox
           changePenWidth={changePenWidth}
           penWidth={penWidth}
           changePenColor={changePenColor}
           penColor={penColor}
-          toggleErase={toggleErase} 
+          toggleErase={toggleErase}
           clearCanvas={clearCanvas}
         />
       </div>
-      <canvas ref={canvasRef} className=""></canvas>
     </div>
   );
 };
