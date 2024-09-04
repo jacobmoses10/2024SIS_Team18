@@ -24,7 +24,10 @@ const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleEra
 
         {/* Color Chooser */}
         <div className="p-2 cursor-pointer flex justify-center items-center hover:bg-gray-100 rounded-md h-10 w-10 relative">
-          <div className="w-5 h-5 border-2 border-black rounded relative">
+          <div
+            className="w-5 h-5 border-2 border-black rounded relative"
+            style={{ backgroundColor: penColor }} // Apply selected pen color
+          >
             <input
               type="color"
               onChange={(event) => changePenColor(event.target.value)}
