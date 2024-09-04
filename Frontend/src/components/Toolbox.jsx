@@ -4,24 +4,22 @@ import {
   ServerIcon,
   TrashIcon,
   PlusIcon,
+  CursorArrowRaysIcon,
 } from "@heroicons/react/24/outline";
 
-const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleErase, addText, clearCanvas, setDrawingMode }) => {
-  const [isPencil, setIsPencil] = useState(true); 
-
-  //toggle between pencil and eraser animation
-  const handleIconToggle = () => {
-    setIsPencil(!isPencil); 
-    toggleErase(); 
-    setDrawingMode(true);
-  };
+const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, toggleErase, addText, clearCanvas }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[350px] shadow-lg">
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[400px] shadow-lg">
+        {/* Switch to regular cursor/move function */}
+        <div onClick={() => setTool("cursor")} className="cursor-pointer">
+          <Icons IconComponent={CursorArrowRaysIcon} />
+        </div>
+        
         {/* toggle between pencil and eraser */}
-        <div onClick={handleIconToggle} className="cursor-pointer">
-          {isPencil ? <Icons IconComponent={PaintBrushIcon} /> : <Icons IconComponent={ServerIcon} />}
+        <div onClick={() => setTool("pencil")} className="cursor-pointer">
+          <Icons IconComponent={PaintBrushIcon}/>
         </div>
 
         {/* Color Chooser */}

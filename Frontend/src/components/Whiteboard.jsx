@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Toolbox from "./Toolbox";
 import { fabric } from 'fabric';
 
-const Whiteboard = ({ canvasRef, toggleErase, changePenWidth, penWidth, changePenColor, penColor, setFabricCanvas, fabricCanvas, clearCanvas }) => {
-const [drawingMode, setDrawingMode] = useState(true);
+const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, penWidth, changePenColor, penColor, setFabricCanvas, fabricCanvas, clearCanvas }) => {
+  // Drawing mode state
+  
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -35,7 +36,6 @@ const [drawingMode, setDrawingMode] = useState(true);
   }, [drawingMode, fabricCanvas]);
 
   const addText = () => {
-    setDrawingMode(false);
     if (fabricCanvas) {
       const text = new fabric.IText("Text", {
         left: 100,
@@ -51,14 +51,14 @@ const [drawingMode, setDrawingMode] = useState(true);
       <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full"></canvas>
       <div className="absolute top-4 left-4 bg-white rounded-md z-10 shadow-lg">
         <Toolbox
+          tool={tool}
+          setTool={setTool}
           changePenWidth={changePenWidth}
           penWidth={penWidth}
           changePenColor={changePenColor}
           penColor={penColor}
-          toggleErase={toggleErase}
           addText={addText}
           clearCanvas={clearCanvas}
-          setDrawingMode={setDrawingMode}
         />
       </div>
     </div>

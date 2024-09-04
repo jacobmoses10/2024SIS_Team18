@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Navbar from './components/Navbar';
 import Whiteboard from './components/Whiteboard';
 // import { fabric } from 'fabric';
@@ -11,8 +11,21 @@ const App = () => {
   //toolbox states
   const [penWidth, setPenWidth] = useState(1);
   const [penColor, setPenColor] = useState("black");
-  const [toggleEraser , setToggleEraser] = useState(false);
+  const [tool, setTool] = useState("cursor");
   const [drawingMode, setDrawingMode] = useState(true);
+
+  // Selected tool
+  useEffect(() => {
+    if (tool === "cursor") {
+      setDrawingMode(false);
+    } else if (tool === "pencil") {
+      setDrawingMode(true);
+      setPenColor("black");
+    } else if (tool === "eraser") {
+      setDrawingMode(true);
+      setPenColor(defaultBackgroundColor);
+    }
+  }, [tool]);
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -43,20 +56,6 @@ const App = () => {
     }
   };
 
-  const toggleErase = () =>{
-    if (fabricCanvas) {
-      if(toggleEraser){
-        changePenColor("black")
-        setToggleEraser(false)
-      }
-      else{
-        changePenColor(defaultBackgroundColor)
-        setToggleEraser(true)
-      }
-
-    }
-  }
-
   const clearCanvas = () => {
     if (fabricCanvas) {
       fabricCanvas.clear();
@@ -73,20 +72,19 @@ const App = () => {
         canvasRef={canvasRef}
         setFabricCanvas={setFabricCanvas}
         fabricCanvas={fabricCanvas}
-        
+
         drawingMode={drawingMode}
-        setDrawingMode={setDrawingMode}
         
         // for toolbox passing through whiteboard
+        tool={tool}
+        setTool={setTool}
+
         changePenWidth={changePenWidth}
         penWidth={penWidth}
 
         changePenColor={changePenColor}
         penColor={penColor}
         
-        setToggleEraser={setToggleEraser}
-        toggleErase={toggleErase}
-      
         clearCanvas={clearCanvas} 
       />
     </div>
