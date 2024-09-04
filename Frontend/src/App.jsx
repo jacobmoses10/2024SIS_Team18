@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import Navbar from './components/Navbar';
 import Whiteboard from './components/Whiteboard';
+import Chatbox from './components/Chatbox';
 import { fabric } from 'fabric';
 
 const App = () => {
@@ -87,6 +88,7 @@ const App = () => {
 
         clearCanvas={clearCanvas} 
       />
+     <Chatbox />
     </div>
   );
 };
