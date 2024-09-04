@@ -11,8 +11,8 @@ const App = () => {
   //toolbox states
   const [penWidth, setPenWidth] = useState(1);
   const [penColor, setPenColor] = useState("black");
-  const [toggleEraser , setToggleEraser] = useState(false)
-
+  const [toggleEraser , setToggleEraser] = useState(false);
+  const [drawingMode, setDrawingMode] = useState(true);
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -57,12 +57,6 @@ const App = () => {
     }
   }
 
-  const addText = () => {
-    if (fabricCanvas) {
-      // TODO: add text
-    }
-  };
-
   const clearCanvas = () => {
     if (fabricCanvas) {
       fabricCanvas.clear();
@@ -78,7 +72,10 @@ const App = () => {
         // for canvas
         canvasRef={canvasRef}
         setFabricCanvas={setFabricCanvas}
-        fabricCanvas={fabricCanvas}  
+        fabricCanvas={fabricCanvas}
+        
+        drawingMode={drawingMode}
+        setDrawingMode={setDrawingMode}
         
         // for toolbox passing through whiteboard
         changePenWidth={changePenWidth}
@@ -89,9 +86,7 @@ const App = () => {
         
         setToggleEraser={setToggleEraser}
         toggleErase={toggleErase}
-
-        addText={addText}
-        
+      
         clearCanvas={clearCanvas} 
       />
     </div>

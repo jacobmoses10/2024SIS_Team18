@@ -6,13 +6,14 @@ import {
   PlusIcon,
 } from "@heroicons/react/24/outline";
 
-const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleErase, addText, clearCanvas }) => {
+const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleErase, addText, clearCanvas, setDrawingMode }) => {
   const [isPencil, setIsPencil] = useState(true); 
 
   //toggle between pencil and eraser animation
   const handleIconToggle = () => {
     setIsPencil(!isPencil); 
     toggleErase(); 
+    setDrawingMode(true);
   };
 
   return (
