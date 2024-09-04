@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Navbar from './components/Navbar';
 import Whiteboard from './components/Whiteboard';
-import { fabric } from 'fabric';
+// import { fabric } from 'fabric';
 
 const App = () => {
   const canvasRef = useRef(null);
@@ -57,6 +57,11 @@ const App = () => {
     }
   }
 
+  const addText = () => {
+    if (fabricCanvas) {
+      // TODO: add text
+    }
+  };
 
   const clearCanvas = () => {
     if (fabricCanvas) {
@@ -85,6 +90,8 @@ const App = () => {
         setToggleEraser={setToggleEraser}
         toggleErase={toggleErase}
 
+        addText={addText}
+        
         clearCanvas={clearCanvas} 
       />
     </div>

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Toolbox from "./Toolbox";
 import { fabric } from 'fabric';
 
-const Whiteboard = ({ canvasRef, toggleErase, changePenWidth, penWidth, changePenColor, penColor, setFabricCanvas, fabricCanvas, clearCanvas }) => {
+const Whiteboard = ({ canvasRef, toggleErase, changePenWidth, penWidth, changePenColor, penColor, setFabricCanvas, fabricCanvas, addText, clearCanvas }) => {
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -36,6 +36,7 @@ const Whiteboard = ({ canvasRef, toggleErase, changePenWidth, penWidth, changePe
           changePenColor={changePenColor}
           penColor={penColor}
           toggleErase={toggleErase}
+          addText={addText}
           clearCanvas={clearCanvas}
         />
       </div>

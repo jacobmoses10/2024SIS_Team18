@@ -3,9 +3,10 @@ import {
   PaintBrushIcon,
   ServerIcon,
   TrashIcon,
+  PlusIcon,
 } from "@heroicons/react/24/outline";
 
-const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleErase, clearCanvas }) => {
+const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleErase, addText, clearCanvas }) => {
   const [isPencil, setIsPencil] = useState(true); 
 
   //toggle between pencil and eraser animation
@@ -16,7 +17,7 @@ const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleEra
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[280px] shadow-lg">
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[350px] shadow-lg">
         {/* toggle between pencil and eraser */}
         <div onClick={handleIconToggle} className="cursor-pointer">
           {isPencil ? <Icons IconComponent={PaintBrushIcon} /> : <Icons IconComponent={ServerIcon} />}
@@ -47,6 +48,11 @@ const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleEra
             max="30"
             className="w-[100px] appearance-none h-2 bg-gray-200 rounded-lg cursor-pointer"
           />
+        </div>
+
+        {/* Add Text Element to Canvas */}
+        <div onClick={addText} className="cursor-pointer">
+          <Icons IconComponent={PlusIcon} />
         </div>
 
         {/* Clear the Canvas */}
