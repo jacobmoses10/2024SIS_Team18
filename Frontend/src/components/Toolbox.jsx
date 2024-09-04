@@ -12,7 +12,7 @@ import {
   CursorArrowRaysIcon as CursorArrowRaysIconSolid,
 } from "@heroicons/react/24/solid";
 
-const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, addText, clearCanvas }) => {
+const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, addText, setClearModal }) => {
 
   return (
     <div>
@@ -65,7 +65,7 @@ const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penC
         </div>
 
         {/* Clear the Canvas */}
-        <div onClick={clearCanvas} className="cursor-pointer">
+        <div onClick={() => setClearModal(true)} className="cursor-pointer">
           <Icons IconComponent={TrashIcon} />
         </div>
       </div>

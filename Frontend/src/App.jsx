@@ -1,11 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import Navbar from './components/Navbar';
 import Whiteboard from './components/Whiteboard';
+import ClearModal from "./components/ClearModal";
 import { fabric } from 'fabric';
 
 const App = () => {
   const canvasRef = useRef(null);
   const [fabricCanvas, setFabricCanvas] = useState(null);
+  const [clearModal, setClearModal] = useState(false);
   const defaultBackgroundColor = "#e5e7eb"
 
   //toolbox states
@@ -86,6 +88,7 @@ const App = () => {
   return (
     <div>
       <Navbar downloadBoard={downloadBoard} />
+      <ClearModal clearModal={clearModal} setClearModal={setClearModal} clearCanvas={clearCanvas}/>
       <Whiteboard
         // for canvas
         canvasRef={canvasRef}
@@ -106,7 +109,7 @@ const App = () => {
 
         addText={addText}
         
-        clearCanvas={clearCanvas} 
+        setClearModal={setClearModal} 
       />
     </div>
   );
