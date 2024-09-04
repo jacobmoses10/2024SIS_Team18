@@ -36,6 +36,7 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
   }, [drawingMode, fabricCanvas]);
 
   const addText = () => {
+    setTool("cursor");
     if (fabricCanvas) {
       const text = new fabric.IText("Text", {
         left: 100,

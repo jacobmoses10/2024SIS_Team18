@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   PaintBrushIcon,
   ServerIcon,
@@ -6,20 +6,35 @@ import {
   PlusIcon,
   CursorArrowRaysIcon,
 } from "@heroicons/react/24/outline";
+import {
+  PaintBrushIcon as PaintBrushIconSolid,
+  ServerIcon as ServerIconSolid,
+  CursorArrowRaysIcon as CursorArrowRaysIconSolid,
+} from "@heroicons/react/24/solid";
 
-const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, toggleErase, addText, clearCanvas }) => {
+const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, addText, clearCanvas }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[400px] shadow-lg">
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[500px] shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
-          <Icons IconComponent={CursorArrowRaysIcon} />
+          <Icons IconComponent={tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon} />
         </div>
         
-        {/* toggle between pencil and eraser */}
+        {/* Set Tool to Pencil */}
         <div onClick={() => setTool("pencil")} className="cursor-pointer">
-          <Icons IconComponent={PaintBrushIcon}/>
+          <Icons IconComponent={tool === "pencil" ? PaintBrushIconSolid : PaintBrushIcon}/>
+        </div>
+
+        {/* Set Tool to Eraser */}
+        <div onClick={() => setTool("eraser")} className="cursor-pointer">
+          <Icons IconComponent={tool === "eraser" ? ServerIconSolid : ServerIcon}/>
+        </div>
+
+        {/* Add Text Element to Canvas */}
+        <div onClick={addText} className="cursor-pointer">
+          <Icons IconComponent={PlusIcon} />
         </div>
 
         {/* Color Chooser */}
@@ -47,11 +62,6 @@ const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penC
             max="30"
             className="w-[100px] appearance-none h-2 bg-gray-200 rounded-lg cursor-pointer"
           />
-        </div>
-
-        {/* Add Text Element to Canvas */}
-        <div onClick={addText} className="cursor-pointer">
-          <Icons IconComponent={PlusIcon} />
         </div>
 
         {/* Clear the Canvas */}
