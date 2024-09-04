@@ -16,7 +16,7 @@ const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penC
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[500px] shadow-lg">
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[450px] shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons IconComponent={tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon} />
