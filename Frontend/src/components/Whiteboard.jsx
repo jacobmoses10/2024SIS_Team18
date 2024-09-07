@@ -33,9 +33,16 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
     }
   }, [drawingMode, fabricCanvas]);
 
+  // Delete selected object.
+  const handleKeyDown = (e) => {
+    if (e.key === "Backspace") {
+      fabricCanvas.remove(fabricCanvas.getActiveObject());
+    }
+  }
+
   return (
-    <div className="relative w-full h-screen rounded-md">
-      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full"></canvas>
+    <div className="relative w-full h-screen rounded-md" onKeyDown={(e) => handleKeyDown(e)} tabIndex={0}>
+      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full"/>
       <div className="absolute top-4 left-4 bg-white rounded-md z-10 shadow-lg">
         <Toolbox
           tool={tool}

@@ -12,7 +12,7 @@ const App = () => {
 
   //toolbox states
   const [penWidth, setPenWidth] = useState(1);
-  const [penColor, setPenColor] = useState("black");
+  const [penColor, setPenColor] = useState("#000000");
   const [tool, setTool] = useState("cursor");
   const [drawingMode, setDrawingMode] = useState(true);
 
@@ -20,13 +20,13 @@ const App = () => {
   useEffect(() => {
     if (tool === "cursor") {
       if (penColor === defaultBackgroundColor) {
-        setPenColor("black");
+        setPenColor("#000000");
       }
       setDrawingMode(false);
     }
     if (tool === "pencil") {
       if (penColor === defaultBackgroundColor) {
-        setPenColor("black");
+        setPenColor("#000000");
       }
       setDrawingMode(true);
     }
@@ -70,7 +70,7 @@ const App = () => {
       const text = new fabric.IText("Text", {
         left: 100,
         top: 200,
-        fill: penColor === defaultBackgroundColor ? "black" : penColor
+        fill: penColor === defaultBackgroundColor ? "#000000" : penColor
       });
       fabricCanvas.add(text);
       setTool("cursor");
