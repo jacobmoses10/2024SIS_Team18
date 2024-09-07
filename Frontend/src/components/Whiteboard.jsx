@@ -33,10 +33,13 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
     }
   }, [drawingMode, fabricCanvas]);
 
-  // Delete selected object.
+  // Delete selected object(s).
   const handleKeyDown = (e) => {
     if (e.key === "Backspace") {
-      fabricCanvas.remove(fabricCanvas.getActiveObject());
+      fabricCanvas.getActiveObjects().forEach(object => {
+        fabricCanvas.remove(object);
+      });
+      fabricCanvas.discardActiveObject();
     }
   }
 
