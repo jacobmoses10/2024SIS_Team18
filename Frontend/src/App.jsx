@@ -71,7 +71,7 @@ const App = () => {
     const base64Image = fabricCanvas.toDataURL("image/png").split(",")[1];
 
     // Get API key from environment variables
-    const GEMINI_API_KEY = "redacted";
+    const GEMINI_API_KEY = "";
     const requestBody = {
       contents: [
         {
