@@ -1,9 +1,14 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
 
 #load environment variables from .env file
 load_dotenv()
+
+app = Flask(__name__)
+CORS(app)
 
 #get the API key from environment variables
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
@@ -18,9 +23,28 @@ genai.configure(api_key=GEMINI_API_KEY)
 #choose the Gemini model
 model = genai.GenerativeModel("gemini-1.5-flash")
 
-#make a request to the Gemini API
-prompt = "Write a story about a magic backpack."
-response = model.generate_content(prompt)
+# #make a request to the Gemini API
+# prompt = "Write a story about a magic backpack."
+# response = model.generate_content(prompt)
 
-#print the generated text
-print(response.text)
+# #print the generated text
+# print(response.text)
+
+# AI endpoint to handle requests from the frontend
+@app.route('/ai', methods=['POST'])
+def generate_ai_response():
+    data = request.get_json()
+    prompt = data.get('prompt')
+
+    if not prompt:
+        return jsonify({'error': 'No prompt provided'}), 400
+
+    # Make a request to the Gemini AI model
+    try:
+        response = model.generate_content(prompt)
+        return jsonify({'response': response.text})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
