@@ -2,6 +2,9 @@ import React, { useRef, useState } from "react";
 import Navbar from './components/Navbar';
 import Whiteboard from './components/Whiteboard';
 import { fabric } from 'fabric';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+
 
 const App = () => {
   const canvasRef = useRef(null);
@@ -12,7 +15,6 @@ const App = () => {
   const [penWidth, setPenWidth] = useState(1);
   const [penColor, setPenColor] = useState("black");
   const [toggleEraser , setToggleEraser] = useState(false)
-
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -53,10 +55,8 @@ const App = () => {
         changePenColor(defaultBackgroundColor)
         setToggleEraser(true)
       }
-
     }
   }
-
 
   const clearCanvas = () => {
     if (fabricCanvas) {
@@ -65,6 +65,44 @@ const App = () => {
       fabricCanvas.renderAll();
     }
   };
+
+  const handleAIClick = async () => {
+    const prompt = "give me a hint to solve this";
+    const base64Image = fabricCanvas.toDataURL("image/png").split(",")[1];
+
+    // Get API key from environment variables
+    const GEMINI_API_KEY = "redacted";
+    const requestBody = {
+      contents: [
+        {
+          role: "user",
+          parts: [
+            {
+              text: prompt,
+            },
+            {
+              inlineData: {
+                mimeType: "image/png",
+                data: base64Image, // Base64 image data
+              }
+            }
+          ]
+        }
+      ]
+    };
+
+    try {
+      // Using the client to generate a response based on the prompt
+      const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const result = await model.generateContent(requestBody);
+      console.log(result.response.text());
+      // Log the response or handle it as needed
+    } catch (error) {
+      console.error("Error fetching AI response:", error);
+    }
+  };
+  
 
   return (
     <div>
@@ -85,7 +123,10 @@ const App = () => {
         setToggleEraser={setToggleEraser}
         toggleErase={toggleErase}
 
-        clearCanvas={clearCanvas} 
+        clearCanvas={clearCanvas}
+
+        // Pass AI button handler to Whiteboard component
+        handleAIClick={handleAIClick}
       />
     </div>
   );
