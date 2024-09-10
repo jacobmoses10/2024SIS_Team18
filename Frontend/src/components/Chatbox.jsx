@@ -2,24 +2,56 @@ import React, { useState } from 'react';
 import './Chatbox.css';  // Optional: Add a CSS file for custom styles
 
 const Chatbox = () => {
+  // const [messages, setMessages] = useState([]);
+  // const [input, setInput] = useState('');
+
+  // const handleSendMessage = () => {
+  //   if (input.trim() === '') return;
+
+  //   // Add user's message
+  //   const newMessage = { text: input, sender: 'user' };
+  //   setMessages([...messages, newMessage]);
+
+  //   // Clear input field
+  //   setInput('');
+
+  //   // Simulate bot response after a delay
+  //   setTimeout(() => {
+  //     const botMessage = { text: "This is a bot response!", sender: 'bot' };
+  //     setMessages((prevMessages) => [...prevMessages, botMessage]);
+  //   }, 1000);
+
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
 
-  const handleSendMessage = () => {
+  // Function to send message to backend and get AI response
+  const handleSendMessage = async () => {
     if (input.trim() === '') return;
 
-    // Add user's message
-    const newMessage = { text: input, sender: 'user' };
-    setMessages([...messages, newMessage]);
+    // Add user's message to the chat
+    const userMessage = { text: input, sender: 'user' };
+    setMessages([...messages, userMessage]);
 
-    // Clear input field
+    // Clear the input field
     setInput('');
 
-    // Simulate bot response after a delay
-    setTimeout(() => {
-      const botMessage = { text: "This is a bot response!", sender: 'bot' };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
-    }, 1000);
+    // Send user input to the backend to get the AI response
+    try {
+      const response = await fetch('http://localhost:5000/ai', {  // Adjust the API endpoint if needed
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: input }),
+      });
+      const data = await response.json();
+
+      // Add the AI response to the chat
+      const aiMessage = { text: data.response, sender: 'bot' };
+      setMessages((prevMessages) => [...prevMessages, aiMessage]);
+    } catch (error) {
+      console.error('Error getting AI response:', error);
+      const errorMessage = { text: 'Error: Could not get a response.', sender: 'bot' };
+      setMessages((prevMessages) => [...prevMessages, errorMessage]);
+    }
   };
 
   return (
