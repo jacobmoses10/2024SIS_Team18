@@ -1,18 +1,40 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Navbar from './components/Navbar';
 import Whiteboard from './components/Whiteboard';
+import ClearModal from "./components/ClearModal";
 import { fabric } from 'fabric';
 
 const App = () => {
   const canvasRef = useRef(null);
   const [fabricCanvas, setFabricCanvas] = useState(null);
+  const [clearModal, setClearModal] = useState(false);
   const defaultBackgroundColor = "#e5e7eb"
 
   //toolbox states
   const [penWidth, setPenWidth] = useState(1);
-  const [penColor, setPenColor] = useState("black");
-  const [toggleEraser , setToggleEraser] = useState(false)
+  const [penColor, setPenColor] = useState("#000000");
+  const [tool, setTool] = useState("cursor");
+  const [drawingMode, setDrawingMode] = useState(true);
 
+  // Selected tool
+  useEffect(() => {
+    if (tool === "cursor") {
+      if (penColor === defaultBackgroundColor) {
+        setPenColor("#000000");
+      }
+      setDrawingMode(false);
+    }
+    if (tool === "pencil") {
+      if (penColor === defaultBackgroundColor) {
+        setPenColor("#000000");
+      }
+      setDrawingMode(true);
+    }
+    if (tool === "eraser") {
+      setPenColor(defaultBackgroundColor);
+      setDrawingMode(true);
+    }
+  }, [tool, penColor]);
 
   const changePenWidth = (width) => {
     if (fabricCanvas) {
@@ -43,20 +65,17 @@ const App = () => {
     }
   };
 
-  const toggleErase = () =>{
+  const addText = () => {
     if (fabricCanvas) {
-      if(toggleEraser){
-        changePenColor("black")
-        setToggleEraser(false)
-      }
-      else{
-        changePenColor(defaultBackgroundColor)
-        setToggleEraser(true)
-      }
-
+      const text = new fabric.IText("Text", {
+        left: 100,
+        top: 200,
+        fill: penColor === defaultBackgroundColor ? "#000000" : penColor
+      });
+      fabricCanvas.add(text);
+      setTool("cursor");
     }
-  }
-
+  };
 
   const clearCanvas = () => {
     if (fabricCanvas) {
@@ -69,23 +88,28 @@ const App = () => {
   return (
     <div>
       <Navbar downloadBoard={downloadBoard} />
+      <ClearModal clearModal={clearModal} setClearModal={setClearModal} clearCanvas={clearCanvas}/>
       <Whiteboard
         // for canvas
         canvasRef={canvasRef}
         setFabricCanvas={setFabricCanvas}
-        fabricCanvas={fabricCanvas}  
+        fabricCanvas={fabricCanvas}
+
+        drawingMode={drawingMode}
         
         // for toolbox passing through whiteboard
+        tool={tool}
+        setTool={setTool}
+
         changePenWidth={changePenWidth}
         penWidth={penWidth}
 
         changePenColor={changePenColor}
         penColor={penColor}
-        
-        setToggleEraser={setToggleEraser}
-        toggleErase={toggleErase}
 
-        clearCanvas={clearCanvas} 
+        addText={addText}
+        
+        setClearModal={setClearModal} 
       />
     </div>
   );

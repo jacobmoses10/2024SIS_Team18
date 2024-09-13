@@ -1,25 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   PaintBrushIcon,
   ServerIcon,
   TrashIcon,
+  PlusIcon,
+  CursorArrowRaysIcon,
 } from "@heroicons/react/24/outline";
+import {
+  PaintBrushIcon as PaintBrushIconSolid,
+  ServerIcon as ServerIconSolid,
+  CursorArrowRaysIcon as CursorArrowRaysIconSolid,
+} from "@heroicons/react/24/solid";
 
-const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleErase, clearCanvas }) => {
-  const [isPencil, setIsPencil] = useState(true); 
-
-  //toggle between pencil and eraser animation
-  const handleIconToggle = () => {
-    setIsPencil(!isPencil); 
-    toggleErase(); 
-  };
+const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, addText, setClearModal }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[280px] shadow-lg">
-        {/* toggle between pencil and eraser */}
-        <div onClick={handleIconToggle} className="cursor-pointer">
-          {isPencil ? <Icons IconComponent={PaintBrushIcon} /> : <Icons IconComponent={ServerIcon} />}
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[450px] shadow-lg">
+        {/* Switch to regular cursor/move function */}
+        <div onClick={() => setTool("cursor")} className="cursor-pointer">
+          <Icons IconComponent={tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon} />
+        </div>
+        
+        {/* Set Tool to Pencil */}
+        <div onClick={() => setTool("pencil")} className="cursor-pointer">
+          <Icons IconComponent={tool === "pencil" ? PaintBrushIconSolid : PaintBrushIcon}/>
+        </div>
+
+        {/* Set Tool to Eraser */}
+        <div onClick={() => setTool("eraser")} className="cursor-pointer">
+          <Icons IconComponent={tool === "eraser" ? ServerIconSolid : ServerIcon}/>
+        </div>
+
+        {/* Add Text Element to Canvas */}
+        <div onClick={() => addText()} className="cursor-pointer">
+          <Icons IconComponent={PlusIcon} />
         </div>
 
         {/* Color Chooser */}
@@ -50,7 +65,7 @@ const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleEra
         </div>
 
         {/* Clear the Canvas */}
-        <div onClick={clearCanvas} className="cursor-pointer">
+        <div onClick={() => setClearModal(true)} className="cursor-pointer">
           <Icons IconComponent={TrashIcon} />
         </div>
       </div>
