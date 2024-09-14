@@ -34,13 +34,22 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
     }
   }, [drawingMode, fabricCanvas]);
 
-  // Delete selected object(s).
+  // Handle all keyboard shortcuts.
   const handleKeyDown = (e) => {
+    // Backspace key = delete
     if (e.key === "Backspace") {
       fabricCanvas.getActiveObjects().forEach(object => {
         fabricCanvas.remove(object);
       });
       fabricCanvas.discardActiveObject();
+    }
+    // Control + Z = Undo
+    if (e.ctrlKey && e.key === "z") {
+      fabricCanvas.undo();
+    }
+    // Control + Y = Redo
+    if (e.ctrlKey && e.key === "y") {
+      fabricCanvas.redo();
     }
   }
 
