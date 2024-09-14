@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
 import Toolbox from "./Toolbox";
-import { fabric } from 'fabric';
+import { fabric } from "fabric";
+import "fabric-history";
 
 const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, penWidth, changePenColor, penColor, setFabricCanvas, fabricCanvas, addText, setClearModal }) => {
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
-      backgroundColor: '#e5e7eb',
+      backgroundColor: "#e5e7eb",
       width: window.innerWidth,
       height: window.innerHeight,
       isDrawingMode: true,
     });
-
+    //canvas.historyInit();
     setFabricCanvas(canvas);
 
     return () => {
@@ -43,6 +44,15 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
     }
   }
 
+  // Handle Undo/Redo with fabric-history.
+  const undo = () => {
+    fabricCanvas.undo();
+  }
+
+  const redo = () => {
+    fabricCanvas.redo();
+  }
+
   return (
     <div className="relative w-full h-screen rounded-md" onKeyDown={(e) => handleKeyDown(e)} tabIndex={0}>
       <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full"/>
@@ -56,6 +66,8 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
           penColor={penColor}
           addText={addText}
           setClearModal={setClearModal}
+          undo={undo}
+          redo={redo}
         />
       </div>
     </div>
