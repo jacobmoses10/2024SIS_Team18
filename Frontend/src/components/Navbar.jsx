@@ -1,8 +1,7 @@
 import React from 'react';
-import { ArrowDownTrayIcon, ArrowUpCircleIcon } from '@heroicons/react/24/solid';
+import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
 
-
-const Navbar = () => {
+const Navbar = ({ downloadBoard }) => {
   return (
     <div>
       <nav className='p-3 border-solid border-gray-600'>
@@ -14,10 +13,13 @@ const Navbar = () => {
             </h1>
           </div>
 
-          <div className='flex space-x-3'>
+          <button 
+            className='flex space-x-3'
+            type='button'
+            onClick={downloadBoard}
+          >
             <IconWrapper IconComponent={ArrowDownTrayIcon} />
-            <IconWrapper IconComponent={ArrowUpCircleIcon} />
-          </div>
+          </button>
 
         </div>
       </nav>
@@ -27,11 +29,9 @@ const Navbar = () => {
 
 export default Navbar;
 
-
-
 const IconWrapper = ({ IconComponent }) => {
   return (
-    <div className='h-10 w-10 hover:bg-gray-100 rounded-md p-2 cursor-pointer'>
+    <div className='h-10 w-10 hover:bg-gray-100 rounded-md p-2 '>
       <IconComponent className='w-6 h-6' />
     </div>
   );
