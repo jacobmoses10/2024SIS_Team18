@@ -21,6 +21,7 @@ const Chatbox = () => {
   //     setMessages((prevMessages) => [...prevMessages, botMessage]);
   //   }, 1000);
 
+  //BENS SECTION STARTS HERE
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
 
@@ -53,7 +54,7 @@ const Chatbox = () => {
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
     }
   };
-
+//BENS SECTION ENDS HERE
   return (
     <div className="chatbox-container">
       <div className="chatbox-window">
