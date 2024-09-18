@@ -3,11 +3,13 @@ import Navbar from "./components/Navbar";
 import Whiteboard from "./components/Whiteboard";
 import ClearModal from "./components/ClearModal";
 import { fabric } from "fabric";
+import "fabric-history";
 
 const App = () => {
   const canvasRef = useRef(null);
   const [fabricCanvas, setFabricCanvas] = useState(null);
   const [clearModal, setClearModal] = useState(false);
+  const [clipboard, setClipboard] = useState(null);
   const defaultBackgroundColor = "#e5e7eb"
 
   // Toolbox states
@@ -85,30 +87,69 @@ const App = () => {
     }
   };
 
+  // Copy Object to Clipboard.
+  const copy = () => {
+    fabricCanvas.getActiveObject().clone(function(cloned) {
+      setClipboard(cloned);
+    });
+  }
+
+  // Paste Object from Clipboard.
+  const paste = () => {
+    clipboard.clone(function(clonedObj) {
+      fabricCanvas.discardActiveObject();
+      clonedObj.set({
+        left: clonedObj.left + 10,
+        top: clonedObj.top + 10,
+        evented: true,
+      });
+
+      // Paste multiple objects.
+      if (clonedObj.type === 'activeSelection') {
+        clonedObj.canvas = fabricCanvas;
+        clonedObj.forEachObject(function(obj) {
+          fabricCanvas.add(obj);
+        });
+        clonedObj.setCoords();
+      } else {
+        fabricCanvas.add(clonedObj);
+      }
+      
+      // Move next paste coords
+      var current = clipboard;
+      current.top += 10;
+      current.left += 10;
+      setClipboard(current);
+
+      fabricCanvas.setActiveObject(clonedObj);
+      fabricCanvas.requestRenderAll();
+    });
+  }
+
+  // Handle Undo/Redo with fabric-history.
+  const undo = () => fabricCanvas.undo();
+  const redo = () => fabricCanvas.redo();
+
   return (
     <div>
       <Navbar downloadBoard={downloadBoard} />
       <ClearModal clearModal={clearModal} setClearModal={setClearModal} clearCanvas={clearCanvas}/>
       <Whiteboard
-        // for canvas
         canvasRef={canvasRef}
         setFabricCanvas={setFabricCanvas}
         fabricCanvas={fabricCanvas}
-
         drawingMode={drawingMode}
-        
-        // for toolbox passing through whiteboard
         tool={tool}
         setTool={setTool}
-
         changePenWidth={changePenWidth}
         penWidth={penWidth}
-
         changePenColor={changePenColor}
         penColor={penColor}
-
         addText={addText}
-        
+        copy={copy}
+        paste={paste}
+        undo={undo}
+        redo={redo}
         setClearModal={setClearModal} 
       />
     </div>

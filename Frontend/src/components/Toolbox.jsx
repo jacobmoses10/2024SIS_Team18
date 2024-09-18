@@ -14,7 +14,18 @@ import {
   CursorArrowRaysIcon as CursorArrowRaysIconSolid,
 } from "@heroicons/react/24/solid";
 
-const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, addText, setClearModal, undo, redo }) => {
+const Toolbox = ({ 
+  tool, 
+  setTool, 
+  changePenWidth, 
+  penWidth, 
+  changePenColor, 
+  penColor, 
+  addText, 
+  setClearModal, 
+  undo, 
+  redo 
+}) => {
 
   return (
     <div>
