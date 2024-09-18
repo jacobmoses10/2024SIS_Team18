@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
-import Navbar from './components/Navbar';
-import Whiteboard from './components/Whiteboard';
+import Navbar from "./components/Navbar";
+import Whiteboard from "./components/Whiteboard";
 import ClearModal from "./components/ClearModal";
-import { fabric } from 'fabric';
+import { fabric } from "fabric";
 
 const App = () => {
   const canvasRef = useRef(null);
@@ -10,7 +10,7 @@ const App = () => {
   const [clearModal, setClearModal] = useState(false);
   const defaultBackgroundColor = "#e5e7eb"
 
-  //toolbox states
+  // Toolbox states
   const [penWidth, setPenWidth] = useState(1);
   const [penColor, setPenColor] = useState("#000000");
   const [tool, setTool] = useState("cursor");
