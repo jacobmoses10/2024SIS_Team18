@@ -3,7 +3,8 @@ import Navbar from './components/Navbar';
 import Whiteboard from './components/Whiteboard';
 import { fabric } from 'fabric';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const canvasRef = useRef(null);
@@ -65,9 +66,6 @@ const App = () => {
     }
   };
 
-
-  
-
   const handleAIClick = async () => {
     const prompt = "give me a hint to solve this";
     const systemInstruction = "I want you to be an expert tutor on Maths up to an Australian Year 12 level, and I want you to guide my questions and working. Do not give me the answer unless what I have written is correct, instead assess my working and provide hints and explanations on what I should do instead. If values are provided, make sure they are substituted correctly. You should work like a tutor would guiding students to an answer rather than giving it to them directly. Provide one hint then stop and allow me to try again. Repeat this process until I get the correct answer or I move onto a new question.";
@@ -107,8 +105,7 @@ const App = () => {
       const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
       const result = await model.generateContent(requestBody);
-      console.log(result.response.text());
-
+      toast.success(result.response.text());
       // Log the response or handle it as needed
     } catch (error) {
       console.error("Error fetching AI response:", error);
