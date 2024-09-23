@@ -3,8 +3,13 @@ import Navbar from "./components/Navbar";
 import Whiteboard from "./components/Whiteboard";
 import ClearModal from "./components/ClearModal";
 import { fabric } from "fabric";
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/About";
 
 const App = () => {
+
+  //Canvas
   const canvasRef = useRef(null);
   const [fabricCanvas, setFabricCanvas] = useState(null);
   const [clearModal, setClearModal] = useState(false);
@@ -85,33 +90,46 @@ const App = () => {
     }
   };
 
+
   return (
-    <div>
-      <Navbar downloadBoard={downloadBoard} />
-      <ClearModal clearModal={clearModal} setClearModal={setClearModal} clearCanvas={clearCanvas}/>
-      <Whiteboard
-        // for canvas
-        canvasRef={canvasRef}
-        setFabricCanvas={setFabricCanvas}
-        fabricCanvas={fabricCanvas}
+    <>
+      <Router>
+        <Routes>
+          <Route path="/home" element={<HomePage></HomePage>}></Route>
+          <Route path="/about" element={<AboutPage></AboutPage>}></Route>
+          
 
-        drawingMode={drawingMode}
-        
-        // for toolbox passing through whiteboard
-        tool={tool}
-        setTool={setTool}
+        </Routes>
+      </Router>
 
-        changePenWidth={changePenWidth}
-        penWidth={penWidth}
+          <Navbar downloadBoard={downloadBoard} />
+          <ClearModal clearModal={clearModal} setClearModal={setClearModal} clearCanvas={clearCanvas}/>
+          <Whiteboard
+            // for canvas
+            canvasRef={canvasRef}
+            setFabricCanvas={setFabricCanvas}
+            fabricCanvas={fabricCanvas}
+            
+            drawingMode={drawingMode}
+            
+            // for toolbox passing through whiteboard
+            tool={tool}
+            setTool={setTool}
+            
+            changePenWidth={changePenWidth}
+            penWidth={penWidth}
+            
+            changePenColor={changePenColor}
+            penColor={penColor}
+            
+            addText={addText}
+            
+            setClearModal={setClearModal} 
+            />
 
-        changePenColor={changePenColor}
-        penColor={penColor}
+    </>
 
-        addText={addText}
-        
-        setClearModal={setClearModal} 
-      />
-    </div>
+
   );
 };
 
