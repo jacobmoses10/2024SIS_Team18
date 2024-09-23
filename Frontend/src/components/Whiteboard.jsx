@@ -14,6 +14,7 @@ const Whiteboard = ({
   setFabricCanvas, 
   fabricCanvas, 
   addText,
+  addShape,
   copy,
   paste, 
   undo,
@@ -80,6 +81,7 @@ const Whiteboard = ({
           changePenColor={changePenColor}
           penColor={penColor}
           addText={addText}
+          addShape={addShape}
           setClearModal={setClearModal}
           undo={undo}
           redo={redo}

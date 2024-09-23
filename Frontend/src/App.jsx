@@ -79,6 +79,46 @@ const App = () => {
     }
   };
 
+  const addShape = (shape) => {
+    if (fabricCanvas) {
+      if (shape === "square") {
+        const rect = new fabric.Rect({
+          left: 100,
+          top: 200,
+          width: 200,
+          height: 200,
+          fill: null,
+          stroke: penColor,
+          strokeWidth: penWidth
+       });
+       fabricCanvas.add(rect);
+      }
+      if (shape === "circle") {
+        const circle = new fabric.Circle({
+          left: 100,
+          top: 200,
+          radius: 100,
+          fill: null,
+          stroke: penColor,
+          strokeWidth: penWidth
+       });
+       fabricCanvas.add(circle);
+      }
+      if (shape === "triangle") {
+        const triangle = new fabric.Triangle({
+          top: 200,
+          left: 100,
+          width: 200, 
+          height: 180,
+          fill: null,
+          stroke: penColor,
+          strokeWidth: penWidth
+       })
+       fabricCanvas.add(triangle);
+      }
+    }
+  }
+
   const clearCanvas = () => {
     if (fabricCanvas) {
       fabricCanvas.clear();
@@ -146,6 +186,7 @@ const App = () => {
         changePenColor={changePenColor}
         penColor={penColor}
         addText={addText}
+        addShape={addShape}
         copy={copy}
         paste={paste}
         undo={undo}
