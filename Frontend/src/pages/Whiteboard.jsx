@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Toolbox from "./Toolbox";
+import Toolbox from "../components/Toolbox";
 import { fabric } from "fabric";
 import "fabric-history";
 
@@ -37,7 +37,7 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
   // Handle all keyboard shortcuts.
   const handleKeyDown = (e) => {
     // Backspace key = delete
-    if (e.key === "Backspace") {
+    if (e.key === "Backspace" || e.key === "Delete") {
       fabricCanvas.getActiveObjects().forEach(object => {
         fabricCanvas.remove(object);
       });

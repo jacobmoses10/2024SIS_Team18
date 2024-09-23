@@ -4,6 +4,7 @@ import {
   DeviceTabletIcon,
   ArrowDownTrayIcon,
 } from "@heroicons/react/24/outline";
+import {Link} from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -18,16 +19,17 @@ const HomePage = () => {
             note-take and draw.
           </p>
           <div className="p-3">
-            <button
+            <li
               className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black"
-              type="button"
-            >
-              <p>Get Started</p>
-            </button>
+              type="button">
+              <Link to="/signup">Get Started</Link>
+            </li>
           </div>
           <p className="text-gray-500">
             Already have an account?{" "}
-            <span className="underline text-blue-500">Login in Here</span>
+            <span className="underline cursor-pointer text-blue-500">
+              <Link to="/login">Login in Here</Link>
+            </span>
           </p>
         </div>
       </div>
@@ -51,14 +53,13 @@ const HomePage = () => {
           />
         </div>
       </div>
-
     </div>
   );
 };
 
 export default HomePage;
 
-const FeatureDescription = ({ Icon, title, desc }) => {
+const FeatureDescription = ({Icon, title, desc}) => {
   return (
     <div className="flex items-center flex-col">
       <div className="p-3">
@@ -70,7 +71,7 @@ const FeatureDescription = ({ Icon, title, desc }) => {
   );
 };
 
-const Icons = ({ IconComponent }) => {
+const Icons = ({IconComponent}) => {
   return (
     <div className="h-10 w-10">
       <IconComponent className="text-[50px]" />

@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from "./components/Navbar";
-import Whiteboard from "./components/Whiteboard";
+import Whiteboard from "./pages/Whiteboard";
 import ClearModal from "./components/ClearModal";
 import Login from "./components/Login"; // Assuming you have a Login component
 import HomePage from './pages/HomePage'
@@ -100,6 +100,7 @@ const App = () => {
     }
   };
 
+
   return (
     <Router>
       <div>
@@ -107,18 +108,31 @@ const App = () => {
         <Routes>
           <Route path="/signup" element={<SignUp setUser={setUser}/>} />
           <Route path="/about" element={<About setUser={setUser}/>} />
-          <Route path="/home" element={<HomePage setUser={setUser}/>} />
+          <Route path="/" element={<HomePage setUser={setUser}/>} />
           <Route path="/login" element={<Login setUser={setUser}/>} />
-          <Route path="/dashboard" element={
-            user ? <HomeIcon /> : <Navigate replace to="/login" />
-          } />
-          <Route path="/" element={
-            user ? <Navigate replace to="/dashboard" /> : <Navigate replace to="/login" />
-          } />
-        </Routes>
 
-        <ClearModal clearModal={clearModal} setClearModal={setClearModal} clearCanvas={clearCanvas}/>
-        {/* <Whiteboard
+          {/* User check whiteboard 
+           */}
+          {/* <Route path="/whiteboard" element={
+            user ? <Whiteboard
+            downloadBoard={downloadBoard}
+            canvasRef={canvasRef}
+            setFabricCanvas={setFabricCanvas}
+            fabricCanvas={fabricCanvas}
+            drawingMode={drawingMode}
+            tool={tool}
+            setTool={setTool}
+            changePenWidth={changePenWidth}
+            penWidth={penWidth}
+            changePenColor={changePenColor}
+            penColor={penColor}
+            addText={addText}
+            setClearModal={setClearModal} 
+          />  : <Navigate replace to="/login" />
+          } /> */}
+
+          
+          <Route path="whiteboard" element={<Whiteboard
           downloadBoard={downloadBoard}
           canvasRef={canvasRef}
           setFabricCanvas={setFabricCanvas}
@@ -132,7 +146,19 @@ const App = () => {
           penColor={penColor}
           addText={addText}
           setClearModal={setClearModal} 
-        /> */}
+        /> }></Route>
+
+
+
+          {/* <Route path="/" element={
+            user ? <Navigate replace to="/dashboard" /> : <Navigate replace to="/login" />
+          } /> */}
+
+
+        </Routes>
+
+        <ClearModal clearModal={clearModal} setClearModal={setClearModal} clearCanvas={clearCanvas}/>
+
       </div>
     </Router>
   );
