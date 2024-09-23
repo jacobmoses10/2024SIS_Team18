@@ -49,6 +49,16 @@ const App = () => {
 
   const changePenColor = (color) => {
     if (fabricCanvas) {
+      // Change object colour if selected. 
+      if (fabricCanvas.getActiveObjects()) {
+        fabricCanvas.getActiveObjects().forEach(object => {
+          if (object.type === "i-text") {
+            object.set("fill", color);
+          } else {
+            object.set("stroke", color);
+          }
+        });
+      }    
       fabricCanvas.freeDrawingBrush.color = color;
       setPenColor(color);
       fabricCanvas.renderAll();
