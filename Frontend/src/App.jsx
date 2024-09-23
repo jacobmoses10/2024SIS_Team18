@@ -1,19 +1,27 @@
 import React, { useRef, useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import Whiteboard from "./components/Whiteboard";
 import ClearModal from "./components/ClearModal";
+import Login from "./components/Login"; // Assuming you have a Login component
+import HomePage from './pages/HomePage'
+import About from './pages/About'
+
 import { fabric } from "fabric";
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import HomePage from "./pages/HomePage";
-import AboutPage from "./pages/About";
+import { HomeIcon } from "@heroicons/react/24/solid";
+import SignUp from "./components/SignUp";
 
 const App = () => {
+  //User Auth
+  const [user, setUser] = useState(null);
+
+
 
   //Canvas
   const canvasRef = useRef(null);
   const [fabricCanvas, setFabricCanvas] = useState(null);
   const [clearModal, setClearModal] = useState(false);
-  const defaultBackgroundColor = "#e5e7eb"
+  const defaultBackgroundColor = "#e5e7eb";
 
   // Toolbox states
   const [penWidth, setPenWidth] = useState(1);
@@ -62,7 +70,9 @@ const App = () => {
     if (fabricCanvas) {
       const pngData = fabricCanvas.toDataURL("png");
       const downloadLink = document.createElement("a");
-      const fileName = `whiteBoard-session-${Math.random().toString().replace(".", "")}.png`;
+      const fileName = `whiteBoard-session-${Math.random()
+        .toString()
+        .replace(".", "")}.png`;
 
       downloadLink.href = pngData;
       downloadLink.download = fileName;
@@ -75,7 +85,7 @@ const App = () => {
       const text = new fabric.IText("Text", {
         left: 100,
         top: 200,
-        fill: penColor === defaultBackgroundColor ? "#000000" : penColor
+        fill: penColor === defaultBackgroundColor ? "#000000" : penColor,
       });
       fabricCanvas.add(text);
       setTool("cursor");
@@ -85,51 +95,46 @@ const App = () => {
   const clearCanvas = () => {
     if (fabricCanvas) {
       fabricCanvas.clear();
-      fabricCanvas.backgroundColor = defaultBackgroundColor; 
+      fabricCanvas.backgroundColor = defaultBackgroundColor;
       fabricCanvas.renderAll();
     }
   };
 
-
   return (
-    <>
-      <Router>
+    <Router>
+      <div>
+        <Navbar />
         <Routes>
-          <Route path="/home" element={<HomePage></HomePage>}></Route>
-          <Route path="/about" element={<AboutPage></AboutPage>}></Route>
-          
-
+          <Route path="/signup" element={<SignUp setUser={setUser}/>} />
+          <Route path="/about" element={<About setUser={setUser}/>} />
+          <Route path="/home" element={<HomePage setUser={setUser}/>} />
+          <Route path="/login" element={<Login setUser={setUser}/>} />
+          <Route path="/dashboard" element={
+            user ? <HomeIcon /> : <Navigate replace to="/login" />
+          } />
+          <Route path="/" element={
+            user ? <Navigate replace to="/dashboard" /> : <Navigate replace to="/login" />
+          } />
         </Routes>
-      </Router>
 
-          <Navbar downloadBoard={downloadBoard} />
-          <ClearModal clearModal={clearModal} setClearModal={setClearModal} clearCanvas={clearCanvas}/>
-          <Whiteboard
-            // for canvas
-            canvasRef={canvasRef}
-            setFabricCanvas={setFabricCanvas}
-            fabricCanvas={fabricCanvas}
-            
-            drawingMode={drawingMode}
-            
-            // for toolbox passing through whiteboard
-            tool={tool}
-            setTool={setTool}
-            
-            changePenWidth={changePenWidth}
-            penWidth={penWidth}
-            
-            changePenColor={changePenColor}
-            penColor={penColor}
-            
-            addText={addText}
-            
-            setClearModal={setClearModal} 
-            />
-
-    </>
-
-
+        <ClearModal clearModal={clearModal} setClearModal={setClearModal} clearCanvas={clearCanvas}/>
+        {/* <Whiteboard
+          downloadBoard={downloadBoard}
+          canvasRef={canvasRef}
+          setFabricCanvas={setFabricCanvas}
+          fabricCanvas={fabricCanvas}
+          drawingMode={drawingMode}
+          tool={tool}
+          setTool={setTool}
+          changePenWidth={changePenWidth}
+          penWidth={penWidth}
+          changePenColor={changePenColor}
+          penColor={penColor}
+          addText={addText}
+          setClearModal={setClearModal} 
+        /> */}
+      </div>
+    </Router>
   );
 };
 

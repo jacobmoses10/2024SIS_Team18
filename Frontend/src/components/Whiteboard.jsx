@@ -3,7 +3,7 @@ import Toolbox from "./Toolbox";
 import { fabric } from "fabric";
 import "fabric-history";
 
-const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, penWidth, changePenColor, penColor, setFabricCanvas, fabricCanvas, addText, setClearModal }) => {
+const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, penWidth, changePenColor, penColor, setFabricCanvas, fabricCanvas, addText, setClearModal, downloadBoard }) => {
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -67,6 +67,7 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
       <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full"/>
       <div className="absolute top-4 left-4 bg-white rounded-md z-10 shadow-lg">
         <Toolbox
+          downloadBoard = {downloadBoard}
           tool={tool}
           setTool={setTool}
           changePenWidth={changePenWidth}

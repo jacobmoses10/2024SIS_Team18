@@ -12,13 +12,15 @@ import {
   PaintBrushIcon as PaintBrushIconSolid,
   ServerIcon as ServerIconSolid,
   CursorArrowRaysIcon as CursorArrowRaysIconSolid,
+  ArrowDownTrayIcon,
 } from "@heroicons/react/24/solid";
 
-const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, addText, setClearModal, undo, redo }) => {
+      
+const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, addText, setClearModal, undo, redo, downloadBoard }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[600px] shadow-lg">
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[650px] shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons IconComponent={tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon} />
@@ -38,6 +40,7 @@ const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penC
         <div onClick={() => addText()} className="cursor-pointer">
           <Icons IconComponent={PlusIcon} />
         </div>
+        {/* Add Text Element to Canvas */}
 
         {/* Color Chooser */}
         <div className="p-2 cursor-pointer flex justify-center items-center hover:bg-gray-100 rounded-md h-10 w-10 relative">
@@ -74,6 +77,11 @@ const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penC
         {/* Redo last canvas change */}
         <div onClick={redo} className="cursor-pointer">
           <Icons IconComponent={ArrowUturnRightIcon} />
+        </div>
+
+        {/* Download Board*/}
+        <div onClick={() => downloadBoard()} className="cursor-pointer">
+          <Icons IconComponent={ArrowDownTrayIcon} />
         </div>
 
         {/* Clear the Canvas */}
