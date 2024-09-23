@@ -12,13 +12,13 @@ const App = () => {
   const [clipboard, setClipboard] = useState(null);
   const defaultBackgroundColor = "#e5e7eb"
 
-  // Toolbox states
+  // Toolbox States
   const [penWidth, setPenWidth] = useState(1);
   const [penColor, setPenColor] = useState("#000000");
   const [tool, setTool] = useState("cursor");
   const [drawingMode, setDrawingMode] = useState(true);
 
-  // Selected tool
+  // Selected Tool
   useEffect(() => {
     if (tool === "cursor") {
       if (penColor === defaultBackgroundColor) {
