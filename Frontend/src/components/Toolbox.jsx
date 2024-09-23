@@ -12,6 +12,7 @@ import {
   PaintBrushIcon as PaintBrushIconSolid,
   ServerIcon as ServerIconSolid,
   CursorArrowRaysIcon as CursorArrowRaysIconSolid,
+  BeakerIcon as BeakerIconSolid
 } from "@heroicons/react/24/solid";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
@@ -20,7 +21,8 @@ const Toolbox = ({
   setTool, 
   changePenWidth, 
   penWidth, 
-  changePenColor, 
+  changePenColor,
+  changeFillColor, 
   penColor, 
   addText,
   addShape, 
@@ -31,7 +33,7 @@ const Toolbox = ({
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[600px] shadow-lg">
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[650px] shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons IconComponent={tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon} />
@@ -115,6 +117,11 @@ const Toolbox = ({
               className="absolute inset-0 opacity-0 cursor-pointer"
             />
           </div>
+        </div>
+
+        {/* Change Fill Colour */}
+        <div onClick={() => changeFillColor()} className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 cursor-pointer">
+          <BeakerIconSolid className="w-6 h-6" color={penColor} />
         </div>
 
         {/* Pen Width */}

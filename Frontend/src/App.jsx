@@ -41,6 +41,16 @@ const App = () => {
   const changePenWidth = (width) => {
     if (fabricCanvas) {
       const parsedWidth = parseInt(width, 10);
+
+      // Change stroke width of selected shapes.
+      if (fabricCanvas.getActiveObjects()) {
+        fabricCanvas.getActiveObjects().forEach(object => {
+          if (!(object.type === "i-text")) {
+            object.set("strokeWidth", parsedWidth);
+          }
+        });
+      }
+
       fabricCanvas.freeDrawingBrush.width = parsedWidth;
       setPenWidth(parsedWidth);
       fabricCanvas.renderAll();
@@ -65,6 +75,16 @@ const App = () => {
     }
   };
 
+  // Change object fill colour.
+  const changeFillColor = () => {
+    if (fabricCanvas.getActiveObjects()) {
+      fabricCanvas.getActiveObjects().forEach(object => {
+          object.set("fill", penColor);
+      });
+      fabricCanvas.renderAll();
+    }       
+  }
+
   const downloadBoard = () => {
     if (fabricCanvas) {
       const pngData = fabricCanvas.toDataURL("png");
@@ -77,6 +97,7 @@ const App = () => {
     }
   };
 
+  // Add text to canvas.
   const addText = () => {
     if (fabricCanvas) {
       const text = new fabric.IText("Text", {
@@ -89,6 +110,7 @@ const App = () => {
     }
   };
 
+  // Add square, circle or triangle objects.
   const addShape = (shape) => {
     if (fabricCanvas) {
       if (shape === "square") {
@@ -194,6 +216,7 @@ const App = () => {
         changePenWidth={changePenWidth}
         penWidth={penWidth}
         changePenColor={changePenColor}
+        changeFillColor={changeFillColor}
         penColor={penColor}
         addText={addText}
         addShape={addShape}
