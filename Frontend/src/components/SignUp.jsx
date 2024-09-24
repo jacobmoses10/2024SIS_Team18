@@ -18,7 +18,6 @@ const SignUp = ({setUser}) => {
   }
 
   return (
-    <form  onSubmit={handleSignUp} action="">
       <div className="h-screen bg-[#f3f4f6] flex items-center justify-center ">
         {/* Card  */}
         <div className="bg-white rounded-md shadow-md">
@@ -46,7 +45,7 @@ const SignUp = ({setUser}) => {
             <div className="p-3">
               <button
                 className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black"
-                type="submit">
+                onClick={handleSignUp}>
                 <p>Create Account</p>
               </button>
             </div>
@@ -60,7 +59,6 @@ const SignUp = ({setUser}) => {
           </div>
         </div>
       </div>
-    </form>
   );
 };
 

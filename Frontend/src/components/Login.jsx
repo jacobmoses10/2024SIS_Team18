@@ -7,19 +7,18 @@ const Login = ({setUser}) => {
   const [password, setPassword] = useState();
   const navigate = useNavigate(); // Add this line
 
-  async function handleLogin(event) {
+  async function handleLogin() {
     try {
       const userCredential = await login(email, password);
       setUser(userCredential.user);
       navigate('/whiteboard');
     } catch (error) {
       console.log(error);
-      alert("User does not exist. Error type: " + error);
+      alert(error);
     }
   }
 
   return (
-    <form onSubmit={handleLogin} action="">
       <div className="h-screen bg-[#f3f4f6] flex items-center justify-center ">
         {/* Card  */}
         <div className="bg-white rounded-md shadow-md">
@@ -39,7 +38,7 @@ const Login = ({setUser}) => {
             <div className="p-3">
               <button
                 className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black cursor-pointer"
-                type="submit">
+                onClick={handleLogin}>
                 <p>Login</p>
               </button>
             </div>
@@ -53,7 +52,6 @@ const Login = ({setUser}) => {
           </div>
         </div>
       </div>
-    </form>
   );
 };
 
