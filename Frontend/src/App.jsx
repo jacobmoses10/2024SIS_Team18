@@ -85,6 +85,7 @@ const App = () => {
     }       
   }
 
+  // Download png screenshot of whiteboard.
   const downloadBoard = () => {
     if (fabricCanvas) {
       const pngData = fabricCanvas.toDataURL("png");
@@ -151,6 +152,7 @@ const App = () => {
     }
   }
 
+  // Remove all objects from canvas.
   const clearCanvas = () => {
     if (fabricCanvas) {
       fabricCanvas.clear();

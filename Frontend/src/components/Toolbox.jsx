@@ -146,7 +146,7 @@ const Toolbox = ({
           <Icons IconComponent={ArrowUturnRightIcon} />
         </div>
 
-        {/* Clear the Canvas */}
+        {/* Clear the canvas */}
         <div onClick={() => setClearModal(true)} className="cursor-pointer">
           <Icons IconComponent={TrashIcon} />
         </div>

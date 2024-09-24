@@ -70,19 +70,8 @@ const Whiteboard = ({
     if (e.ctrlKey && e.key === "v") paste();
   }
 
-  const handleOnClick = () => {
-    if (tool === "fill") {
-      changeFillColor(fabricCanvas.getActiveObject());
-    }
-  }
-
   return (
-    <div 
-      className="relative w-full h-screen rounded-md" 
-      onClick={handleOnClick()} 
-      onKeyDown={(e) => handleKeyDown(e)} 
-      tabIndex={0}
-      >
+    <div className="relative w-full h-screen rounded-md" onKeyDown={(e) => handleKeyDown(e)} tabIndex={0}>
       <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full"/>
       <div className="absolute top-4 left-4 bg-white rounded-md z-10 shadow-lg">
         <Toolbox
