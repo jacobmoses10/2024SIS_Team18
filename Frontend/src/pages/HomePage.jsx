@@ -19,11 +19,11 @@ const HomePage = () => {
             note-take and draw.
           </p>
           <div className="p-3">
-            <li
-              className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black"
-              type="button">
-              <Link to="/signup">Get Started</Link>
-            </li>
+            <Link to="/signup">
+              <li
+                className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black"
+                type="button">Get Started</li>
+            </Link>
           </div>
           <p className="text-gray-500">
             Already have an account?{" "}
@@ -37,14 +37,14 @@ const HomePage = () => {
       <div className="flex items-center justify-center py-10">
         <div className="p-10 flex items-center justify-center space-x-10">
           <FeatureDescription
-            Icon={ArrowDownTrayIcon}
-            title={"Download"}
-            desc={"Download your whiteboard creations with ease."}
-          />
-          <FeatureDescription
             Icon={SparklesIcon}
             title={"Enhance with AI"}
             desc={"Utilize AI to brainstorm and organize ideas."}
+          />
+          <FeatureDescription
+            Icon={ArrowDownTrayIcon}
+            title={"Download"}
+            desc={"Download your whiteboard creations with ease."}
           />
           <FeatureDescription
             Icon={DeviceTabletIcon}
