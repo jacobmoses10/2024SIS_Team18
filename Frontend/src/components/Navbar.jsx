@@ -1,10 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
-const Navbar = ({ user, logout }) => {
+const Navbar = ({user, logout}) => {
   const handleLogout = async () => {
     try {
-      await logout(); 
+      await logout();
     } catch (error) {
       console.error("Logout failed", error);
     }
@@ -32,7 +32,7 @@ const Navbar = ({ user, logout }) => {
                   About
                 </li>
               </Link>
-              {user && ( 
+              {user && (
                 <Link to="/whiteboard">
                   <li className="px-6 font-bold hover:underline cursor-pointer">
                     Whiteboard
@@ -56,7 +56,9 @@ const Navbar = ({ user, logout }) => {
               <>
                 <div className="px-3">
                   <Link to="/login">
-                    <li className="flex space-x-3 border p-2 px-6 rounded-md" type="button">
+                    <li
+                      className="flex space-x-3 border p-2 px-6 rounded-md"
+                      type="button">
                       Login
                     </li>
                   </Link>
@@ -64,7 +66,9 @@ const Navbar = ({ user, logout }) => {
 
                 <div className="px-3">
                   <Link to="/signup">
-                    <li className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black" type="button">
+                    <li
+                      className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black"
+                      type="button">
                       Sign Up
                     </li>
                   </Link>

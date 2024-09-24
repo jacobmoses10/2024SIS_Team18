@@ -1,10 +1,23 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import Toolbox from "../components/Toolbox";
-import { fabric } from "fabric";
+import {fabric} from "fabric";
 import "fabric-history";
 
-const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, penWidth, changePenColor, penColor, setFabricCanvas, fabricCanvas, addText, setClearModal, downloadBoard }) => {
-
+const Whiteboard = ({
+  canvasRef,
+  drawingMode,
+  tool,
+  setTool,
+  changePenWidth,
+  penWidth,
+  changePenColor,
+  penColor,
+  setFabricCanvas,
+  fabricCanvas,
+  addText,
+  setClearModal,
+  downloadBoard,
+}) => {
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: "#e5e7eb",
@@ -38,7 +51,7 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
   const handleKeyDown = (e) => {
     // Backspace key = delete or Delete Key = delete
     if (e.key === "Backspace" || e.key === "Delete") {
-      fabricCanvas.getActiveObjects().forEach(object => {
+      fabricCanvas.getActiveObjects().forEach((object) => {
         fabricCanvas.remove(object);
       });
       fabricCanvas.discardActiveObject();
@@ -51,23 +64,26 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
     if (e.ctrlKey && e.key === "y") {
       fabricCanvas.redo();
     }
-  }
+  };
 
   // Handle Undo/Redo with fabric-history.
   const undo = () => {
     fabricCanvas.undo();
-  }
+  };
 
   const redo = () => {
     fabricCanvas.redo();
-  }
+  };
 
   return (
-    <div className="relative w-full h-screen rounded-md" onKeyDown={(e) => handleKeyDown(e)} tabIndex={0}>
-      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full"/>
+    <div
+      className="relative w-full h-screen rounded-md"
+      onKeyDown={(e) => handleKeyDown(e)}
+      tabIndex={0}>
+      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full" />
       <div className="absolute top-4 left-4 bg-white rounded-md z-10 shadow-lg">
         <Toolbox
-          downloadBoard = {downloadBoard}
+          downloadBoard={downloadBoard}
           tool={tool}
           setTool={setTool}
           changePenWidth={changePenWidth}

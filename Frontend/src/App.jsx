@@ -14,7 +14,7 @@ import HomePage from "./pages/HomePage";
 import About from "./pages/About";
 import {fabric} from "fabric";
 import {auth} from "./firebase/init";
-import { signOutUser } from "./firebase/auth";
+import {signOutUser} from "./firebase/auth";
 
 const App = () => {
   // User Auth
@@ -26,7 +26,7 @@ const App = () => {
       setUser(newUser);
     });
     // delete subscription
-    return () => unsubscribe(); 
+    return () => unsubscribe();
   }, []);
 
   // Canvas and related states

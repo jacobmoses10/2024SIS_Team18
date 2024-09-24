@@ -6,7 +6,7 @@ import {
   PlusIcon,
   CursorArrowRaysIcon,
   ArrowUturnLeftIcon,
-  ArrowUturnRightIcon
+  ArrowUturnRightIcon,
 } from "@heroicons/react/24/outline";
 import {
   PaintBrushIcon as PaintBrushIconSolid,
@@ -15,25 +15,45 @@ import {
   ArrowDownTrayIcon,
 } from "@heroicons/react/24/solid";
 
-      
-const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, addText, setClearModal, undo, redo, downloadBoard }) => {
-
+const Toolbox = ({
+  tool,
+  setTool,
+  changePenWidth,
+  penWidth,
+  changePenColor,
+  penColor,
+  addText,
+  setClearModal,
+  undo,
+  redo,
+  downloadBoard,
+}) => {
   return (
     <div>
       <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[650px] shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
-          <Icons IconComponent={tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon} />
+          <Icons
+            IconComponent={
+              tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon
+            }
+          />
         </div>
-        
+
         {/* Set Tool to Pencil */}
         <div onClick={() => setTool("pencil")} className="cursor-pointer">
-          <Icons IconComponent={tool === "pencil" ? PaintBrushIconSolid : PaintBrushIcon}/>
+          <Icons
+            IconComponent={
+              tool === "pencil" ? PaintBrushIconSolid : PaintBrushIcon
+            }
+          />
         </div>
 
         {/* Set Tool to Eraser */}
         <div onClick={() => setTool("eraser")} className="cursor-pointer">
-          <Icons IconComponent={tool === "eraser" ? ServerIconSolid : ServerIcon}/>
+          <Icons
+            IconComponent={tool === "eraser" ? ServerIconSolid : ServerIcon}
+          />
         </div>
 
         {/* Add Text Element to Canvas */}
@@ -46,7 +66,7 @@ const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penC
         <div className="p-2 cursor-pointer flex justify-center items-center hover:bg-gray-100 rounded-md h-10 w-10 relative">
           <div
             className="w-5 h-5 border-2 border-black rounded relative"
-            style={{ backgroundColor: penColor }} // Apply selected pen color
+            style={{backgroundColor: penColor}} // Apply selected pen color
           >
             <input
               type="color"
@@ -95,7 +115,7 @@ const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penC
 
 export default Toolbox;
 
-const Icons = ({ IconComponent }) => {
+const Icons = ({IconComponent}) => {
   return (
     <div className="h-10 w-10 hover:bg-gray-100 rounded-md p-2">
       <IconComponent className="w-6 h-6" />

@@ -22,7 +22,9 @@ const HomePage = () => {
             <Link to="/signup">
               <li
                 className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black"
-                type="button">Get Started</li>
+                type="button">
+                Get Started
+              </li>
             </Link>
           </div>
           <p className="text-gray-500">
