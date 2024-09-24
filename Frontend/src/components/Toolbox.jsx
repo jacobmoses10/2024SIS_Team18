@@ -5,6 +5,8 @@ import {
   TrashIcon,
   PlusIcon,
   CursorArrowRaysIcon,
+  ArrowUturnLeftIcon,
+  ArrowUturnRightIcon
 } from "@heroicons/react/24/outline";
 import {
   PaintBrushIcon as PaintBrushIconSolid,
@@ -12,11 +14,11 @@ import {
   CursorArrowRaysIcon as CursorArrowRaysIconSolid,
 } from "@heroicons/react/24/solid";
 
-const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, addText, setClearModal }) => {
+const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, addText, setClearModal, undo, redo }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[450px] shadow-lg">
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[600px] shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons IconComponent={tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon} />
@@ -62,6 +64,16 @@ const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penC
             max="30"
             className="w-[100px] appearance-none h-2 bg-gray-200 rounded-lg cursor-pointer"
           />
+        </div>
+
+        {/* Undo last canvas change */}
+        <div onClick={undo} className="cursor-pointer">
+          <Icons IconComponent={ArrowUturnLeftIcon} />
+        </div>
+
+        {/* Redo last canvas change */}
+        <div onClick={redo} className="cursor-pointer">
+          <Icons IconComponent={ArrowUturnRightIcon} />
         </div>
 
         {/* Clear the Canvas */}

@@ -1,5 +1,5 @@
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react"
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
 
 const ClearModal = ({clearModal, setClearModal, clearCanvas}) => {
   const handleClear = () => {

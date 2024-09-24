@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
 import Toolbox from "./Toolbox";
-import { fabric } from 'fabric';
+import { fabric } from "fabric";
+import "fabric-history";
 
 const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, penWidth, changePenColor, penColor, setFabricCanvas, fabricCanvas, addText, setClearModal }) => {
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
-      backgroundColor: '#e5e7eb',
+      backgroundColor: "#e5e7eb",
       width: window.innerWidth,
       height: window.innerHeight,
       isDrawingMode: true,
     });
-
+    //canvas.historyInit();
     setFabricCanvas(canvas);
 
     return () => {
@@ -33,14 +34,32 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
     }
   }, [drawingMode, fabricCanvas]);
 
-  // Delete selected object(s).
+  // Handle all keyboard shortcuts.
   const handleKeyDown = (e) => {
+    // Backspace key = delete
     if (e.key === "Backspace") {
       fabricCanvas.getActiveObjects().forEach(object => {
         fabricCanvas.remove(object);
       });
       fabricCanvas.discardActiveObject();
     }
+    // Control + Z = Undo
+    if (e.ctrlKey && e.key === "z") {
+      fabricCanvas.undo();
+    }
+    // Control + Y = Redo
+    if (e.ctrlKey && e.key === "y") {
+      fabricCanvas.redo();
+    }
+  }
+
+  // Handle Undo/Redo with fabric-history.
+  const undo = () => {
+    fabricCanvas.undo();
+  }
+
+  const redo = () => {
+    fabricCanvas.redo();
   }
 
   return (
@@ -56,6 +75,8 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
           penColor={penColor}
           addText={addText}
           setClearModal={setClearModal}
+          undo={undo}
+          redo={redo}
         />
       </div>
     </div>
