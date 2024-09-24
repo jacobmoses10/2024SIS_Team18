@@ -3,9 +3,10 @@ import {
   PaintBrushIcon,
   ServerIcon,
   TrashIcon,
+  LightBulbIcon,  // Importing an icon for AI button
 } from "@heroicons/react/24/outline";
 
-const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleErase, clearCanvas }) => {
+const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleErase, clearCanvas, handleAIClick }) => {
   const [isPencil, setIsPencil] = useState(true); 
 
   //toggle between pencil and eraser animation
@@ -16,7 +17,7 @@ const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleEra
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[280px] shadow-lg">
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[350px] shadow-lg">
         {/* toggle between pencil and eraser */}
         <div onClick={handleIconToggle} className="cursor-pointer">
           {isPencil ? <Icons IconComponent={PaintBrushIcon} /> : <Icons IconComponent={ServerIcon} />}
@@ -53,6 +54,12 @@ const Toolbox = ({ changePenWidth, penWidth, changePenColor, penColor, toggleEra
         <div onClick={clearCanvas} className="cursor-pointer">
           <Icons IconComponent={TrashIcon} />
         </div>
+
+        {/* AI Button */}
+        <div onClick={handleAIClick} className="cursor-pointer">
+          <Icons IconComponent={LightBulbIcon} />
+        </div>
+
       </div>
     </div>
   );
