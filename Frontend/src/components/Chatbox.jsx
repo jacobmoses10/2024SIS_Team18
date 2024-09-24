@@ -21,10 +21,6 @@ const Chatbox = () => {
   //     setMessages((prevMessages) => [...prevMessages, botMessage]);
   //   }, 1000);
 
-<<<<<<< HEAD
-=======
-  //BENS SECTION STARTS HERE
->>>>>>> 322d0d57470e0d7db484fc16e310d361f4757239
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
 
@@ -57,11 +53,7 @@ const Chatbox = () => {
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
     }
   };
-<<<<<<< HEAD
 
-=======
-//BENS SECTION ENDS HERE
->>>>>>> 322d0d57470e0d7db484fc16e310d361f4757239
   return (
     <div className="chatbox-container">
       <div className="chatbox-window">
