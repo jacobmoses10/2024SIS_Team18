@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Toolbox from "./Toolbox";
+import Toolbox from "../components/Toolbox";
 import { fabric } from "fabric";
 
 const Whiteboard = ({ 
@@ -20,9 +20,9 @@ const Whiteboard = ({
   paste, 
   undo,
   redo,
-  setClearModal 
+  setClearModal,
+  downloadBoard
 }) => {
-
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: "#e5e7eb",
@@ -53,9 +53,9 @@ const Whiteboard = ({
 
   // Handle all keyboard shortcuts.
   const handleKeyDown = (e) => {
-    // Backspace = delete object
-    if (e.key === "Backspace") {
-      fabricCanvas.getActiveObjects().forEach(object => {
+    // Backspace key = delete or Delete Key = delete
+    if (e.key === "Backspace" || e.key === "Delete") {
+      fabricCanvas.getActiveObjects().forEach((object) => {
         fabricCanvas.remove(object);
       });
       fabricCanvas.discardActiveObject();
@@ -71,10 +71,14 @@ const Whiteboard = ({
   }
 
   return (
-    <div className="relative w-full h-screen rounded-md" onKeyDown={(e) => handleKeyDown(e)} tabIndex={0}>
-      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full"/>
+    <div
+      className="relative w-full h-screen rounded-md"
+      onKeyDown={(e) => handleKeyDown(e)}
+      tabIndex={0}>
+      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full" />
       <div className="absolute top-4 left-4 bg-white rounded-md z-10 shadow-lg">
         <Toolbox
+          downloadBoard={downloadBoard}
           tool={tool}
           setTool={setTool}
           changePenWidth={changePenWidth}
