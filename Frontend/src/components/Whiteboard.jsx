@@ -1,9 +1,27 @@
 import React, { useEffect } from "react";
 import Toolbox from "./Toolbox";
 import { fabric } from "fabric";
-import "fabric-history";
 
-const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, penWidth, changePenColor, penColor, setFabricCanvas, fabricCanvas, addText, setClearModal }) => {
+const Whiteboard = ({ 
+  canvasRef, 
+  drawingMode, 
+  tool, 
+  setTool,  
+  changePenWidth, 
+  penWidth, 
+  changePenColor, 
+  changeFillColor,
+  penColor, 
+  setFabricCanvas, 
+  fabricCanvas, 
+  addText,
+  addShape,
+  copy,
+  paste, 
+  undo,
+  redo,
+  setClearModal 
+}) => {
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -12,7 +30,6 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
       height: window.innerHeight,
       isDrawingMode: true,
     });
-    //canvas.historyInit();
     setFabricCanvas(canvas);
 
     return () => {
@@ -36,30 +53,21 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
 
   // Handle all keyboard shortcuts.
   const handleKeyDown = (e) => {
-    // Backspace key = delete
+    // Backspace = delete object
     if (e.key === "Backspace") {
       fabricCanvas.getActiveObjects().forEach(object => {
         fabricCanvas.remove(object);
       });
       fabricCanvas.discardActiveObject();
     }
-    // Control + Z = Undo
-    if (e.ctrlKey && e.key === "z") {
-      fabricCanvas.undo();
-    }
-    // Control + Y = Redo
-    if (e.ctrlKey && e.key === "y") {
-      fabricCanvas.redo();
-    }
-  }
-
-  // Handle Undo/Redo with fabric-history.
-  const undo = () => {
-    fabricCanvas.undo();
-  }
-
-  const redo = () => {
-    fabricCanvas.redo();
+    // Ctrl + Z = Undo
+    if (e.ctrlKey && e.key === "z") undo();
+    // Ctrl + Y = Redo
+    if (e.ctrlKey && e.key === "y") redo();
+    // Ctrl + C = Copy
+    if (e.ctrlKey && e.key === "c") copy();
+    // Ctrl + V = Paste
+    if (e.ctrlKey && e.key === "v") paste();
   }
 
   return (
@@ -72,8 +80,10 @@ const Whiteboard = ({ canvasRef, drawingMode, tool, setTool, changePenWidth, pen
           changePenWidth={changePenWidth}
           penWidth={penWidth}
           changePenColor={changePenColor}
+          changeFillColor={changeFillColor}
           penColor={penColor}
           addText={addText}
+          addShape={addShape}
           setClearModal={setClearModal}
           undo={undo}
           redo={redo}

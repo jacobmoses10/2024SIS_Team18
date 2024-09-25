@@ -12,13 +12,28 @@ import {
   PaintBrushIcon as PaintBrushIconSolid,
   ServerIcon as ServerIconSolid,
   CursorArrowRaysIcon as CursorArrowRaysIconSolid,
+  BeakerIcon as BeakerIconSolid
 } from "@heroicons/react/24/solid";
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
-const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penColor, addText, setClearModal, undo, redo }) => {
+const Toolbox = ({ 
+  tool, 
+  setTool, 
+  changePenWidth, 
+  penWidth, 
+  changePenColor,
+  changeFillColor, 
+  penColor, 
+  addText,
+  addShape, 
+  setClearModal, 
+  undo, 
+  redo 
+}) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[600px] shadow-lg">
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[650px] shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons IconComponent={tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon} />
@@ -34,10 +49,60 @@ const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penC
           <Icons IconComponent={tool === "eraser" ? ServerIconSolid : ServerIcon}/>
         </div>
 
-        {/* Add Text Element to Canvas */}
-        <div onClick={() => addText()} className="cursor-pointer">
-          <Icons IconComponent={PlusIcon} />
+        {/* Add Object Drop-Down Menu */}
+        <Menu as="div" className="relative inline-block text-left">
+          <div>
+            <MenuButton className="mt-1">
+              <Icons IconComponent={PlusIcon} />
+            </MenuButton>
+          </div>
+          <MenuItems
+        transition
+        className="absolute z-10 mt-3 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+      >
+        <div className="py-1">
+          {/* Add Text Element to Canvas */}
+          <MenuItem>
+            <div 
+              onClick={() => addText()}
+              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
+            >
+              Text
+            </div> 
+          </MenuItem>
+          
+          {/* Add Square to Canvas */}
+          <MenuItem>
+            <div
+              onClick={() => addShape("square")}
+              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
+            >
+              □ Square
+            </div>
+          </MenuItem>
+          
+          {/* Add Circle to Canvas */}
+          <MenuItem>
+            <div
+              onClick={() => addShape("circle")}
+              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
+            >
+              ○ Circle
+            </div>
+          </MenuItem>
+          
+          {/* Add Triangle to Canvas */}
+          <MenuItem>
+            <div
+              onClick={() => addShape("triangle")}
+              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
+            >
+              △ Triangle
+            </div>
+          </MenuItem>
         </div>
+      </MenuItems>
+        </Menu>
 
         {/* Color Chooser */}
         <div className="p-2 cursor-pointer flex justify-center items-center hover:bg-gray-100 rounded-md h-10 w-10 relative">
@@ -52,6 +117,11 @@ const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penC
               className="absolute inset-0 opacity-0 cursor-pointer"
             />
           </div>
+        </div>
+
+        {/* Change Fill Colour */}
+        <div onClick={() => changeFillColor()} className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 cursor-pointer">
+          <BeakerIconSolid className="w-6 h-6" color={penColor} />
         </div>
 
         {/* Pen Width */}
@@ -76,7 +146,7 @@ const Toolbox = ({ tool, setTool, changePenWidth, penWidth, changePenColor, penC
           <Icons IconComponent={ArrowUturnRightIcon} />
         </div>
 
-        {/* Clear the Canvas */}
+        {/* Clear the canvas */}
         <div onClick={() => setClearModal(true)} className="cursor-pointer">
           <Icons IconComponent={TrashIcon} />
         </div>
