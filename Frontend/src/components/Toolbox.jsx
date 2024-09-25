@@ -36,7 +36,7 @@ const Toolbox = ({
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[650px] shadow-lg">
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[700px] shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons
@@ -103,6 +103,8 @@ const Toolbox = ({
               ○ Circle
             </div>
           </MenuItem>
+          
+          {/* Add Triangle to Canvas */}
           <MenuItem>
             <div
               onClick={() => addShape("triangle")}
