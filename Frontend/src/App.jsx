@@ -1,11 +1,36 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, {useRef, useState, useEffect} from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Whiteboard from "./components/Whiteboard";
+import Whiteboard from "./pages/Whiteboard";
 import ClearModal from "./components/ClearModal";
 import { fabric } from "fabric";
 import "fabric-history";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
+import HomePage from "./pages/HomePage";
+import About from "./pages/About";
+import {auth} from "./firebase/init";
+import {signOutUser} from "./firebase/auth";
 
 const App = () => {
+  // User Auth
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((newUser) => {
+      console.log("User state changed:", newUser);
+      setUser(newUser);
+    });
+    // delete subscription
+    return () => unsubscribe();
+  }, []);
+
+  // Canvas and related states
   const canvasRef = useRef(null);
   const [fabricCanvas, setFabricCanvas] = useState(null);
   const [clearModal, setClearModal] = useState(false);
@@ -21,23 +46,15 @@ const App = () => {
   // Selected Tool
   useEffect(() => {
     if (tool === "cursor") {
-      if (penColor === defaultBackgroundColor) {
-        setPenColor("#000000");
-      }
+      setPenColor(penColor === defaultBackgroundColor ? "#000000" : penColor);
       setDrawingMode(false);
-    }
-    if (tool === "pencil") {
-      if (penColor === defaultBackgroundColor) {
-        setPenColor("#000000");
-      }
+    } else if (tool === "pencil" || tool === "eraser") {
+      setPenColor(tool === "eraser" ? defaultBackgroundColor : penColor);
       setDrawingMode(true);
     }
-    if (tool === "eraser") {
-      setPenColor(defaultBackgroundColor);
-      setDrawingMode(true);
-    }
-  }, [tool, penColor]);
+  }, [tool, penColor, defaultBackgroundColor]);
 
+  // Canvas functions
   const changePenWidth = (width) => {
     if (fabricCanvas) {
       const parsedWidth = parseInt(width, 10);
@@ -90,10 +107,10 @@ const App = () => {
     if (fabricCanvas) {
       const pngData = fabricCanvas.toDataURL("png");
       const downloadLink = document.createElement("a");
-      const fileName = `whiteBoard-session-${Math.random().toString().replace(".", "")}.png`;
-
       downloadLink.href = pngData;
-      downloadLink.download = fileName;
+      downloadLink.download = `whiteBoard-session-${Math.random()
+        .toString()
+        .replace(".", "")}.png`;
       downloadLink.click();
     }
   };
@@ -104,7 +121,7 @@ const App = () => {
       const text = new fabric.IText("Text", {
         left: 100,
         top: 200,
-        fill: penColor === defaultBackgroundColor ? "#000000" : penColor
+        fill: penColor === defaultBackgroundColor ? "#000000" : penColor,
       });
       fabricCanvas.add(text);
       setTool("cursor");
@@ -156,7 +173,7 @@ const App = () => {
   const clearCanvas = () => {
     if (fabricCanvas) {
       fabricCanvas.clear();
-      fabricCanvas.backgroundColor = defaultBackgroundColor; 
+      fabricCanvas.backgroundColor = defaultBackgroundColor;
       fabricCanvas.renderAll();
     }
   };
@@ -205,30 +222,52 @@ const App = () => {
   const redo = () => fabricCanvas.redo();
 
   return (
-    <div>
-      <Navbar downloadBoard={downloadBoard} />
-      <ClearModal clearModal={clearModal} setClearModal={setClearModal} clearCanvas={clearCanvas}/>
-      <Whiteboard
-        canvasRef={canvasRef}
-        setFabricCanvas={setFabricCanvas}
-        fabricCanvas={fabricCanvas}
-        drawingMode={drawingMode}
-        tool={tool}
-        setTool={setTool}
-        changePenWidth={changePenWidth}
-        penWidth={penWidth}
-        changePenColor={changePenColor}
-        changeFillColor={changeFillColor}
-        penColor={penColor}
-        addText={addText}
-        addShape={addShape}
-        copy={copy}
-        paste={paste}
-        undo={undo}
-        redo={redo}
-        setClearModal={setClearModal} 
-      />
-    </div>
+    <Router>
+      <div>
+        <Navbar user={user} logout={signOutUser} setUser={setUser} />
+        <Routes>
+          <Route path="/signup" element={<SignUp setUser={setUser} />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
+          <Route
+            path="/whiteboard"
+            element={
+              user ? (
+                <Whiteboard
+                  downloadBoard={downloadBoard}
+                  canvasRef={canvasRef}
+                  setFabricCanvas={setFabricCanvas}
+                  fabricCanvas={fabricCanvas}
+                  drawingMode={drawingMode}
+                  tool={tool}
+                  setTool={setTool}
+                  changePenWidth={changePenWidth}
+                  penWidth={penWidth}
+                  changePenColor={changePenColor}
+                  changeFillColor={changeFillColor}
+                  penColor={penColor}
+                  addText={addText}
+                  addShape={addShape}
+                  copy={copy}
+                  paste={paste}
+                  undo={undo}
+                  redo={redo}
+                  setClearModal={setClearModal}
+                />
+              ) : (
+                <Navigate replace to="/login" />
+              )
+            }
+          />
+        </Routes>{" "}
+        <ClearModal
+          clearModal={clearModal}
+          setClearModal={setClearModal}
+          clearCanvas={clearCanvas}
+        />{" "}
+      </div>{" "}
+    </Router>
   );
 };
 

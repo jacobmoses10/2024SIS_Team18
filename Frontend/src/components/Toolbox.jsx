@@ -6,13 +6,14 @@ import {
   PlusIcon,
   CursorArrowRaysIcon,
   ArrowUturnLeftIcon,
-  ArrowUturnRightIcon
+  ArrowUturnRightIcon,
 } from "@heroicons/react/24/outline";
 import {
   PaintBrushIcon as PaintBrushIconSolid,
   ServerIcon as ServerIconSolid,
   CursorArrowRaysIcon as CursorArrowRaysIconSolid,
-  BeakerIcon as BeakerIconSolid
+  BeakerIcon as BeakerIconSolid,
+  ArrowDownTrayIcon,
 } from "@heroicons/react/24/solid";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
@@ -28,25 +29,37 @@ const Toolbox = ({
   addShape, 
   setClearModal, 
   undo, 
-  redo 
+  redo,
+  downloadBoard,
 }) => {
+
 
   return (
     <div>
       <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[650px] shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
-          <Icons IconComponent={tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon} />
+          <Icons
+            IconComponent={
+              tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon
+            }
+          />
         </div>
-        
+
         {/* Set Tool to Pencil */}
         <div onClick={() => setTool("pencil")} className="cursor-pointer">
-          <Icons IconComponent={tool === "pencil" ? PaintBrushIconSolid : PaintBrushIcon}/>
+          <Icons
+            IconComponent={
+              tool === "pencil" ? PaintBrushIconSolid : PaintBrushIcon
+            }
+          />
         </div>
 
         {/* Set Tool to Eraser */}
         <div onClick={() => setTool("eraser")} className="cursor-pointer">
-          <Icons IconComponent={tool === "eraser" ? ServerIconSolid : ServerIcon}/>
+          <Icons
+            IconComponent={tool === "eraser" ? ServerIconSolid : ServerIcon}
+          />
         </div>
 
         {/* Add Object Drop-Down Menu */}
@@ -90,8 +103,6 @@ const Toolbox = ({
               ○ Circle
             </div>
           </MenuItem>
-          
-          {/* Add Triangle to Canvas */}
           <MenuItem>
             <div
               onClick={() => addShape("triangle")}
@@ -108,7 +119,7 @@ const Toolbox = ({
         <div className="p-2 cursor-pointer flex justify-center items-center hover:bg-gray-100 rounded-md h-10 w-10 relative">
           <div
             className="w-5 h-5 border-2 border-black rounded relative"
-            style={{ backgroundColor: penColor }} // Apply selected pen color
+            style={{backgroundColor: penColor}} // Apply selected pen color
           >
             <input
               type="color"
@@ -146,6 +157,11 @@ const Toolbox = ({
           <Icons IconComponent={ArrowUturnRightIcon} />
         </div>
 
+        {/* Download Board*/}
+        <div onClick={() => downloadBoard()} className="cursor-pointer">
+          <Icons IconComponent={ArrowDownTrayIcon} />
+        </div>
+
         {/* Clear the canvas */}
         <div onClick={() => setClearModal(true)} className="cursor-pointer">
           <Icons IconComponent={TrashIcon} />
@@ -157,7 +173,7 @@ const Toolbox = ({
 
 export default Toolbox;
 
-const Icons = ({ IconComponent }) => {
+const Icons = ({IconComponent}) => {
   return (
     <div className="h-10 w-10 hover:bg-gray-100 rounded-md p-2">
       <IconComponent className="w-6 h-6" />
