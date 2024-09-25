@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "fabric": "^5.4.0",
     "fabric-history": "^2.0.0",
-    "firebase": "^10.13.0",
+    "firebase": "^10.13.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2",
