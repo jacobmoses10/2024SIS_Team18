@@ -142,7 +142,7 @@ const App = () => {
         setToggleEraser={setToggleEraser}
         toggleErase={toggleErase}
         clearCanvas={clearCanvas}
-        handleAIClick={handleAIClick}
+        handleAIClick={() => handleAIClick(null)}
       />
       {/* Pass the messages and the sendMessage handler to the Chatbox */}
       <Chatbox messages={messages} onSendMessage={handleSendMessage} />      
