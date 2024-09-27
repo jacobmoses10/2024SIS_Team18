@@ -24,6 +24,7 @@ const App = () => {
   const handleSendMessage = (userInput) => {
     const newUserMessage = { text: userInput, sender: "user" };  // Create a new message object
     setMessages((prevMessages) => [...prevMessages, newUserMessage]);  // Add it to the messages array
+    handleAIClick(newUserMessage.text);
   };
 
   const changePenWidth = (width) => {
@@ -76,8 +77,8 @@ const App = () => {
   };
 
   // Handle AI click (this simulates the AI response and routes it to the chatbox)
-  const handleAIClick = async () => {
-    const prompt = "give me a hint to solve this";
+  const handleAIClick = async (message) => {
+    const prompt = (!(message === null) ? message : "give me a hint to solve this");
     const systemInstruction = "I want you to be an expert tutor on Maths up to an Australian Year 12 level, and I want you to guide my questions and working. Do not give me the answer unless what I have written is correct, instead assess my working and provide hints and explanations on what I should do instead. If \"Find x\" or a similar question is asked, do not give the answer, instead provide guidance on steps to follow, one by one. If values are provided, make sure they are substituted correctly. You should work like a tutor would guiding students to an answer rather than giving it to them directly. Provide one hint then stop and allow me to try again. Repeat this process until I get the correct answer or I move onto a new question.";
     const base64Image = fabricCanvas.toDataURL("image/png").split(",")[1];
 
