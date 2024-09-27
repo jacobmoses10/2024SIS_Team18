@@ -4,7 +4,7 @@ import Whiteboard from './components/Whiteboard';
 import Chatbox from './components/Chatbox';
 import { fabric } from 'fabric';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
@@ -144,8 +144,7 @@ const App = () => {
         handleAIClick={handleAIClick}
       />
       {/* Pass the messages and the sendMessage handler to the Chatbox */}
-      <Chatbox messages={messages} onSendMessage={handleSendMessage} />
-      <ToastContainer />
+      <Chatbox messages={messages} onSendMessage={handleSendMessage} />      
     </div>
   );
 };
