@@ -29,22 +29,3 @@ response = model.generate_content(prompt)
 
 #print the generated text
 print(response.text)
-
-# AI endpoint to handle requests from the frontend
-# @app.route('/ai', methods=['POST'])
-# def generate_ai_response():
-#     data = request.get_json()
-#     prompt = data.get('prompt')
-
-#     if not prompt:
-#         return jsonify({'error': 'No prompt provided'}), 400
-
-#     # Make a request to the Gemini AI model
-#     try:
-#         response = model.generate_content(prompt)
-#         return jsonify({'response': response.text})
-#     except Exception as e:
-#         return jsonify({'error': str(e)}), 500
-
-# if __name__ == '__main__':
-#     app.run(debug=True, port=5000)
