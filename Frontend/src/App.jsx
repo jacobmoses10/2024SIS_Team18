@@ -8,6 +8,7 @@ import {
 import Navbar from "./components/Navbar";
 import Whiteboard from "./pages/Whiteboard";
 import ClearModal from "./components/ClearModal";
+import Chatbox from "./components/Chatbox";
 import { fabric } from "fabric";
 import "fabric-history";
 import Login from "./components/Login";
@@ -325,7 +326,6 @@ const App = () => {
                     setClearModal={setClearModal}
                     handleAIClick={() => handleAIClick(null)}
                   />
-                  {/* Pass the messages and the sendMessage handler to the Chatbox */}
                   <div className="absolute bottom-0 right-0 z-50">
                     <Chatbox messages={messages} onSendMessage={handleSendMessage} />
                   </div>

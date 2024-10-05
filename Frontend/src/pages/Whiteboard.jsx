@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Toolbox from "../components/Toolbox";
 import { fabric } from "fabric";
+import GridOverlay from '../components/Gridoverlay';
 
 const Whiteboard = ({ 
   canvasRef, 
@@ -21,7 +22,8 @@ const Whiteboard = ({
   undo,
   redo,
   setClearModal,
-  downloadBoard
+  downloadBoard,
+  handleAIClick
 }) => {
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -76,6 +78,7 @@ const Whiteboard = ({
       onKeyDown={(e) => handleKeyDown(e)}
       tabIndex={0}>
       <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full" />
+           
       <div className="absolute top-4 left-4 bg-white rounded-md z-10 shadow-lg">
         <Toolbox
           downloadBoard={downloadBoard}
@@ -91,6 +94,7 @@ const Whiteboard = ({
           setClearModal={setClearModal}
           undo={undo}
           redo={redo}
+          handleAIClick={handleAIClick}
         />
       </div>
     </div>
