@@ -13,6 +13,7 @@ REACT_APP_FIREBASE_PROJECT_BUCKET=''
 REACT_APP_FIREBASE_SENDER_ID=''
 REACT_APP_FIREBASE_APP_ID=''
 REACT_APP_FIREBASE_MEASUREMENT_ID=''
+REACT_APP_GEMINI_KEY=''
 ```
 
 Create another `.env` file in the Backend folder and add the following variables.
