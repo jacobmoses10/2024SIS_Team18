@@ -8,6 +8,7 @@ import {
 import Navbar from "./components/Navbar";
 import Whiteboard from "./pages/Whiteboard";
 import ClearModal from "./components/ClearModal";
+import Chatbox from "./components/Chatbox";
 import { fabric } from "fabric";
 import "fabric-history";
 import Login from "./components/Login";
@@ -16,6 +17,9 @@ import HomePage from "./pages/HomePage";
 import About from "./pages/About";
 import {auth} from "./firebase/init";
 import {signOutUser} from "./firebase/auth";
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   // User Auth
@@ -43,6 +47,9 @@ const App = () => {
   const [tool, setTool] = useState("cursor");
   const [drawingMode, setDrawingMode] = useState(true);
 
+  // Chatbox messages state (to manage both user and AI messages)
+  const [messages, setMessages] = useState([]);
+
   // Selected Tool
   useEffect(() => {
     if (tool === "cursor") {
@@ -53,6 +60,13 @@ const App = () => {
       setDrawingMode(true);
     }
   }, [tool, penColor, defaultBackgroundColor]);
+
+  // Function to handle user message submission
+  const handleSendMessage = (userInput) => {
+    const newUserMessage = { text: userInput, sender: "user" };  // Create a new message object
+    setMessages((prevMessages) => [...prevMessages, newUserMessage]);  // Add it to the messages array
+    handleAIClick(newUserMessage.text);
+  }
 
   // Canvas functions
   const changePenWidth = (width) => {
@@ -178,6 +192,61 @@ const App = () => {
     }
   };
 
+  // Handle AI click (this simulates the AI response and routes it to the chatbox)
+  const handleAIClick = async (message) => {
+    const prompt = (!(message === null) ? message : "give me a hint to solve this");
+    const systemInstruction = "I want you to be an expert tutor on Maths up to an Australian Year 12 level, and I want you to guide my questions and working. Do not give me the answer unless what I have written is correct, instead assess my working and provide hints and explanations on what I should do instead. If \"Find x\" or a similar question is asked, do not give the answer, instead provide guidance on steps to follow, one by one. If values are provided, make sure they are substituted correctly. You should work like a tutor would guiding students to an answer rather than giving it to them directly. Provide one hint then stop and allow me to try again. Repeat this process until I get the correct answer or I move onto a new question.";
+    const base64Image = fabricCanvas.toDataURL("image/png").split(",")[1];
+
+    const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_KEY;
+    const requestBody = {
+      contents: [
+        {
+          role: "model",
+          parts: [
+            {
+              text: systemInstruction,
+            }
+          ]
+        },
+        {
+          role: "user",
+          parts: [
+            {
+              text: prompt,
+            },
+            {
+              inlineData: {
+                mimeType: "image/png",
+                data: base64Image,
+              }
+            }
+          ]
+        }
+      ]
+    };
+
+    try {
+      const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const result = await model.generateContent(requestBody);
+
+      // AI response
+      const aiResponse = result.response.text();
+      
+      // Add the AI message to chatbox
+      const botMessage = { text: aiResponse, sender: "bot" };
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
+
+      toast.success(aiResponse);
+    } catch (error) {
+      console.error("Error fetching AI response:", error);
+    }
+  };
+
+  
+        
+
   // Copy Object to Clipboard.
   const copy = () => {
     fabricCanvas.getActiveObject().clone(function(cloned) {
@@ -234,27 +303,33 @@ const App = () => {
             path="/whiteboard"
             element={
               user ? (
-                <Whiteboard
-                  downloadBoard={downloadBoard}
-                  canvasRef={canvasRef}
-                  setFabricCanvas={setFabricCanvas}
-                  fabricCanvas={fabricCanvas}
-                  drawingMode={drawingMode}
-                  tool={tool}
-                  setTool={setTool}
-                  changePenWidth={changePenWidth}
-                  penWidth={penWidth}
-                  changePenColor={changePenColor}
-                  changeFillColor={changeFillColor}
-                  penColor={penColor}
-                  addText={addText}
-                  addShape={addShape}
-                  copy={copy}
-                  paste={paste}
-                  undo={undo}
-                  redo={redo}
-                  setClearModal={setClearModal}
-                />
+                <div>
+                  <Whiteboard
+                    downloadBoard={downloadBoard}
+                    canvasRef={canvasRef}
+                    setFabricCanvas={setFabricCanvas}
+                    fabricCanvas={fabricCanvas}
+                    drawingMode={drawingMode}
+                    tool={tool}
+                    setTool={setTool}
+                    changePenWidth={changePenWidth}
+                    penWidth={penWidth}
+                    changePenColor={changePenColor}
+                    changeFillColor={changeFillColor}
+                    penColor={penColor}
+                    addText={addText}
+                    addShape={addShape}
+                    copy={copy}
+                    paste={paste}
+                    undo={undo}
+                    redo={redo}
+                    setClearModal={setClearModal}
+                    handleAIClick={() => handleAIClick(null)}
+                  />
+                  <div className="absolute bottom-0 right-0 z-50">
+                    <Chatbox messages={messages} onSendMessage={handleSendMessage} />
+                  </div>
+                </div>                
               ) : (
                 <Navigate replace to="/login" />
               )
@@ -270,5 +345,4 @@ const App = () => {
     </Router>
   );
 };
-
 export default App;
