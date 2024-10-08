@@ -16,26 +16,24 @@ import {
   BeakerIcon as BeakerIconSolid,
   ArrowDownTrayIcon,
 } from "@heroicons/react/24/solid";
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
-const Toolbox = ({ 
-  tool, 
-  setTool, 
-  changePenWidth, 
-  penWidth, 
+const Toolbox = ({
+  tool,
+  setTool,
+  changePenWidth,
+  penWidth,
   changePenColor,
-  changeFillColor, 
-  penColor, 
+  changeFillColor,
+  penColor,
   addText,
-  addShape, 
-  setClearModal, 
-  undo, 
+  addShape,
+  setClearModal,
+  undo,
   redo,
   downloadBoard,
-  handleAIClick
+  handleAIClick,
 }) => {
-
-
   return (
     <div>
       <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[760px] shadow-lg">
@@ -43,7 +41,9 @@ const Toolbox = ({
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons
             IconComponent={
-              tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon
+              tool === "cursor"
+                ? CursorArrowRaysIconSolid
+                : CursorArrowRaysIcon
             }
           />
         </div>
@@ -72,58 +72,58 @@ const Toolbox = ({
             </MenuButton>
           </div>
           <MenuItems
-        transition
-        className="absolute z-10 mt-3 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-      >
-        <div className="py-1">
-          {/* Add Text Element to Canvas */}
-          <MenuItem>
-            <div 
-              onClick={() => addText()}
-              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
-            >
-              Text
-            </div> 
-          </MenuItem>
-          
-          {/* Add Square to Canvas */}
-          <MenuItem>
-            <div
-              onClick={() => addShape("square")}
-              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
-            >
-              □ Square
+            transition
+            className="absolute z-10 mt-3 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+          >
+            <div className="py-1">
+              {/* Add Text Element to Canvas */}
+              <MenuItem>
+                <div
+                  onClick={() => addText()}
+                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
+                >
+                  Text
+                </div>
+              </MenuItem>
+
+              {/* Add Square to Canvas */}
+              <MenuItem>
+                <div
+                  onClick={() => addShape("square")}
+                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
+                >
+                  □ Square
+                </div>
+              </MenuItem>
+
+              {/* Add Circle to Canvas */}
+              <MenuItem>
+                <div
+                  onClick={() => addShape("circle")}
+                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
+                >
+                  ○ Circle
+                </div>
+              </MenuItem>
+
+              {/* Add Triangle to Canvas */}
+              <MenuItem>
+                <div
+                  onClick={() => addShape("triangle")}
+                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
+                >
+                  △ Triangle
+                </div>
+              </MenuItem>
             </div>
-          </MenuItem>
-          
-          {/* Add Circle to Canvas */}
-          <MenuItem>
-            <div
-              onClick={() => addShape("circle")}
-              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
-            >
-              ○ Circle
-            </div>
-          </MenuItem>
-          
-          {/* Add Triangle to Canvas */}
-          <MenuItem>
-            <div
-              onClick={() => addShape("triangle")}
-              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
-            >
-              △ Triangle
-            </div>
-          </MenuItem>
-        </div>
-      </MenuItems>
+          </MenuItems>
         </Menu>
 
         {/* Color Chooser */}
         <div className="p-2 cursor-pointer flex justify-center items-center hover:bg-gray-100 rounded-md h-10 w-10 relative">
           <div
             className="w-5 h-5 border-2 border-black rounded relative"
-            style={{backgroundColor: penColor}} // Apply selected pen color
+            style={{ backgroundColor: penColor }} // Apply selected pen color
           >
             <input
               type="color"
@@ -135,7 +135,10 @@ const Toolbox = ({
         </div>
 
         {/* Change Fill Colour */}
-        <div onClick={() => changeFillColor()} className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 cursor-pointer">
+        <div
+          onClick={() => changeFillColor()}
+          className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 cursor-pointer"
+        >
           <BeakerIconSolid className="w-6 h-6" color={penColor} />
         </div>
 
@@ -161,8 +164,6 @@ const Toolbox = ({
           <Icons IconComponent={ArrowUturnRightIcon} />
         </div>
 
-
-
         {/* AI Button */}
         <div onClick={handleAIClick} className="cursor-pointer">
           <Icons IconComponent={SparklesIcon} />
@@ -177,7 +178,6 @@ const Toolbox = ({
         <div onClick={() => setClearModal(true)} className="cursor-pointer">
           <Icons IconComponent={TrashIcon} />
         </div>
-
       </div>
     </div>
   );
@@ -185,7 +185,7 @@ const Toolbox = ({
 
 export default Toolbox;
 
-const Icons = ({IconComponent}) => {
+const Icons = ({ IconComponent }) => {
   return (
     <div className="h-10 w-10 hover:bg-gray-100 rounded-md p-2">
       <IconComponent className="w-6 h-6" />

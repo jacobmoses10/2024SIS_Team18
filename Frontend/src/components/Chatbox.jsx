@@ -1,8 +1,10 @@
-import React, {useState} from "react";
-import {PaperAirplaneIcon} from "@heroicons/react/24/outline";
+import React, { useState, useEffect, useRef } from "react";
+import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import AiIcon from "../assets/ai_icon.png";
 
-const Chatbox2 = ({messages, onSendMessage}) => {
+const Chatbox = ({ messages, onSendMessage }) => {
   const [input, setInput] = useState("");
+  const messagesEndRef = useRef(null);
 
   // Function to handle sending the message
   const handleSendMessage = () => {
@@ -11,16 +13,28 @@ const Chatbox2 = ({messages, onSendMessage}) => {
     setInput(""); // Clear the input field after sending
   };
 
+  // Scroll to the bottom of the chatbox whenever messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
-    <>
+    <div className="p-4">
       <div className="w-full max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="p-4 space-y-4">
+        <div className="w-full bg-white text-black h-10 flex items-center px-4 p-6">
+          <div className="flex items-center justify-center">
+            <img className="h-7 w-7" src={AiIcon} alt="" />
+            <h1 className="px-4 font-bold">InkWise AI</h1>
+          </div>
+        </div>
+
+        <div className="p-4 space-y-4 max-h-96 overflow-y-auto">
           {/* Display Messages */}
           <div className="space-y-2">
             {messages.map((message, index) => {
               const sender = message.sender.toLowerCase();
 
-              const displayName = sender === "user" ? "You" : "AI";
+              const displayName = sender === "user" ? "You" : "InkWise";
 
               return (
                 <div
@@ -37,6 +51,7 @@ const Chatbox2 = ({messages, onSendMessage}) => {
                 </div>
               );
             })}
+            <div ref={messagesEndRef} />
           </div>
         </div>
 
@@ -56,8 +71,8 @@ const Chatbox2 = ({messages, onSendMessage}) => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Chatbox2;
+export default Chatbox;
