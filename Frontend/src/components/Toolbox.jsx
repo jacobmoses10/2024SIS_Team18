@@ -3,7 +3,7 @@ import {
   PaintBrushIcon,
   ServerIcon,
   TrashIcon,
-  LightBulbIcon,
+  SparklesIcon,
   PlusIcon,
   CursorArrowRaysIcon,
   ArrowUturnLeftIcon,
@@ -38,7 +38,7 @@ const Toolbox = ({
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[750px] shadow-lg">
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[760px] shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons
@@ -161,6 +161,13 @@ const Toolbox = ({
           <Icons IconComponent={ArrowUturnRightIcon} />
         </div>
 
+
+
+        {/* AI Button */}
+        <div onClick={handleAIClick} className="cursor-pointer">
+          <Icons IconComponent={SparklesIcon} />
+        </div>
+
         {/* Download Board*/}
         <div onClick={() => downloadBoard()} className="cursor-pointer">
           <Icons IconComponent={ArrowDownTrayIcon} />
@@ -169,11 +176,6 @@ const Toolbox = ({
         {/* Clear the canvas */}
         <div onClick={() => setClearModal(true)} className="cursor-pointer">
           <Icons IconComponent={TrashIcon} />
-        </div>
-
-        {/* AI Button */}
-        <div onClick={handleAIClick} className="cursor-pointer">
-          <Icons IconComponent={LightBulbIcon} />
         </div>
 
       </div>
