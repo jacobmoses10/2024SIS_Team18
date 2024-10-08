@@ -31,8 +31,8 @@ const App = () => {
   const [fabricCanvas, setFabricCanvas] = useState(null);
   const [clearModal, setClearModal] = useState(false);
   const [clipboard, setClipboard] = useState(null);
-  const defaultBackgroundColor = "#e5e7eb"
-  
+  const defaultBackgroundColor = "#e5e7eb";
+
   // Toolbox States
   const [penWidth, setPenWidth] = useState(1);
   const [penColor, setPenColor] = useState("#000000");

@@ -13,6 +13,11 @@ const Chatbox = ({ messages, onSendMessage, topic, chatVisible, toggleChatVisibi
     setInput(""); // Clear the input field after sending
   };
 
+  // Scroll to the bottom of the chatbox whenever messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   const getBadgeStyle = (topic) => {
     let badgeColor = "blue";
     if (topic === "Chemistry") badgeColor = "green";
