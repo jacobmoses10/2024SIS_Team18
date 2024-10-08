@@ -20,6 +20,7 @@ import {signOutUser} from "./firebase/auth";
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Chatbox2 from "./components/Chatbox";
 
 const App = () => {
   // User Auth
@@ -54,10 +55,10 @@ const App = () => {
   const [penColor, setPenColor] = useState("#000000");
   const [tool, setTool] = useState("cursor");
   const [drawingMode, setDrawingMode] = useState(true);
-
+  
   // Chatbox messages state (to manage both user and AI messages)
   const [messages, setMessages] = useState([]);
-
+  
   // Selected Tool
   useEffect(() => {
     if (tool === "cursor") {
