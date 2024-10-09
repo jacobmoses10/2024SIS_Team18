@@ -192,6 +192,7 @@ const App = () => {
     }
   };
 
+  // Move initiation of model from here to instance of new whiteboard to preserve chat history and context
   // Handle AI click (this simulates the AI response and routes it to the chatbox)
   const handleAIClick = async (message) => {
     const prompt = (!(message === null) ? message : "give me a hint to solve this");
