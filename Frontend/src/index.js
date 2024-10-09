@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AuthProvider } from './components/AuthContext';  // Import AuthProvider
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
-    <ToastContainer />
+    <AuthProvider>
+      <App />
+      <ToastContainer />  {/* Toast container for notifications */}
+    </AuthProvider>
   </React.StrictMode>
 );
 
