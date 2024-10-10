@@ -1,13 +1,37 @@
 import React, {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {login} from "../firebase/auth";
+import {doSignInWithGoogle, login} from "../firebase/auth";
+import { useAuth } from "../Context/AuthContext";
 
 const Login = ({setUser}) => {
+  const { userLoggedIn } = useAuth(); //get to know about user logged in status
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const navigate = useNavigate(); // Add this line
+  const Navigate = useNavigate(); // Add this line
+  const [isSigningIn, setIsSigningIn] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
-  async function handleLogin() {
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    //check if sign in is true or not
+    if(!isSigningIn) {
+      setIsSigningIn(true)
+      await login(email, password);
+    }
+  }
+
+  const onGoogleSignIn = (e) => {
+    e.preventDefault()
+    if(!isSigningIn) {
+      setIsSigningIn(true)
+      doSignInWithGoogle().catch(err => {
+        setIsSigningIn(false)
+      })
+    }
+  }
+
+  /*async function handleLogin() {
     try {
       const userCredential = await login(email, password);
       setUser(userCredential.user);
@@ -16,10 +40,10 @@ const Login = ({setUser}) => {
       console.log(error);
       alert(error);
     }
-  }
-/*f3f4f6*/
+  }*/
   return (
     <div className="h-screen bg-[#f3f4f6] flex items-center justify-center ">
+      {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
       <div className='bg-white px-10 py-20 rounded-3xl border-2 border-gray-200'>
         {/* Header */}
         <h1 className="text-3xl font-bold mb-4">
@@ -62,7 +86,10 @@ const Login = ({setUser}) => {
               onClick={handleLogin}>
               <p>Login</p>
             </button>
-            <button className="flex py-3 border-2 border-gray-100 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all items-center justify-center gap-2">Sign in with Google</button>
+            <button className="flex py-3 border-2 border-gray-100 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all items-center justify-center gap-2"
+                    onClick={onGoogleSignIn}>
+              <p>Sign in with Google</p>
+            </button>
           </div>
             <p className="text-gray-500">
               Don't have an account?{" "}
