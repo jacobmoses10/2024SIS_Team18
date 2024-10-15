@@ -41,6 +41,14 @@ const App = () => {
   const [clipboard, setClipboard] = useState(null);
   const defaultBackgroundColor = "#e5e7eb"
 
+  // Start new AI context
+  const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_KEY;
+  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+    systemInstruction: "I want you to be an expert tutor on Maths up to an Australian Year 12 level, and I want you to guide my questions and working. Do not give me the answer unless what I have written is correct, instead assess my working and provide hints and explanations on what I should do instead. If \"Find x\" or a similar question is asked, do not give the answer, instead provide guidance on steps to follow, one by one. If values are provided, make sure they are substituted correctly. You should work like a tutor would guiding students to an answer rather than giving it to them directly. Provide one hint then stop and allow me to try again. If I fail at answering 3 times, provide a better hint. After 5 fails, give me the answer with working. Repeat this process until I get the correct answer or I move onto a new question. ",
+  });
+
   // Toolbox States
   const [penWidth, setPenWidth] = useState(1);
   const [penColor, setPenColor] = useState("#000000");
@@ -192,24 +200,70 @@ const App = () => {
     }
   };
 
-  // Move initiation of model from here to instance of new whiteboard to preserve chat history and context
+  // const newAiRequest = async (message) => {
+  //   const prompt = (!(message === null) ? message : "give me a hint to solve this");
+  //   const systemInstruction = "I want you to be an expert tutor on Maths up to an Australian Year 12 level, and I want you to guide my questions and working. Do not give me the answer unless what I have written is correct, instead assess my working and provide hints and explanations on what I should do instead. If \"Find x\" or a similar question is asked, do not give the answer, instead provide guidance on steps to follow, one by one. If values are provided, make sure they are substituted correctly. You should work like a tutor would guiding students to an answer rather than giving it to them directly. Provide one hint then stop and allow me to try again. If I fail at answering 3 times, provide a better hint. After 5 fails, give me the answer with working. Repeat this process until I get the correct answer or I move onto a new question. ";
+  //   const base64Image = fabricCanvas.toDataURL("image/png").split(",")[1];
+
+  //   const requestBody = {
+  //     contents: [
+  //       {
+  //         role: "model",
+  //         parts: [
+  //           {
+  //             text: systemInstruction,
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         role: "user",
+  //         parts: [
+  //           {
+  //             text: prompt,
+  //           },
+  //           {
+  //             inlineData: {
+  //               mimeType: "image/png",
+  //               data: base64Image,
+  //             }
+  //           }
+  //         ]
+  //       }
+  //     ]
+  //   };
+
+  //     // const result = await model.generateContent(requestBody);
+
+  //     // AI response
+  //     // const aiResponse = result.response.text();
+  //     // const result = await chatSession.sendMessage(requestBody);
+  //     // const aiResponse = result.response.text();
+
+  //   const aiResponse = '';
+  //     // Add request and response to chat history
+
+  //     try {
+  //       const result = await chatSession.sendMessage(requestBody);
+  
+  //       // AI response
+  //       const aiResponse = result.response.text();
+  
+  //       toast.success(aiResponse);
+  //     } catch (error) {
+  //       console.error("Error fetching AI response:", error);
+  //     }
+
+  //     return aiResponse;
+  // }
+
+  // Retrieve canvas image and send to AI model for response
   // Handle AI click (this simulates the AI response and routes it to the chatbox)
   const handleAIClick = async (message) => {
     const prompt = (!(message === null) ? message : "give me a hint to solve this");
-    const systemInstruction = "I want you to be an expert tutor on Maths up to an Australian Year 12 level, and I want you to guide my questions and working. Do not give me the answer unless what I have written is correct, instead assess my working and provide hints and explanations on what I should do instead. If \"Find x\" or a similar question is asked, do not give the answer, instead provide guidance on steps to follow, one by one. If values are provided, make sure they are substituted correctly. You should work like a tutor would guiding students to an answer rather than giving it to them directly. Provide one hint then stop and allow me to try again. If I fail at answering 3 times, provide a better hint. After 5 fails, give me the answer with working. Repeat this process until I get the correct answer or I move onto a new question. ";
     const base64Image = fabricCanvas.toDataURL("image/png").split(",")[1];
 
-    const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_KEY;
     const requestBody = {
       contents: [
-        {
-          role: "model",
-          parts: [
-            {
-              text: systemInstruction,
-            }
-          ]
-        },
         {
           role: "user",
           parts: [
@@ -228,8 +282,8 @@ const App = () => {
     };
 
     try {
-      const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      // const chatSession = model.startChat()
+      // const result = await chatSession.sendMessage(requestBody);
       const result = await model.generateContent(requestBody);
 
       // AI response
@@ -243,8 +297,7 @@ const App = () => {
     } catch (error) {
       console.error("Error fetching AI response:", error);
     }
-  };
-
+  }
   
         
 
