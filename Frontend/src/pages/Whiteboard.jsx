@@ -23,7 +23,8 @@ const Whiteboard = ({
   redo,
   setClearModal,
   downloadBoard,
-  handleAIClick
+  handleAIClick,
+  handleAISelection
 }) => {
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -95,6 +96,7 @@ const Whiteboard = ({
           undo={undo}
           redo={redo}
           handleAIClick={handleAIClick}
+          handleAISelection={handleAISelection}
         />
       </div>
     </div>
