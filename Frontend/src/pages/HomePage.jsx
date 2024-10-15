@@ -4,79 +4,76 @@ import {
   DeviceTabletIcon,
   ArrowDownTrayIcon,
 } from "@heroicons/react/24/outline";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
-    <div className="h-screen ">
-      <div className="bg-[#f3f4f6] h-[500px] flex items-center justify-center ">
+    <div className="min-h-screen flex flex-col">
+      <header className="bg-[#f3f4f6] h-[500px] flex items-center justify-center px-6 text-center">
         <div className="flex items-center flex-col">
-          <h1 className="font-bold text-[50px] p-3">
+          <h1 className="font-bold text-4xl md:text-5xl p-3">
             Create on the Whiteboard with AI
           </h1>
-          <p className="p-3 text-gray-500 font-bold">
-            An intuitive whiteboard for students, professionals to brainstorm,
-            note-take and draw.
+          <p className="p-3 text-gray-500 font-bold max-w-xl">
+            An intuitive whiteboard for students and professionals to brainstorm, take notes, and draw.
           </p>
           <div className="p-3">
             <Link to="/signup">
-              <li
-                className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black"
-                type="button">
+              <button className="flex items-center space-x-3 border p-2 px-6 rounded-md text-white bg-black hover:bg-gray-800 transition">
                 Get Started
-              </li>
+              </button>
             </Link>
           </div>
           <p className="text-gray-500">
-            Already have an account?{" "}
-            <span className="underline cursor-pointer text-blue-500">
-              <Link to="/login">Login in Here</Link>
-            </span>
+            Already have an account?{' '}
+            <Link to="/login" className="underline text-blue-500 hover:text-blue-700">
+              Login here
+            </Link>
           </p>
         </div>
-      </div>
+      </header>
 
-      <div className="flex items-center justify-center py-10">
-        <div className="p-10 flex items-center justify-center space-x-10">
+      <section className="flex flex-col items-center justify-center py-10 px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl w-full">
           <FeatureDescription
             Icon={SparklesIcon}
-            title={"Enhance with AI"}
-            desc={"Utilize AI to brainstorm and organize ideas."}
+            title="Enhance with AI"
+            desc="Utilize AI to brainstorm and organize ideas."
           />
           <FeatureDescription
             Icon={ArrowDownTrayIcon}
-            title={"Download"}
-            desc={"Download your whiteboard creations with ease."}
+            title="Download"
+            desc="Download your whiteboard creations with ease."
           />
           <FeatureDescription
             Icon={DeviceTabletIcon}
-            title={"Multi-Device"}
-            desc={"Access your whiteboard from any device."}
+            title="Multi-Device"
+            desc="Access your whiteboard from any device."
           />
         </div>
-      </div>
+      </section>
     </div>
   );
 };
 
 export default HomePage;
 
-const FeatureDescription = ({Icon, title, desc}) => {
+const FeatureDescription = ({ Icon, title, desc }) => {
   return (
-    <div className="flex items-center flex-col">
+    <div className="flex items-center flex-col text-center">
       <div className="p-3">
         <Icons IconComponent={Icon} />
       </div>
-      <h1 className="font-bold text-[28px] p-3">{title}</h1>
-      <p className=" mb-4 text-gray-500">{desc}</p>
+      <h2 className="font-bold text-2xl md:text-3xl p-3">{title}</h2>
+      <p className="text-gray-500 max-w-xs">{desc}</p>
     </div>
   );
 };
 
-const Icons = ({IconComponent}) => {
+const Icons = ({ IconComponent }) => {
   return (
-    <div className="h-10 w-10">
-      <IconComponent className="text-[50px]" />
+    <div className="h-12 w-12 text-black">
+      <IconComponent className="w-full h-full" />
     </div>
   );
 };

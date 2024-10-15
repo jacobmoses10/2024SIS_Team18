@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {login} from "../firebase/auth";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../firebase/auth";
 
-const Login = ({setUser}) => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const navigate = useNavigate(); // Add this line
+const Login = ({ setUser }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   async function handleLogin() {
     try {
@@ -17,60 +17,67 @@ const Login = ({setUser}) => {
       alert(error);
     }
   }
-/*f3f4f6*/
+
   return (
-    <div className="h-screen bg-[#f3f4f6] flex items-center justify-center ">
-      <div className='bg-white px-10 py-20 rounded-3xl border-2 border-gray-200'>
-        {/* Header */}
-        <h1 className="text-3xl font-bold mb-4">
-        Welcome back! Please enter your details
+    <div className="min-h-screen flex flex-col items-center justify-center py-10 px-6 bg-[#f3f4f6]">
+      <div className="bg-white rounded-md shadow-md max-w-lg w-full p-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">
+          Welcome Back! Please Enter Your Details
         </h1>
-        <div classname='mt-8'>
-          <div>
-            <label className='text-lg font-medium'>Email</label>
-            <input
-              className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
-              placeholder="Enter Your Email"
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </div>
-          <div>
-            <label className='text-lg font-medium'>Password</label>
-            <input
-              className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
-              placeholder="Enter Your Password"
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </div>
-          <div>
-            <div className='py-4'>
-              <input
-              type = "checkbox"
-              id = 'remember'
-              />
-              <label classname='ml-2 font-medium text-base'for="remember">Remember for 30 days</label>
-            </div>
-            <button className='font-medium text-base'>Forgot Password</button>
-          </div>
-          <div className="p-5  flex flex-col gap-y-4">
-            <button
-              className="active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all flex item-centre justify-center space-x-3 border p-2 px-6 rounded-md text-white bg-black cursor-pointer"
-              onClick={handleLogin}>
-              <p>Login</p>
-            </button>
-            <button className="flex py-3 border-2 border-gray-100 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all items-center justify-center gap-2">Sign in with Google</button>
-          </div>
-            <p className="text-gray-500">
-              Don't have an account?{" "}
-            <span className="underline">
-              <Link to="/signup">Sign Up Here</Link>
-            </span>
-            </p>
+        <div className="mb-6">
+          <label htmlFor="email" className="block text-lg text-gray-600 mb-2">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            className="w-full border rounded-md p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter Your Email"
+          />
         </div>
+        <div className="mb-6">
+          <label htmlFor="password" className="block text-lg text-gray-600 mb-2">
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            className="w-full border rounded-md p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter Your Password"
+          />
+        </div>
+        <div className="flex items-center mb-6">
+          <input
+            type="checkbox"
+            id="remember"
+            className="mr-2"
+          />
+          <label htmlFor="remember" className="text-gray-600 text-base">
+            Remember for 30 days
+          </label>
+        </div>
+        <button className="text-blue-500 hover:text-blue-700 font-medium mb-6">
+          Forgot Password?
+        </button>
+        <button
+          className="w-full bg-black text-white py-3 px-6 rounded-md mt-4 hover:bg-gray-800 transition"
+          onClick={handleLogin}
+        >
+          Login
+        </button>
+        <button className="w-full border-2 border-gray-100 text-gray-600 py-3 px-6 rounded-md mt-4 hover:bg-gray-100 transition flex items-center justify-center gap-2">
+          Sign in with Google
+        </button>
+        <p className="text-center text-gray-500 mt-6">
+          Don't have an account?{' '}
+          <Link to="/signup" className="underline text-blue-500 hover:text-blue-700">
+            Sign Up Here
+          </Link>
+        </p>
       </div>
     </div>
   );
