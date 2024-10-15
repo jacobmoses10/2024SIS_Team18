@@ -20,6 +20,10 @@ import {signOutUser} from "./firebase/auth";
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { collection, addDoc } from "firebase/firestore"; 
+import { db } from "./firebase/init"; 
+
+import SavedCanvases from "./pages/SavedCanvas"; 
 
 const App = () => {
   // User Auth
@@ -290,6 +294,32 @@ const App = () => {
   const undo = () => fabricCanvas.undo();
   const redo = () => fabricCanvas.redo();
 
+
+  const saveCanvasToFirestore = async () => {
+    if (!user) {
+      toast.error("You need to be logged in to save your canvas");
+      return;
+    }
+  
+    if (fabricCanvas) {
+      // Get the canvas as a base64 image string
+      const canvasImage = fabricCanvas.toDataURL("image/png");
+  
+      try {
+        // Add the image to Firestore under the authenticated user's document
+        await addDoc(collection(db, "userCanvases"), {
+          userId: user.uid, // Save the canvas with the user's unique ID
+          canvasImage: canvasImage,
+          createdAt: new Date(), // Add a timestamp
+        });
+  
+        toast.success("Canvas saved successfully!");
+      } catch (error) {
+        console.error("Error saving canvas:", error);
+      }
+    }
+  }
+
   return (
     <Router>
       <div>
@@ -325,6 +355,7 @@ const App = () => {
                     redo={redo}
                     setClearModal={setClearModal}
                     handleAIClick={() => handleAIClick(null)}
+                    saveCanvasToFirestore={saveCanvasToFirestore}
                   />
                   <div className="absolute bottom-0 right-0 z-50">
                     <Chatbox messages={messages} onSendMessage={handleSendMessage} />
@@ -335,6 +366,7 @@ const App = () => {
               )
             }
           />
+        <Route path="/saved-canvases" element={<SavedCanvases />} />
         </Routes>{" "}
         <ClearModal
           clearModal={clearModal}

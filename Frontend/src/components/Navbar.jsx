@@ -1,7 +1,7 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Navbar = ({user, logout}) => {
+const Navbar = ({ user, logout }) => {
   const handleLogout = async () => {
     try {
       await logout();
@@ -33,11 +33,18 @@ const Navbar = ({user, logout}) => {
                 </li>
               </Link>
               {user && (
-                <Link to="/whiteboard">
-                  <li className="px-6 font-bold hover:underline cursor-pointer">
-                    Whiteboard
-                  </li>
-                </Link>
+                <>
+                  <Link to="/whiteboard">
+                    <li className="px-6 font-bold hover:underline cursor-pointer">
+                      Whiteboard
+                    </li>
+                  </Link>
+                  <Link to="/saved-canvases">
+                    <li className="px-6 font-bold hover:underline cursor-pointer">
+                      My Canvases
+                    </li>
+                  </Link>
+                </>
               )}
             </ul>
           </div>
