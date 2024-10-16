@@ -33,7 +33,7 @@ const Toolbox = ({
   undo,
   redo,
   downloadBoard,
-  handleAIClick,
+  toggleChatVisibility,
   handleAISelection
 }) => {
   return (
@@ -167,18 +167,8 @@ const Toolbox = ({
         </div>
 
         {/* AI Button */}
-        <div onClick={handleAIClick} className="cursor-pointer">
+        <div onClick={toggleChatVisibility} className="cursor-pointer">
           <Icons IconComponent={SparklesIcon} />
-        </div>
-
-        {/* Download Board*/}
-        <div onClick={() => downloadBoard()} className="cursor-pointer">
-          <Icons IconComponent={ArrowDownTrayIcon} />
-        </div>
-
-        {/* Clear the canvas */}
-        <div onClick={() => setClearModal(true)} className="cursor-pointer">
-          <Icons IconComponent={TrashIcon} />
         </div>
 
         {/* Dropdown button for selecting which AI model is to be used for this session, will default to Math */}
@@ -235,8 +225,16 @@ const Toolbox = ({
             </div>
           </MenuItems>
         </Menu>
+        
+        {/* Download Board*/}
+        <div onClick={() => downloadBoard()} className="cursor-pointer">
+          <Icons IconComponent={ArrowDownTrayIcon} />
+        </div>
 
-
+        {/* Clear the canvas */}
+        <div onClick={() => setClearModal(true)} className="cursor-pointer">
+          <Icons IconComponent={TrashIcon} />
+        </div>
       </div>
     </div>
   );
