@@ -42,10 +42,7 @@ const App = () => {
   const [messages, setMessages] = useState([]);
   const [chatVisible, setChatVisible] = useState(false);
   const [prompt, setPrompt] = useState(prompts.math);
-
-  // Current AI Training model
-  var systemInstruction = "I want you to be an expert tutor on Maths up to an Australian Year 12 level, and I want you to guide my questions and working. Do not give me the answer unless what I have written is correct, instead assess my working and provide hints and explanations on what I should do instead. If \"Find x\" or a similar question is asked, do not give the answer, instead provide guidance on steps to follow, one by one. If values are provided, make sure they are substituted correctly. You should work like a tutor would guiding students to an answer rather than giving it to them directly. Provide one hint then stop and allow me to try again. Repeat this process until I get the correct answer or I move onto a new question."
-
+  
 
   // USER AUTHENTICATION:
   const [user, setUser] = useState(null);
