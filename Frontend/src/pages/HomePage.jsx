@@ -5,15 +5,17 @@ import {
   ArrowDownTrayIcon,
 } from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
+import mainLogo from "../assets/inkwise_logo.png";
 
 const HomePage = () => {
   return (
     <div className="h-screen ">
       <div className="bg-[#f3f4f6] h-[500px] flex items-center justify-center ">
         <div className="flex items-center flex-col">
-          <h1 className="font-bold text-[50px] p-3">
-            Create on the Whiteboard with AI
-          </h1>
+          <div className="flex items-center justify-center">
+            <img className="h-20 w-20" src={mainLogo} />
+            <h1 className="font-bold text-[50px] p-3">Welcome to Inkwise</h1>
+          </div>
           <p className="p-3 text-gray-500 font-bold">
             An intuitive whiteboard for students, professionals to brainstorm,
             note-take and draw.

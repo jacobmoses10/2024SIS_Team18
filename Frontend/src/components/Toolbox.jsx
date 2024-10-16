@@ -3,7 +3,7 @@ import {
   PaintBrushIcon,
   ServerIcon,
   TrashIcon,
-  LightBulbIcon,
+  SparklesIcon,
   PlusIcon,
   CursorArrowRaysIcon,
   ArrowUturnLeftIcon,
@@ -17,20 +17,20 @@ import {
   ArrowDownTrayIcon,
   CpuChipIcon,
 } from "@heroicons/react/24/solid";
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
-const Toolbox = ({ 
-  tool, 
-  setTool, 
-  changePenWidth, 
-  penWidth, 
+const Toolbox = ({
+  tool,
+  setTool,
+  changePenWidth,
+  penWidth,
   changePenColor,
-  changeFillColor, 
-  penColor, 
+  changeFillColor,
+  penColor,
   addText,
-  addShape, 
-  setClearModal, 
-  undo, 
+  addShape,
+  setClearModal,
+  undo,
   redo,
   downloadBoard,
   handleAIClick,
@@ -43,7 +43,9 @@ const Toolbox = ({
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons
             IconComponent={
-              tool === "cursor" ? CursorArrowRaysIconSolid : CursorArrowRaysIcon
+              tool === "cursor"
+                ? CursorArrowRaysIconSolid
+                : CursorArrowRaysIcon
             }
           />
         </div>
@@ -123,7 +125,7 @@ const Toolbox = ({
         <div className="p-2 cursor-pointer flex justify-center items-center hover:bg-gray-100 rounded-md h-10 w-10 relative">
           <div
             className="w-5 h-5 border-2 border-black rounded relative"
-            style={{backgroundColor: penColor}} // Apply selected pen color
+            style={{ backgroundColor: penColor }} // Apply selected pen color
           >
             <input
               type="color"
@@ -135,7 +137,10 @@ const Toolbox = ({
         </div>
 
         {/* Change Fill Colour */}
-        <div onClick={() => changeFillColor()} className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 cursor-pointer">
+        <div
+          onClick={() => changeFillColor()}
+          className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 cursor-pointer"
+        >
           <BeakerIconSolid className="w-6 h-6" color={penColor} />
         </div>
 
@@ -159,6 +164,11 @@ const Toolbox = ({
         {/* Redo last canvas change */}
         <div onClick={redo} className="cursor-pointer">
           <Icons IconComponent={ArrowUturnRightIcon} />
+        </div>
+
+        {/* AI Button */}
+        <div onClick={handleAIClick} className="cursor-pointer">
+          <Icons IconComponent={SparklesIcon} />
         </div>
 
         {/* Download Board*/}
@@ -226,10 +236,7 @@ const Toolbox = ({
           </MenuItems>
         </Menu>
 
-        {/* AI Button */}
-        <div onClick={handleAIClick} className="cursor-pointer">
-          <Icons IconComponent={LightBulbIcon} />
-        </div>
+
       </div>
     </div>
   );
@@ -237,7 +244,7 @@ const Toolbox = ({
 
 export default Toolbox;
 
-const Icons = ({IconComponent}) => {
+const Icons = ({ IconComponent }) => {
   return (
     <div className="h-10 w-10 hover:bg-gray-100 rounded-md p-2">
       <IconComponent className="w-6 h-6" />

@@ -1,5 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import mainLogo from'../assets/inkwise_logo.png';
+import mainLogo2 from'../assets/inkwise_logo2.png';
 
 const Navbar = ({user, logout}) => {
   const handleLogout = async () => {
@@ -16,7 +18,9 @@ const Navbar = ({user, logout}) => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold">
-              <Link to="/">WhiteBoard</Link>
+              <Link to="/">
+                <img className="h-10 w-full"  src={mainLogo2}/>
+              </Link>
             </h1>
           </div>
 
