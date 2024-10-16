@@ -1,4 +1,4 @@
-![INKWISE](https://cdn.discordapp.com/attachments/1294244090292207617/1294244447688720427/inkwise_logo2.png?ex=670eebd2&is=670d9a52&hm=a966e45af2ccf871e70f510a3f33dc1891a3e077395f1a1cf4ebf53ee7e7c4b3&)
+![INKWISE](https://github.com/jacobmoses10/2024SIS_Team18/blob/main/Frontend/src/assets/inkwise_logo2.png)
 
 Try it out here → [inkwise.vercel.app](https://inkwise.vercel.app/)
 
