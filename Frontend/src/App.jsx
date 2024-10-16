@@ -52,6 +52,8 @@ const App = () => {
 
   // State for Chat Visibility
   const [chatVisible, setChatVisible] = useState(false);
+  // Current AI Training model
+  var systemInstruction = "I want you to be an expert tutor on Maths up to an Australian Year 12 level, and I want you to guide my questions and working. Do not give me the answer unless what I have written is correct, instead assess my working and provide hints and explanations on what I should do instead. If \"Find x\" or a similar question is asked, do not give the answer, instead provide guidance on steps to follow, one by one. If values are provided, make sure they are substituted correctly. You should work like a tutor would guiding students to an answer rather than giving it to them directly. Provide one hint then stop and allow me to try again. Repeat this process until I get the correct answer or I move onto a new question."
 
   // Selected Tool
   useEffect(() => {
@@ -252,6 +254,32 @@ const App = () => {
       fabricCanvas.renderAll();
     }
   };
+  
+  
+  const handleAISelection = async (message) => {
+    // changes ai model to mathematics tutor if it is selected, also notifies user through a toast that the model was changed
+    if (message == "Mathematics") {
+      systemInstruction = "I want you to be an expert tutor on Maths up to an Australian Year 12 level, and I want you to guide my questions and working. Do not give me the answer unless what I have written is correct, instead assess my working and provide hints and explanations on what I should do instead. If \"Find x\" or a similar question is asked, do not give the answer, instead provide guidance on steps to follow, one by one. If values are provided, make sure they are substituted correctly. You should work like a tutor would guiding students to an answer rather than giving it to them directly. Provide one hint then stop and allow me to try again. Repeat this process until I get the correct answer or I move onto a new question.";
+      toast.success("AI model changed to a Mathematics Tutor")
+    }
+    // changes ai model to physics tutor if it is selected, also notifies user through a toast that the model was changed
+    else if (message == "Physics") {
+      systemInstruction = "I want you to be an expert tutor on Physics up to an Australian Year 12 level, and I want you to guide my understanding, problem-solving, and calculations. Do not give me the final answer unless my reasoning and calculations are correct. Instead, assess my approach and provide hints or explanations on where I might have gone wrong or misunderstood the concepts. For problem-solving questions involving forces, motion, energy, electricity, or any other physics topic, break the process down step by step, ensuring I apply the correct formulas, principles, and units. If I am asked to calculate a value, make sure that I understand how to rearrange the formulas, correctly substitute the values, and use the appropriate units throughout. Provide feedback on my thought process and guide me to fix any errors in my calculations or assumptions. If I make a mistake, give me one specific hint or suggestion on what I should reconsider, then allow me to try again. Continue providing feedback one step at a time until I reach the correct solution or decide to move on to a new question.";
+      toast.success("AI model changed to a Physics Tutor")
+    }
+    // changes ai model to Coding tutor if it is selected, also notifies user through a toast that the model was changed
+    else if (message == "Coding") {
+      systemInstruction = "I want you to be an expert tutor on coding/programming, and I want you to guide my questions and working. I am likely to provide psuedocode - if I do, focus more on the logic of what I want to achieve rather than the syntax or minutiae. Do not give me the answer or any code unless what I have written is correct, instead assess my working and provide hints and explanations on what I should do instead. You should work like a tutor would guiding students to an answer rather than giving it to them directly. Provide one hint at a time, then stop and allow me to try again. If I fail at answering 3 times, provide a better hint. After 5 fails, give me the answer with working. Repeat this process until I get the correct answer or I move onto a new question. ";
+      toast.success("AI model changed to a Coding Tutor")
+    }
+    // changes ai model to Chemistry tutor if it is selected, also notifies user through a toast that the model was changed
+    else if (message == "Chemistry") {
+      systemInstruction = "I want you to be an expert tutor on Chemistry up to an Australian Year 12 level, and I want you to guide my understanding and problem-solving. Do not provide the final answer unless my approach is correct. Instead, assess my reasoning and offer hints or explanations on how to correct any mistakes or misunderstandings. If asked to solve a chemical equation or calculate a value, break down the process step by step, and ensure I apply the correct concepts and units. Provide one hint at a time, allowing me to retry. Continue guiding me until I reach the correct solution or choose to move to a new question.";
+      toast.success("AI model changed to a Chemistry Tutor")
+    }
+
+  }
+
 
   // Copy Object to Clipboard.
   const copy = () => {
@@ -259,6 +287,60 @@ const App = () => {
       fabricCanvas.getActiveObject().clone(function (cloned) {
         setClipboard(cloned);
       });
+    }
+  }
+  // Handle AI click (this simulates the AI response and routes it to the chatbox)
+  const handleAIClick = async (message) => {
+    //Prompt that is send to Gemini
+    const prompt = (!(message === null) ? message : "give me a hint to solve this");
+    //Instructions to gemini that is being used to train the AI model to give answers that are relevant to the usecase of the whiteboard
+   //Converts the image (which is the whiteboard) to base64 so that it can be passed to gemini through the API
+    const base64Image = fabricCanvas.toDataURL("image/png").split(",")[1];
+    //Uses REACT .env to pull the API key for gemini, according to my research, this shouldn't be the best place to store secret keys.
+    const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_KEY;
+    const requestBody = {
+      contents: [
+        {
+          role: "model",
+          parts: [
+            {
+              text: systemInstruction,
+            }
+          ]
+        },
+        {
+          role: "user",
+          parts: [
+            {
+              text: prompt,
+            },
+            {
+              inlineData: {
+                mimeType: "image/png",
+                data: base64Image,
+              }
+            }
+          ]
+        }
+      ]
+    }
+    
+
+    try {
+      const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const result = await model.generateContent(requestBody);
+
+      // AI response
+      const aiResponse = result.response.text();
+      
+      // Add the AI message to chatbox
+      const botMessage = { text: aiResponse, sender: "bot" };
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
+
+      toast.success(aiResponse);
+    } catch (error) {
+      console.error("Error fetching AI response:", error);
     }
   };
 
@@ -335,6 +417,7 @@ const App = () => {
                     redo={redo}
                     setClearModal={setClearModal}
                     handleAIClick={toggleChatVisibility} // Updated prop
+                    handleAISelection={handleAISelection}
                   />
                   {chatVisible && (
                     <div className="absolute bottom-0 right-0 z-50">
@@ -360,4 +443,5 @@ const App = () => {
     </Router>
   );
 };
+
 export default App;

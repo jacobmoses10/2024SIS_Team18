@@ -15,6 +15,7 @@ import {
   CursorArrowRaysIcon as CursorArrowRaysIconSolid,
   BeakerIcon as BeakerIconSolid,
   ArrowDownTrayIcon,
+  CpuChipIcon,
 } from "@heroicons/react/24/solid";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
@@ -33,10 +34,11 @@ const Toolbox = ({
   redo,
   downloadBoard,
   handleAIClick,
+  handleAISelection
 }) => {
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-[760px] shadow-lg">
+      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-full max-w-[800px] shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons
@@ -78,14 +80,14 @@ const Toolbox = ({
             <div className="py-1">
               {/* Add Text Element to Canvas */}
               <MenuItem>
-                <div
+                <div 
                   onClick={() => addText()}
                   className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
                 >
                   Text
-                </div>
+                </div> 
               </MenuItem>
-
+              
               {/* Add Square to Canvas */}
               <MenuItem>
                 <div
@@ -95,7 +97,7 @@ const Toolbox = ({
                   □ Square
                 </div>
               </MenuItem>
-
+              
               {/* Add Circle to Canvas */}
               <MenuItem>
                 <div
@@ -105,7 +107,7 @@ const Toolbox = ({
                   ○ Circle
                 </div>
               </MenuItem>
-
+              
               {/* Add Triangle to Canvas */}
               <MenuItem>
                 <div
@@ -178,6 +180,63 @@ const Toolbox = ({
         <div onClick={() => setClearModal(true)} className="cursor-pointer">
           <Icons IconComponent={TrashIcon} />
         </div>
+
+        {/* Dropdown button for selecting which AI model is to be used for this session, will default to Math */}
+        <Menu as="div" className="relative inline-block text-left">
+          <div>
+            <MenuButton className="mt-1">
+              <Icons IconComponent={CpuChipIcon} />
+            </MenuButton>
+          </div>
+          <MenuItems
+            transition
+            className="absolute z-10 mt-3 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+          >
+            <div className="py-1">
+              {/* Mathematics AI Selection */}
+              <MenuItem>
+              <div
+                  onClick={() => handleAISelection("Mathematics")}
+                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
+                >
+                  Mathematics
+                </div>
+              </MenuItem>
+              
+              {/* Physics AI Selection */}
+              <MenuItem>
+                <div
+                  onClick={() => handleAISelection("Physics")}
+                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
+                >
+                  Physics
+                </div>
+              </MenuItem>
+
+                  {/* Coding AI Selection */}
+                  <MenuItem>
+                <div
+                  onClick={() => handleAISelection("Coding")}
+                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
+                >
+                  Coding
+                </div>
+              </MenuItem>
+              
+              {/* Chemistry AI Selection */}
+              <MenuItem>
+                <div
+                  onClick={() => handleAISelection("Chemistry")}
+                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
+                >
+                  Chemistry
+                </div>
+              </MenuItem>
+            </div>
+          </MenuItems>
+        </Menu>
+
+
       </div>
     </div>
   );
