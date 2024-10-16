@@ -242,10 +242,15 @@ const Toolbox = ({
             </div>
           </MenuItems>
         </Menu>
+        
+        {/* Download Board*/}
+        <div onClick={() => downloadBoard()} className="cursor-pointer">
+          <Icons IconComponent={ArrowDownTrayIcon} />
+        </div>
 
-        {/* AI Button */}
-        <div onClick={handleAIClick} className="cursor-pointer">
-          <Icons IconComponent={LightBulbIcon} />
+        {/* Clear the canvas */}
+        <div onClick={() => setClearModal(true)} className="cursor-pointer">
+          <Icons IconComponent={TrashIcon} />
         </div>
       </div>
     </div>
