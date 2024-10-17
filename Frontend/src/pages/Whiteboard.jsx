@@ -21,9 +21,9 @@ const Whiteboard = ({
   undo,
   redo,
   setClearModal,
+  setBotModal,
   downloadBoard,
-  toggleChatVisibility,
-  handleAISelection
+  toggleChatVisibility
 }) => {
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -92,10 +92,10 @@ const Whiteboard = ({
           addText={addText}
           addShape={addShape}
           setClearModal={setClearModal}
+          setBotModal={setBotModal}
           undo={undo}
           redo={redo}
           toggleChatVisibility={toggleChatVisibility}
-          handleAISelection={handleAISelection}
         />
       </div>
     </div>

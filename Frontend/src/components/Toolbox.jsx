@@ -30,11 +30,11 @@ const Toolbox = ({
   addText,
   addShape,
   setClearModal,
+  setBotModal,
   undo,
   redo,
   downloadBoard,
-  toggleChatVisibility,
-  handleAISelection
+  toggleChatVisibility
 }) => {
   return (
     <div>
@@ -171,60 +171,10 @@ const Toolbox = ({
           <Icons IconComponent={SparklesIcon} />
         </div>
 
-        {/* Dropdown button for selecting which AI model is to be used for this session, will default to Math */}
-        <Menu as="div" className="relative inline-block text-left">
-          <div>
-            <MenuButton className="mt-1">
-              <Icons IconComponent={CpuChipIcon} />
-            </MenuButton>
-          </div>
-          <MenuItems
-            transition
-            className="absolute z-10 mt-3 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-          >
-            <div className="py-1">
-              {/* Mathematics AI Selection */}
-              <MenuItem>
-              <div
-                  onClick={() => handleAISelection("Mathematics")}
-                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
-                >
-                  Mathematics
-                </div>
-              </MenuItem>
-              
-              {/* Physics AI Selection */}
-              <MenuItem>
-                <div
-                  onClick={() => handleAISelection("Physics")}
-                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
-                >
-                  Physics
-                </div>
-              </MenuItem>
-
-                  {/* Coding AI Selection */}
-                  <MenuItem>
-                <div
-                  onClick={() => handleAISelection("Coding")}
-                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
-                >
-                  Coding
-                </div>
-              </MenuItem>
-              
-              {/* Chemistry AI Selection */}
-              <MenuItem>
-                <div
-                  onClick={() => handleAISelection("Chemistry")}
-                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
-                >
-                  Chemistry
-                </div>
-              </MenuItem>
-            </div>
-          </MenuItems>
-        </Menu>
+        {/* Select AI Model */}
+        <div onClick={() => setBotModal(true)} className="cursor-pointer">
+          <Icons IconComponent={CpuChipIcon} />
+        </div>
         
         {/* Download Board*/}
         <div onClick={() => downloadBoard()} className="cursor-pointer">

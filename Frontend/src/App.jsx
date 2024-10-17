@@ -8,6 +8,7 @@ import {
 import Navbar from "./components/Navbar";
 import Whiteboard from "./pages/Whiteboard";
 import ClearModal from "./components/ClearModal";
+import BotModal from "./components/BotModal";
 import Chatbox from "./components/Chatbox";
 import prompts from "./assets/prompts.json";
 import { fabric } from "fabric";
@@ -42,6 +43,7 @@ const App = () => {
   const [messages, setMessages] = useState([]);
   const [chatVisible, setChatVisible] = useState(false);
   const [prompt, setPrompt] = useState({"topic": "Mathematics", "instruction": prompts.math});
+  const [botModal, setBotModal] = useState(false);
   
 
   // USER AUTHENTICATION:
@@ -346,8 +348,8 @@ const App = () => {
                     undo={undo}
                     redo={redo}
                     setClearModal={setClearModal}
+                    setBotModal={setBotModal}
                     toggleChatVisibility={toggleChatVisibility} // Updated prop
-                    handleAISelection={handleAISelection}
                   />
                   {chatVisible && (
                     <div className="absolute bottom-0 right-0 z-50">
@@ -355,6 +357,7 @@ const App = () => {
                         messages={messages}
                         onSendMessage={handleSendMessage}
                         topic={prompt.topic}
+                        setBotModal={setBotModal}
                       />
                     </div>
                   )}
@@ -369,6 +372,12 @@ const App = () => {
           clearModal={clearModal}
           setClearModal={setClearModal}
           clearCanvas={clearCanvas}
+        />
+        <BotModal
+          botModal={botModal}
+          setBotModal={setBotModal}
+          handleAISelection={handleAISelection}
+          topic={prompt.topic}
         />
       </div>
     </Router>
