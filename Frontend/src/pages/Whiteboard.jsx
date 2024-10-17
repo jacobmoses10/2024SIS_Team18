@@ -27,13 +27,12 @@ const Whiteboard = ({
 }) => {
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
-      backgroundColor: "#e5e7eb",
-      width: window.innerWidth,
-      height: window.innerHeight,
+      backgroundColor: "white",
+      width: 1800,
+      height: 850,
       isDrawingMode: true,
     });
     setFabricCanvas(canvas);
-
     return () => {
       canvas.dispose();
     };
@@ -77,7 +76,7 @@ const Whiteboard = ({
       className="relative w-full h-screen rounded-md"
       onKeyDown={(e) => handleKeyDown(e)}
       tabIndex={0}>
-      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full" />
+      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full shadow-lg m-5" />
            
       <div className="absolute top-4 left-4 bg-white rounded-md z-10 shadow-lg">
         <Toolbox

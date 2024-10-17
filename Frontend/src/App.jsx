@@ -31,7 +31,7 @@ const App = () => {
   const [fabricCanvas, setFabricCanvas] = useState(null);
   const [clearModal, setClearModal] = useState(false);
   const [clipboard, setClipboard] = useState(null);
-  const defaultBackgroundColor = "#e5e7eb"
+  const defaultBackgroundColor = "white"
 
   // Start new AI context
   const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_KEY;
@@ -383,7 +383,7 @@ const App = () => {
             path="/whiteboard"
             element={
               user ? (
-                <div>
+                <div className="bg-gray-200">
                   <Whiteboard
                     downloadBoard={downloadBoard}
                     canvasRef={canvasRef}
