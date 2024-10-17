@@ -34,11 +34,13 @@ const Toolbox = ({
   undo,
   redo,
   downloadBoard,
-  toggleChatVisibility
+  toggleChatVisibility,
+  sliderVisible,
+  setSliderVisible
 }) => {
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-full max-w-[800px] shadow-lg">
+      <div className="items-center bg-white p-2 rounded-md shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons
@@ -63,6 +65,25 @@ const Toolbox = ({
         <div onClick={() => setTool("eraser")} className="cursor-pointer">
           <Icons
             IconComponent={tool === "eraser" ? ServerIconSolid : ServerIcon}
+          />
+        </div>
+
+        {/* Pen Width */}
+        <div
+          onClick={() => setSliderVisible(!sliderVisible)}
+          className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 text-center cursor-pointer"
+        >
+          {penWidth}
+        </div>
+
+        <div className="w-0 h-0" hidden={!sliderVisible}>
+          <input
+            type="range"
+            onChange={(event) => changePenWidth(event.target.value)}
+            value={penWidth}
+            min="1"
+            max="50"
+            className="appearance-none bg-gray-200 -rotate-90 rounded-lg cursor-pointer"
           />
         </div>
 
@@ -142,18 +163,6 @@ const Toolbox = ({
           className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 cursor-pointer"
         >
           <BeakerIconSolid className="w-6 h-6" color={penColor} />
-        </div>
-
-        {/* Pen Width */}
-        <div className="w-full flex">
-          <input
-            type="range"
-            onChange={(event) => changePenWidth(event.target.value)}
-            value={penWidth}
-            min="1"
-            max="30"
-            className="w-[100px] appearance-none h-2 bg-gray-200 rounded-lg cursor-pointer"
-          />
         </div>
 
         {/* Undo last canvas change */}
