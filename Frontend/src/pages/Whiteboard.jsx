@@ -23,7 +23,9 @@ const Whiteboard = ({
   setClearModal,
   setBotModal,
   downloadBoard,
-  toggleChatVisibility
+  toggleChatVisibility,
+  sliderVisible,
+  setSliderVisible
 }) => {
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -95,6 +97,8 @@ const Whiteboard = ({
           undo={undo}
           redo={redo}
           toggleChatVisibility={toggleChatVisibility}
+          sliderVisible={sliderVisible}
+          setSliderVisible={setSliderVisible}
         />
       </div>
     </div>

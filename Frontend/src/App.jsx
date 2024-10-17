@@ -46,6 +46,7 @@ const App = () => {
   const [penColor, setPenColor] = useState("#000000");
   const [tool, setTool] = useState("cursor");
   const [drawingMode, setDrawingMode] = useState(true);
+  const [sliderVisible, setSliderVisible] = useState(false);
 
   // Chatbox States
   const [messages, setMessages] = useState([]);
@@ -406,6 +407,8 @@ const App = () => {
                     setClearModal={setClearModal}
                     setBotModal={setBotModal}
                     toggleChatVisibility={toggleChatVisibility} // Updated prop
+                    sliderVisible={sliderVisible}
+                    setSliderVisible={setSliderVisible}
                   />
                   {chatVisible && (
                     <div className="absolute bottom-0 right-0 z-50">
