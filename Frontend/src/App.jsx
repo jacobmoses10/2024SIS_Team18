@@ -41,7 +41,7 @@ const App = () => {
   // Chatbox States
   const [messages, setMessages] = useState([]);
   const [chatVisible, setChatVisible] = useState(false);
-  const [prompt, setPrompt] = useState(prompts.math);
+  const [prompt, setPrompt] = useState({"topic": "Mathematics", "instruction": prompts.math});
   
 
   // USER AUTHENTICATION:
@@ -252,7 +252,7 @@ const App = () => {
           role: "model",
           parts: [
             {
-              text: prompt,
+              text: prompt.instruction,
             },
           ],
         },
@@ -293,10 +293,10 @@ const App = () => {
 
   // Changes AI model based on user selection.
   const handleAISelection = async (topic) => {
-    if (topic === "Mathematics") setPrompt(prompts.math);
-    if (topic === "Physics") setPrompt(prompts.physics);
-    if (topic === "Chemistry") setPrompt(prompts.chemistry);
-    if (topic === "Coding") setPrompt(prompts.coding);
+    if (topic === "Mathematics") setPrompt({"topic": topic, "instruction": prompts.math});
+    if (topic === "Physics") setPrompt({"topic": topic, "instruction": prompts.physics});
+    if (topic === "Chemistry") setPrompt({"topic": topic, "instruction": prompts.chemistry});
+    if (topic === "Coding") setPrompt({"topic": topic, "instruction": prompts.coding});
     toast.success(`AI model changed to a ${topic} Tutor`);
   }
 
@@ -354,6 +354,7 @@ const App = () => {
                       <Chatbox
                         messages={messages}
                         onSendMessage={handleSendMessage}
+                        topic={prompt.topic}
                       />
                     </div>
                   )}

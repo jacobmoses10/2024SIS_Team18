@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import AiIcon from "../assets/ai_icon.png";
 
-const Chatbox = ({ messages, onSendMessage }) => {
+const Chatbox = ({ messages, onSendMessage, topic }) => {
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
 
@@ -13,6 +13,14 @@ const Chatbox = ({ messages, onSendMessage }) => {
     setInput(""); // Clear the input field after sending
   };
 
+  const getBadgeStyle = (topic) => {
+    let badgeColor = "blue";
+    if (topic === "Chemistry") badgeColor = "green";
+    if (topic === "Physics") badgeColor = "red";
+    if (topic === "Coding") badgeColor = "yellow";
+    return `bg-${badgeColor}-100 text-${badgeColor}-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
+  }
+
   // Scroll to the bottom of the chatbox whenever messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -22,9 +30,10 @@ const Chatbox = ({ messages, onSendMessage }) => {
     <div className="p-4">
       <div className="w-full max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="w-full bg-white text-black h-10 flex items-center px-4 p-6">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center">
             <img className="h-7 w-7" src={AiIcon} alt="" />
             <h1 className="px-4 font-bold">InkWise AI</h1>
+            <span className={getBadgeStyle(topic)}>{topic}</span>
           </div>
         </div>
 
