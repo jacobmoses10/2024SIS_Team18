@@ -287,7 +287,7 @@ const App = () => {
       const botMessage = { text: aiResponse, sender: "bot" };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
 
-      toast.success(aiResponse); // This the notifications of the AI
+      if (!chatVisible) toast.success(aiResponse); // This the notifications of the AI
     } catch (error) {
       console.error("Error fetching AI response:", error);
     }
@@ -299,7 +299,7 @@ const App = () => {
     if (topic === "Physics") setPrompt({"topic": topic, "instruction": prompts.physics});
     if (topic === "Chemistry") setPrompt({"topic": topic, "instruction": prompts.chemistry});
     if (topic === "Coding") setPrompt({"topic": topic, "instruction": prompts.coding});
-    toast.success(`AI model changed to a ${topic} Tutor`);
+    if (!chatVisible) toast.success(`AI model changed to a ${topic} Tutor`);
   }
 
   // Function to handle user message submission
