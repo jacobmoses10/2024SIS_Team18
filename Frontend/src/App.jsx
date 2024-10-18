@@ -8,6 +8,7 @@ import {
 import Navbar from "./components/Navbar";
 import Whiteboard from "./pages/Whiteboard";
 import ClearModal from "./components/ClearModal";
+import BotModal from "./components/BotModal";
 import Chatbox from "./components/Chatbox";
 import prompts from "./assets/prompts.json";
 import { fabric } from "fabric";
@@ -30,18 +31,20 @@ const App = () => {
   const [fabricCanvas, setFabricCanvas] = useState(null);
   const [clearModal, setClearModal] = useState(false);
   const [clipboard, setClipboard] = useState(null);
-  const defaultBackgroundColor = "#e5e7eb";
+  const defaultBackgroundColor = "white";
 
   // Toolbox States
   const [penWidth, setPenWidth] = useState(1);
   const [penColor, setPenColor] = useState("#000000");
   const [tool, setTool] = useState("cursor");
   const [drawingMode, setDrawingMode] = useState(true);
+  const [sliderVisible, setSliderVisible] = useState(false);
 
   // Chatbox States
   const [messages, setMessages] = useState([]);
   const [chatVisible, setChatVisible] = useState(false);
-  const [prompt, setPrompt] = useState(prompts.math);
+  const [prompt, setPrompt] = useState({"topic": "Mathematics", "instruction": prompts.math});
+  const [botModal, setBotModal] = useState(false);
   
 
   // USER AUTHENTICATION:
@@ -62,8 +65,11 @@ const App = () => {
     if (tool === "cursor") {
       setPenColor(penColor === defaultBackgroundColor ? "#000000" : penColor);
       setDrawingMode(false);
-    } else if (tool === "pencil" || tool === "eraser") {
-      setPenColor(tool === "eraser" ? defaultBackgroundColor : penColor);
+    } else if (tool === "pencil") {
+      setPenColor(penColor === defaultBackgroundColor ? "#000000" : penColor);
+      setDrawingMode(true);
+    } else if (tool === "eraser") {
+      setPenColor(defaultBackgroundColor);
       setDrawingMode(true);
     }
   }, [tool, penColor, defaultBackgroundColor]);
@@ -252,7 +258,7 @@ const App = () => {
           role: "model",
           parts: [
             {
-              text: prompt,
+              text: prompt.instruction,
             },
           ],
         },
@@ -285,19 +291,19 @@ const App = () => {
       const botMessage = { text: aiResponse, sender: "bot" };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
 
-      toast.success(aiResponse); // This the notifications of the AI
+      if (!chatVisible) toast.success(aiResponse); // This the notifications of the AI
     } catch (error) {
       console.error("Error fetching AI response:", error);
     }
   };
 
   // Changes AI model based on user selection.
-  const handleAISelection = async (topic) => {
-    if (topic === "Mathematics") setPrompt(prompts.math);
-    if (topic === "Physics") setPrompt(prompts.physics);
-    if (topic === "Chemistry") setPrompt(prompts.chemistry);
-    if (topic === "Coding") setPrompt(prompts.coding);
-    toast.success(`AI model changed to a ${topic} Tutor`);
+  const handleAISelection = (topic) => {
+    if (topic === "Mathematics") setPrompt({"topic": topic, "instruction": prompts.math});
+    if (topic === "Physics") setPrompt({"topic": topic, "instruction": prompts.physics});
+    if (topic === "Chemistry") setPrompt({"topic": topic, "instruction": prompts.chemistry});
+    if (topic === "Coding") setPrompt({"topic": topic, "instruction": prompts.coding});
+    if (!chatVisible) toast.success(`AI model changed to ${topic}`);
   }
 
   // Function to handle user message submission
@@ -346,17 +352,20 @@ const App = () => {
                     undo={undo}
                     redo={redo}
                     setClearModal={setClearModal}
-                    toggleChatVisibility={toggleChatVisibility} // Updated prop
-                    handleAISelection={handleAISelection}
+                    setBotModal={setBotModal}
+                    sliderVisible={sliderVisible}
+                    setSliderVisible={setSliderVisible}
                   />
-                  {chatVisible && (
-                    <div className="absolute bottom-0 right-0 z-50">
+                    <div className="fixed bottom-0 right-0" >
                       <Chatbox
                         messages={messages}
                         onSendMessage={handleSendMessage}
+                        topic={prompt.topic}
+                        setBotModal={setBotModal}
+                        chatVisible={chatVisible}
+                        toggleChatVisibility={toggleChatVisibility}
                       />
                     </div>
-                  )}
                 </div>
               ) : (
                 <Navigate replace to="/login" />
@@ -364,10 +373,16 @@ const App = () => {
             }
           />
         </Routes>
-        <ClearModal
+        <ClearModal className="bg-black"
           clearModal={clearModal}
           setClearModal={setClearModal}
           clearCanvas={clearCanvas}
+        />
+        <BotModal className="bg-black"
+          botModal={botModal}
+          setBotModal={setBotModal}
+          handleAISelection={handleAISelection}
+          topic={prompt.topic}
         />
       </div>
     </Router>
