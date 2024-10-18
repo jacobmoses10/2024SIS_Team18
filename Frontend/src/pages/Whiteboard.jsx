@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Toolbox from "../components/Toolbox";
 import { fabric } from "fabric";
-import GridOverlay from '../components/Gridoverlay';
 
 const Whiteboard = ({ 
   canvasRef, 
@@ -23,7 +22,7 @@ const Whiteboard = ({
   redo,
   setClearModal,
   downloadBoard,
-  handleAIClick,
+  toggleChatVisibility,
   handleAISelection
 }) => {
   useEffect(() => {
@@ -95,7 +94,7 @@ const Whiteboard = ({
           setClearModal={setClearModal}
           undo={undo}
           redo={redo}
-          handleAIClick={handleAIClick}
+          toggleChatVisibility={toggleChatVisibility}
           handleAISelection={handleAISelection}
         />
       </div>
