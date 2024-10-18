@@ -23,15 +23,14 @@ const Whiteboard = ({
   setClearModal,
   setBotModal,
   downloadBoard,
-  toggleChatVisibility,
   sliderVisible,
   setSliderVisible
 }) => {
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: "white",
-      width: 1800,
-      height: 850,
+      width: 1600,
+      height: 800,
       isDrawingMode: true,
     });
     setFabricCanvas(canvas);
@@ -75,12 +74,12 @@ const Whiteboard = ({
 
   return (
     <div
-      className="relative w-full h-screen rounded-md"
+      className="flex justify-center bg-slate-200 h-screen w-screen"
       onKeyDown={(e) => handleKeyDown(e)}
       tabIndex={0}>
-      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full shadow-lg m-5" />
+      <canvas ref={canvasRef} className="fixed shadow-lg m-5" />
            
-      <div className="absolute top-4 left-4 bg-white rounded-md z-10 shadow-lg">
+      <div className="fixed top-20 left-4 bg-fixed rounded-md z-10 shadow-lg">
         <Toolbox
           downloadBoard={downloadBoard}
           tool={tool}
@@ -96,7 +95,6 @@ const Whiteboard = ({
           setBotModal={setBotModal}
           undo={undo}
           redo={redo}
-          toggleChatVisibility={toggleChatVisibility}
           sliderVisible={sliderVisible}
           setSliderVisible={setSliderVisible}
         />
