@@ -4,7 +4,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import {SparklesIcon} from "@heroicons/react/24/outline";
+import {CpuChipIcon} from "@heroicons/react/24/outline";
 
 const BotModal = ({ botModal, setBotModal, handleAISelection, topic }) => {
   
@@ -32,7 +32,7 @@ const BotModal = ({ botModal, setBotModal, handleAISelection, topic }) => {
               <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                   <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <SparklesIcon
+                    <CpuChipIcon
                       aria-hidden="true"
                       className="h-6 w-6 text-blue-600"
                     />

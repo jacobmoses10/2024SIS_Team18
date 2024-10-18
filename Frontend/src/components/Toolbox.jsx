@@ -3,7 +3,6 @@ import {
   PaintBrushIcon,
   ServerIcon,
   TrashIcon,
-  SparklesIcon,
   PlusIcon,
   CursorArrowRaysIcon,
   ArrowUturnLeftIcon,
@@ -34,7 +33,6 @@ const Toolbox = ({
   undo,
   redo,
   downloadBoard,
-  toggleChatVisibility,
   sliderVisible,
   setSliderVisible
 }) => {
@@ -73,7 +71,7 @@ const Toolbox = ({
           onClick={() => setSliderVisible(!sliderVisible)}
           className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 text-center cursor-pointer"
         >
-          {penWidth}
+          <b>{penWidth}</b>
         </div>
 
         <div className="w-0 h-0" hidden={!sliderVisible}>
@@ -83,7 +81,7 @@ const Toolbox = ({
             value={penWidth}
             min="1"
             max="50"
-            className="appearance-none bg-gray-200 -rotate-90 rounded-lg cursor-pointer"
+            className="appearance-none bg-gray-300 -rotate-90 rounded-lg cursor-pointer"
           />
         </div>
 
@@ -173,11 +171,6 @@ const Toolbox = ({
         {/* Redo last canvas change */}
         <div onClick={redo} className="cursor-pointer">
           <Icons IconComponent={ArrowUturnRightIcon} />
-        </div>
-
-        {/* AI Button */}
-        <div onClick={toggleChatVisibility} className="cursor-pointer">
-          <Icons IconComponent={SparklesIcon} />
         </div>
 
         {/* Select AI Model */}
