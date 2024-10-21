@@ -60,8 +60,7 @@ const Whiteboard = ({
     return () => {
       canvas.dispose();
       // Cleanup event listener
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      canvasRef.current.removeEventListener("pointerdown", handlePointerDown);
+      // canvasRef.removeEventListener("pointerdown", handlePointerDown); // Causing runtime error
     };
   }, [canvasRef, setFabricCanvas]);
 

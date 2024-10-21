@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {auth, db} from "../firebase/init";
-import {useAuthState} from "react-firebase-hooks/auth";
+import React, { useEffect, useState } from "react";
+import { auth, db } from "../firebase/init";
+import { useAuthState } from "react-firebase-hooks/auth";
 import {
   collection,
   query,
@@ -9,9 +9,9 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import mainLogo from "../assets/inkwise_logo.png";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 const UserWhiteboards = () => {
   const [whiteboards, setWhiteboards] = useState([]);

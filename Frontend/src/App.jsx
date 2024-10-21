@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,15 +12,15 @@ import ClearModal from "./components/ClearModal";
 import BotModal from "./components/BotModal";
 import Chatbox from "./components/Chatbox";
 import prompts from "./assets/prompts.json";
-import {fabric} from "fabric";
+import { fabric } from "fabric";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import HomePage from "./pages/HomePage";
 import About from "./pages/About";
-import {auth} from "./firebase/init";
-import {signOutUser} from "./firebase/auth";
-import {GoogleGenerativeAI} from "@google/generative-ai";
-import {toast} from "react-toastify";
+import { auth } from "./firebase/init";
+import { signOutUser } from "./firebase/auth";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "fabric-history";
 import UserCanvases from "./pages/UserWhiteboards";
@@ -31,7 +31,7 @@ import {
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
-import {db} from "./firebase/init";
+import { db } from "./firebase/init";
 
 const App = () => {
   // STATE MANAGEMENT:
