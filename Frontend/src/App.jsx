@@ -22,6 +22,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "fabric-history";
+import UserCanvases from "./pages/UserWhiteboards";
 
 
 const App = () => {
@@ -327,6 +328,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
+          <Route path="/usercanvases" element={<UserCanvases/>} />
           <Route
             path="/whiteboard"
             element={
