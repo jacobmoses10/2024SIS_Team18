@@ -2,6 +2,9 @@ import React, {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {login} from "../firebase/auth";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'; 
+
 const Login = ({setUser}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -22,7 +25,7 @@ const Login = ({setUser}) => {
     <div className="h-screen bg-[#f3f4f6] flex items-center justify-center ">
       <div className='bg-white px-10 py-20 rounded-3xl border-2 border-gray-200'>
         {/* Header */}
-        <h1 className="text-3xl font-bold mb-4">
+        <h1 className="text-3xl font-bold mb-10">
         Welcome back! Please enter your details
         </h1>
         <div className='mt-8'>
@@ -49,6 +52,7 @@ const Login = ({setUser}) => {
               <input
               type = "checkbox"
               id = 'remember'
+              className="mr-2"
               />
               <label className='ml-2 font-medium text-base' htmlFor="remember">Remember for 30 days</label>
             </div>
@@ -60,11 +64,13 @@ const Login = ({setUser}) => {
               onClick={handleLogin}>
               <p>Login</p>
             </button>
-            <button className="flex py-3 border-2 border-gray-100 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all items-center justify-center gap-2">Sign in with Google</button>
+            <button className="flex py-3 border-2 border-gray-100 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all items-center justify-center gap-2">
+            <FontAwesomeIcon icon={faGoogle} /> {/* Google icon */}
+            <span>Sign in with Google</span></button>
           </div>
             <p className="text-gray-500">
               Don't have an account?{" "}
-            <span className="underline">
+            <span className="underline text-blue-500">
               <Link to="/signup">Sign Up Here</Link>
             </span>
             </p>

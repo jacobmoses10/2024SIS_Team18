@@ -67,7 +67,7 @@ const App = () => {
   });
   const history = [];
   const chatSession = model.startChat();
-
+  
   // TOOLBOX FUNCTIONS:
   // Selected Tool
   useEffect(() => {
@@ -393,4 +393,5 @@ const App = () => {
     </Router>
   );
 };
+
 export default App;
