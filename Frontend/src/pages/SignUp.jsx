@@ -1,16 +1,31 @@
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {signUp} from "../firebase/auth";
+import {googleLogin} from "../firebase/auth";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faGoogle} from "@fortawesome/free-brands-svg-icons";
 
 const SignUp = ({setUser}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [name, setName] = useState();
+  const navigate = useNavigate(); // Add this line
 
   async function handleSignUp() {
     try {
       const userCredential = await signUp(email, password);
       setUser(userCredential.user);
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  }
+
+  async function handleGoogleLogin() {
+    try {
+      const userCredential = await googleLogin();
+      setUser(userCredential);
+      navigate("/whiteboard");
     } catch (error) {
       console.log(error);
       alert(error);
@@ -23,9 +38,7 @@ const SignUp = ({setUser}) => {
     <div className="h-screen bg-[#f3f4f6] flex items-center justify-center">
       <div className="bg-white px-10 py-20 rounded-3xl border-2 border-gray-200 w-2/4">
         {/* Header */}
-        <h1 className="text-3xl font-bold mb-10">
-          Create a New Account
-        </h1>
+        <h1 className="text-3xl font-bold mb-10">Create a New Account</h1>
         <div className="space-y-6">
           <div>
             <label className="text-lg font-medium">Full Name</label>
@@ -60,9 +73,14 @@ const SignUp = ({setUser}) => {
           <div className="p-5 flex flex-col gap-y-4">
             <button
               className="active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all flex items-center justify-center space-x-3 border p-2 px-6 rounded-md text-white bg-black cursor-pointer"
-              onClick={handleSignUp}
-            >
+              onClick={handleSignUp}>
               <p>Create Account</p>
+            </button>
+            <button
+              className="flex py-3 border-2 border-gray-100 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all items-center justify-center gap-2"
+              onClick={handleGoogleLogin}>
+              <FontAwesomeIcon icon={faGoogle} /> {/* Google icon */}
+              <span>Sign in with Google</span>
             </button>
           </div>
           <p className="text-gray-500">
