@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../firebase/auth";
+import { login, googleLogin } from "../firebase/auth";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'; 
 
@@ -8,6 +8,17 @@ const Login = ({ setUser }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+
+  async function handleGoogleLogin() {
+    try {
+      const userCredential = await googleLogin();
+      setUser(userCredential);
+      navigate("/whiteboard");
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  }
 
   async function handleLogin() {
     try {
@@ -28,7 +39,7 @@ const Login = ({ setUser }) => {
         </h1>
         <div className='mb-6'>
           <div>
-            <label className='text-lg font-medium'>Email</label>
+            <label className="text-lg font-medium">Email</label>
             <input
               id="email"
               className='w-full border-2 border-gray-100 rounded-xl p-4 mb-3 mt-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500'
@@ -37,7 +48,7 @@ const Login = ({ setUser }) => {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
-            <label className='text-lg font-medium'>Password</label>
+            <label className="text-lg font-medium">Password</label>
             <input
               id="password"
               className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500'
@@ -48,13 +59,11 @@ const Login = ({ setUser }) => {
             />
           </div>
           <div>
-            <div className='py-4'>
-              <input
-              type = "checkbox"
-              id = 'remember'
-              className="mr-2"
-              />
-              <label className='ml-2 font-medium text-base' htmlFor="remember">Remember for 30 days</label>
+            <div className="py-4">
+              <input type="checkbox" id="remember" className="mr-2" />
+              <label className="ml-2 font-medium text-base" htmlFor="remember">
+                Remember for 30 days
+              </label>
             </div>
             <button className='text-blue-500 hover:text-blue-700 font-medium'>Forgot Password</button>
           </div>
@@ -64,16 +73,19 @@ const Login = ({ setUser }) => {
               onClick={handleLogin}>
               <p>Login</p>
             </button>
-            <button className="flex py-3 border-2 border-gray-100 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all items-center justify-center gap-2">
-            <FontAwesomeIcon icon={faGoogle} /> {/* Google icon */}
-            <span>Sign in with Google</span></button>
+            <button
+              className="flex py-3 border-2 border-gray-100 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all items-center justify-center gap-2"
+              onClick={handleGoogleLogin}>
+              <FontAwesomeIcon icon={faGoogle} /> {/* Google icon */}
+              <span>Sign in with Google</span>
+            </button>
           </div>
             <p className="mt-3 text-gray-500 text-center">
               Don't have an account?{" "}
             <span className="underline text-blue-500">
               <Link to="/signup">Sign Up Here</Link>
             </span>
-            </p>
+          </p>
         </div>
       </div>
     </div>
