@@ -17,52 +17,57 @@ const SignUp = ({setUser}) => {
     }
   }
 
+  //bg-white px-10 py-20 rounded-3xl border-2 border-gray-200
+
   return (
-    <div className="h-screen bg-[#f3f4f6] flex items-center justify-center ">
-      {/* Card  */}
-      <div className="bg-white rounded-md shadow-md">
-        <div className="p-2">
-          <div className="w-1/2 mx-auto">
-            <h1 className="font-bold text-xl">Create a New Account</h1>
-          </div>
+    <div className="h-screen bg-[#f3f4f6] flex items-center justify-center">
+      <div className="bg-white px-10 py-20 rounded-3xl border-2 border-gray-200 w-2/4">
+        {/* Header */}
+        <h1 className="text-3xl font-bold mb-10">
+          Create a New Account
+        </h1>
+        <div className="space-y-6">
           <div>
-            <h2>Full Name</h2>
+            <label className="text-lg font-medium">Full Name</label>
             <input
+              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
               type="text"
+              placeholder="Enter Your Name"
               value={name}
               onChange={(event) => setName(event.target.value)}
-              className="border rounded-md"
             />
           </div>
           <div>
-            <h2>Email</h2>
+            <label className="text-lg font-medium">Email</label>
             <input
+              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
               type="email"
+              placeholder="Enter Your Email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="border rounded-md"
             />
           </div>
           <div>
-            <h2>Password</h2>
+            <label className="text-lg font-medium">Password</label>
             <input
+              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
               type="password"
+              placeholder="Enter Your Password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="border rounded-md"
             />
           </div>
-          <div className="p-3">
+          <div className="p-5 flex flex-col gap-y-4">
             <button
-              className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black"
-              onClick={handleSignUp}>
+              className="active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all flex items-center justify-center space-x-3 border p-2 px-6 rounded-md text-white bg-black cursor-pointer"
+              onClick={handleSignUp}
+            >
               <p>Create Account</p>
             </button>
           </div>
-
           <p className="text-gray-500">
             Already have an account?{" "}
-            <span className="underline">
+            <span className="underline text-blue-500">
               <Link to="/login">Login Here</Link>
             </span>
           </p>
