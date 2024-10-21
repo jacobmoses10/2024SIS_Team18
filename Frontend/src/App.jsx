@@ -254,36 +254,51 @@ const App = () => {
   const undo = () => fabricCanvas.undo();
   const redo = () => fabricCanvas.redo();
 
+  // Function to handle AI requests and responses
+  const handleAIResponse = async (userInput) => {
+    // Create aiRequest array to store chat history
+    const aiRequest = [];
 
-  // AI CHATBOT FUNCTIONS:
-  // Function to handle AI response
-  const handleAIResponse = async (input) => {
-    const message = input || "Continue helping me";
+    // Include previous messages as array and push to aiRequest
+    messages.forEach(message => {
+        aiRequest.push({
+            text: message.text, // Each message.text is assumed to be a string
+        });
+    });
+
+    // Include the current user input
+    if (userInput) {
+        aiRequest.push({
+            text: userInput, // Push the current user input
+        });
+    }
+
+    // Add uploaded image
     const base64Image = fabricCanvas.toDataURL("image/png").split(",")[1];
-
-    const aiRequest = [
-      { text: message },
-      { 
-        inlineData: {
-          mimeType: "image/png",
-          data: base64Image,
-        },
-      }
-    ];
+    if (base64Image) {
+        aiRequest.push({
+            inlineData: {
+                mimeType: "image/png",
+                data: base64Image,
+            },
+        });
+    }
 
     try {
-      const result = await chatSession.sendMessage(aiRequest);
+        // Send user request to AI model and save result
+        const result = await chatSession.sendMessage(aiRequest);
 
-      // AI response
-      const aiResponse = await result.response.text();
+        // AI response
+        const aiResponse = await result.response.text();
 
-      // Add the AI message to chatbox
-      const botMessage = { text: aiResponse, sender: "bot" };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
+        // Add the AI message to chatbox
+        const botMessage = { text: aiResponse, sender: "bot" };
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
 
-      if (!chatVisible) toast.success(aiResponse); // This the notifications of the AI
-    } catch (error) {
-      console.error("Error fetching AI response:", error);
+        // Show notification if chat is not visible
+        if (!chatVisible) toast.success(aiResponse);
+      } catch (error) {
+        console.error("Error fetching AI response:", error);
     }
   };
 
@@ -300,7 +315,7 @@ const App = () => {
   const handleSendMessage = (userInput) => {
     const newUserMessage = { text: userInput, sender: "user" };
     setMessages((prevMessages) => [...prevMessages, newUserMessage]);
-    handleAIResponse(userInput);
+    handleAIResponse(userInput); // Call to process AI response and send the image
   };
 
   // Function to toggle chat visibility
