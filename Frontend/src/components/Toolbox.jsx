@@ -7,6 +7,7 @@ import {
   CursorArrowRaysIcon,
   ArrowUturnLeftIcon,
   ArrowUturnRightIcon,
+  BookmarkIcon,
 } from "@heroicons/react/24/outline";
 import {
   PaintBrushIcon as PaintBrushIconSolid,
@@ -34,7 +35,8 @@ const Toolbox = ({
   redo,
   downloadBoard,
   sliderVisible,
-  setSliderVisible
+  setSliderVisible,
+  saveWhiteBoard
 }) => {
   return (
     <div>
@@ -181,6 +183,11 @@ const Toolbox = ({
         {/* Download Board*/}
         <div onClick={() => downloadBoard()} className="cursor-pointer">
           <Icons IconComponent={ArrowDownTrayIcon} />
+        </div>
+
+        {/* Save Whiteboard*/}
+        <div onClick={() => saveWhiteBoard(true)} className="cursor-pointer">
+          <Icons IconComponent={BookmarkIcon} />
         </div>
 
         {/* Clear the canvas */}

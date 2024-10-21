@@ -38,7 +38,14 @@ const Navbar = ({user, logout}) => {
               {user && (
                 <Link to="/whiteboard">
                   <li className="px-6 font-bold hover:underline cursor-pointer">
-                    Whiteboard
+                    Draw
+                  </li>
+                </Link>
+              )}
+              {user && (
+                <Link to="/userwhiteboards">
+                  <li className="px-6 font-bold hover:underline cursor-pointer">
+                  My Whiteboards
                   </li>
                 </Link>
               )}
