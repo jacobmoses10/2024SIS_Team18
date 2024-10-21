@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Toolbox from "../components/Toolbox";
 import { fabric } from "fabric";
-import GridOverlay from '../components/Gridoverlay';
 
 const Whiteboard = ({ 
   canvasRef, 
@@ -22,19 +21,19 @@ const Whiteboard = ({
   undo,
   redo,
   setClearModal,
+  setBotModal,
   downloadBoard,
-  handleAIClick,
-  handleAISelection
+  sliderVisible,
+  setSliderVisible
 }) => {
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
-      backgroundColor: "#e5e7eb",
-      width: window.innerWidth,
-      height: window.innerHeight,
+      backgroundColor: "white",
+      width: 1600,
+      height: 800,
       isDrawingMode: true,
     });
     setFabricCanvas(canvas);
-
     return () => {
       canvas.dispose();
     };
@@ -75,12 +74,12 @@ const Whiteboard = ({
 
   return (
     <div
-      className="relative w-full h-screen rounded-md"
+      className="flex justify-center bg-slate-200 h-screen w-screen"
       onKeyDown={(e) => handleKeyDown(e)}
       tabIndex={0}>
-      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full" />
+      <canvas ref={canvasRef} className="fixed shadow-lg m-5" />
            
-      <div className="absolute top-4 left-4 bg-white rounded-md z-10 shadow-lg">
+      <div className="fixed top-20 left-4 bg-fixed rounded-md z-10 shadow-lg">
         <Toolbox
           downloadBoard={downloadBoard}
           tool={tool}
@@ -93,10 +92,11 @@ const Whiteboard = ({
           addText={addText}
           addShape={addShape}
           setClearModal={setClearModal}
+          setBotModal={setBotModal}
           undo={undo}
           redo={redo}
-          handleAIClick={handleAIClick}
-          handleAISelection={handleAISelection}
+          sliderVisible={sliderVisible}
+          setSliderVisible={setSliderVisible}
         />
       </div>
     </div>

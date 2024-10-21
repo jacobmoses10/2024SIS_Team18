@@ -28,7 +28,7 @@ const Login = ({setUser}) => {
         <h1 className="text-3xl font-bold mb-10">
         Welcome back! Please enter your details
         </h1>
-        <div classname='mt-8'>
+        <div className='mt-8'>
           <div>
             <label className='text-lg font-medium'>Email</label>
             <input
@@ -38,8 +38,6 @@ const Login = ({setUser}) => {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
-          </div>
-          <div>
             <label className='text-lg font-medium'>Password</label>
             <input
               className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
@@ -56,7 +54,7 @@ const Login = ({setUser}) => {
               id = 'remember'
               className="mr-2"
               />
-              <label classname='ml-2 font-medium text-base'for="remember">Remember for 30 days</label>
+              <label className='ml-2 font-medium text-base' htmlFor="remember">Remember for 30 days</label>
             </div>
             <button className='font-medium text-base'>Forgot Password</button>
           </div>

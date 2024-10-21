@@ -3,7 +3,6 @@ import {
   PaintBrushIcon,
   ServerIcon,
   TrashIcon,
-  SparklesIcon,
   PlusIcon,
   CursorArrowRaysIcon,
   ArrowUturnLeftIcon,
@@ -30,15 +29,16 @@ const Toolbox = ({
   addText,
   addShape,
   setClearModal,
+  setBotModal,
   undo,
   redo,
   downloadBoard,
-  handleAIClick,
-  handleAISelection
+  sliderVisible,
+  setSliderVisible
 }) => {
   return (
     <div>
-      <div className="flex items-center justify-between bg-white p-2 space-x-4 rounded-md w-full max-w-[800px] shadow-lg">
+      <div className="items-center bg-white p-2 rounded-md shadow-lg">
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons
@@ -63,6 +63,25 @@ const Toolbox = ({
         <div onClick={() => setTool("eraser")} className="cursor-pointer">
           <Icons
             IconComponent={tool === "eraser" ? ServerIconSolid : ServerIcon}
+          />
+        </div>
+
+        {/* Pen Width */}
+        <div
+          onClick={() => setSliderVisible(!sliderVisible)}
+          className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 text-center cursor-pointer"
+        >
+          <b>{penWidth}</b>
+        </div>
+
+        <div className="w-0 h-0" hidden={!sliderVisible}>
+          <input
+            type="range"
+            onChange={(event) => changePenWidth(event.target.value)}
+            value={penWidth}
+            min="1"
+            max="50"
+            className="appearance-none bg-gray-300 -rotate-90 rounded-lg cursor-pointer"
           />
         </div>
 
@@ -144,18 +163,6 @@ const Toolbox = ({
           <BeakerIconSolid className="w-6 h-6" color={penColor} />
         </div>
 
-        {/* Pen Width */}
-        <div className="w-full flex">
-          <input
-            type="range"
-            onChange={(event) => changePenWidth(event.target.value)}
-            value={penWidth}
-            min="1"
-            max="30"
-            className="w-[100px] appearance-none h-2 bg-gray-200 rounded-lg cursor-pointer"
-          />
-        </div>
-
         {/* Undo last canvas change */}
         <div onClick={undo} className="cursor-pointer">
           <Icons IconComponent={ArrowUturnLeftIcon} />
@@ -166,11 +173,11 @@ const Toolbox = ({
           <Icons IconComponent={ArrowUturnRightIcon} />
         </div>
 
-        {/* AI Button */}
-        <div onClick={handleAIClick} className="cursor-pointer">
-          <Icons IconComponent={SparklesIcon} />
+        {/* Select AI Model */}
+        <div onClick={() => setBotModal(true)} className="cursor-pointer">
+          <Icons IconComponent={CpuChipIcon} />
         </div>
-
+        
         {/* Download Board*/}
         <div onClick={() => downloadBoard()} className="cursor-pointer">
           <Icons IconComponent={ArrowDownTrayIcon} />
@@ -180,63 +187,6 @@ const Toolbox = ({
         <div onClick={() => setClearModal(true)} className="cursor-pointer">
           <Icons IconComponent={TrashIcon} />
         </div>
-
-        {/* Dropdown button for selecting which AI model is to be used for this session, will default to Math */}
-        <Menu as="div" className="relative inline-block text-left">
-          <div>
-            <MenuButton className="mt-1">
-              <Icons IconComponent={CpuChipIcon} />
-            </MenuButton>
-          </div>
-          <MenuItems
-            transition
-            className="absolute z-10 mt-3 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-          >
-            <div className="py-1">
-              {/* Mathematics AI Selection */}
-              <MenuItem>
-              <div
-                  onClick={() => handleAISelection("Mathematics")}
-                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
-                >
-                  Mathematics
-                </div>
-              </MenuItem>
-              
-              {/* Physics AI Selection */}
-              <MenuItem>
-                <div
-                  onClick={() => handleAISelection("Physics")}
-                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
-                >
-                  Physics
-                </div>
-              </MenuItem>
-
-                  {/* Coding AI Selection */}
-                  <MenuItem>
-                <div
-                  onClick={() => handleAISelection("Coding")}
-                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
-                >
-                  Coding
-                </div>
-              </MenuItem>
-              
-              {/* Chemistry AI Selection */}
-              <MenuItem>
-                <div
-                  onClick={() => handleAISelection("Chemistry")}
-                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 cursor-pointer"
-                >
-                  Chemistry
-                </div>
-              </MenuItem>
-            </div>
-          </MenuItems>
-        </Menu>
-
-
       </div>
     </div>
   );
