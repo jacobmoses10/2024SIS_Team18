@@ -58,6 +58,15 @@ const App = () => {
     return () => unsubscribe(); // delete subscription
   }, []);
   
+  // Initiate AI model
+  const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_KEY;
+  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+    systemInstruction: prompt.instruction,
+  });
+  const history = [];
+  const chatSession = model.startChat();
 
   // TOOLBOX FUNCTIONS:
   // Selected Tool
@@ -249,40 +258,21 @@ const App = () => {
   // AI CHATBOT FUNCTIONS:
   // Function to handle AI response
   const handleAIResponse = async (input) => {
-    const message = input || "give me a hint to solve this";
+    const message = input || "Continue helping me";
     const base64Image = fabricCanvas.toDataURL("image/png").split(",")[1];
-    const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_KEY;
-    const requestBody = {
-      contents: [
-        {
-          role: "model",
-          parts: [
-            {
-              text: prompt.instruction,
-            },
-          ],
+
+    const aiRequest = [
+      { text: message },
+      { 
+        inlineData: {
+          mimeType: "image/png",
+          data: base64Image,
         },
-        {
-          role: "user",
-          parts: [
-            {
-              text: message,
-            },
-            {
-              inlineData: {
-                mimeType: "image/png",
-                data: base64Image,
-              },
-            },
-          ],
-        },
-      ],
-    };
+      }
+    ];
 
     try {
-      const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-      const result = await model.generateContent(requestBody);
+      const result = await chatSession.sendMessage(aiRequest);
 
       // AI response
       const aiResponse = await result.response.text();
