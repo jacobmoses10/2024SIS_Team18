@@ -1,9 +1,9 @@
-import React, {useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {signUp} from "../firebase/auth";
-import {googleLogin} from "../firebase/auth";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGoogle} from "@fortawesome/free-brands-svg-icons";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { signUp } from "../firebase/auth";
+import { googleLogin } from "../firebase/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 const SignUp = ({setUser}) => {
   const [email, setEmail] = useState();
@@ -32,18 +32,17 @@ const SignUp = ({setUser}) => {
     }
   }
 
-  //bg-white px-10 py-20 rounded-3xl border-2 border-gray-200
-
   return (
-    <div className="h-screen bg-[#f3f4f6] flex items-center justify-center">
-      <div className="bg-white px-10 py-20 rounded-3xl border-2 border-gray-200 w-2/4">
-        {/* Header */}
-        <h1 className="text-3xl font-bold mb-10">Create a New Account</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#f3f4f6]">
+      <div className="bg-white rounded-3xl shadow-md max-w-lg w-full p-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
+          Create a New Account
+        </h1>
         <div className="space-y-6">
           <div>
             <label className="text-lg font-medium">Full Name</label>
             <input
-              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
+              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="text"
               placeholder="Enter Your Name"
               value={name}
@@ -53,7 +52,7 @@ const SignUp = ({setUser}) => {
           <div>
             <label className="text-lg font-medium">Email</label>
             <input
-              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
+              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="email"
               placeholder="Enter Your Email"
               value={email}
@@ -63,7 +62,7 @@ const SignUp = ({setUser}) => {
           <div>
             <label className="text-lg font-medium">Password</label>
             <input
-              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
+              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="password"
               placeholder="Enter Your Password"
               value={password}
@@ -83,7 +82,7 @@ const SignUp = ({setUser}) => {
               <span>Sign in with Google</span>
             </button>
           </div>
-          <p className="text-gray-500">
+          <p className="text-center text-gray-500">
             Already have an account?{" "}
             <span className="underline text-blue-500">
               <Link to="/login">Login Here</Link>

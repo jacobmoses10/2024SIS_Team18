@@ -1,13 +1,13 @@
-import React, {useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {login, googleLogin} from "../firebase/auth";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGoogle} from "@fortawesome/free-brands-svg-icons";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { login, googleLogin } from "../firebase/auth";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'; 
 
-const Login = ({setUser}) => {
+const Login = ({ setUser }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const navigate = useNavigate(); // Add this line
+  const navigate = useNavigate();
 
   async function handleGoogleLogin() {
     try {
@@ -31,19 +31,18 @@ const Login = ({setUser}) => {
     }
   }
 
-  /*f3f4f6*/
   return (
-    <div className="h-screen bg-[#f3f4f6] flex items-center justify-center ">
-      <div className="bg-white px-10 py-20 rounded-3xl border-2 border-gray-200">
-        {/* Header */}
-        <h1 className="text-3xl font-bold mb-10">
-          Welcome back! Please enter your details
+    <div className="min-h-screen flex flex-col items-center justify-center py-10 px-6 bg-[#f3f4f6]">
+      <div className='bg-white rounded-3xl shadow-md max-w-lg w-full p-8'>
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
+        Welcome back!
         </h1>
-        <div className="mt-8">
+        <div className='mb-6'>
           <div>
             <label className="text-lg font-medium">Email</label>
             <input
-              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
+              id="email"
+              className='w-full border-2 border-gray-100 rounded-xl p-4 mb-3 mt-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500'
               placeholder="Enter Your Email"
               type="email"
               value={email}
@@ -51,7 +50,8 @@ const Login = ({setUser}) => {
             />
             <label className="text-lg font-medium">Password</label>
             <input
-              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent"
+              id="password"
+              className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500'
               placeholder="Enter Your Password"
               type="password"
               value={password}
@@ -65,7 +65,7 @@ const Login = ({setUser}) => {
                 Remember for 30 days
               </label>
             </div>
-            <button className="font-medium text-base">Forgot Password</button>
+            <button className='text-blue-500 hover:text-blue-700 font-medium'>Forgot Password</button>
           </div>
           <div className="p-5  flex flex-col gap-y-4">
             <button
@@ -80,8 +80,8 @@ const Login = ({setUser}) => {
               <span>Sign in with Google</span>
             </button>
           </div>
-          <p className="text-gray-500">
-            Don't have an account?{" "}
+            <p className="mt-3 text-gray-500 text-center">
+              Don't have an account?{" "}
             <span className="underline text-blue-500">
               <Link to="/signup">Sign Up Here</Link>
             </span>

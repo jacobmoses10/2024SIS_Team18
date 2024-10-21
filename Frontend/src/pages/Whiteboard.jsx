@@ -26,6 +26,8 @@ const Whiteboard = ({
   sliderVisible,
   setSliderVisible
 }) => {
+
+  // Initialize Fabric.js canvas
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: "white",
@@ -34,11 +36,29 @@ const Whiteboard = ({
       isDrawingMode: true,
     });
     setFabricCanvas(canvas);
+    
+    // Handle palm rejection using PointerEvent
+    const handlePointerDown = (event) => {
+      if (event.pointerType === 'pen') {
+        // Enable drawing for pen input
+        canvas.isDrawingMode = true;
+      } else if (event.pointerType === 'touch') {
+        // Disable drawing for touch input (palm rejection)
+        canvas.isDrawingMode = false;
+      }
+    };
+
+    // Add event listener to the canvas DOM element
+    canvasRef.current.addEventListener("pointerdown", handlePointerDown);
+
     return () => {
       canvas.dispose();
+      // Cleanup event listener
+      canvasRef.current.removeEventListener("pointerdown", handlePointerDown);
     };
   }, [canvasRef, setFabricCanvas]);
 
+  // Update pen width and color whenever they change
   useEffect(() => {
     if (fabricCanvas) {
       fabricCanvas.freeDrawingBrush.width = penWidth;
@@ -46,7 +66,7 @@ const Whiteboard = ({
     }
   }, [penWidth, penColor, fabricCanvas, tool]);
 
-  // Change drawing mode based on selected tool.
+  // Update drawing mode based on selected tool.
   useEffect(() => {
     if (fabricCanvas) {
       fabricCanvas.isDrawingMode = drawingMode;
@@ -55,7 +75,7 @@ const Whiteboard = ({
 
   // Handle all keyboard shortcuts.
   const handleKeyDown = (e) => {
-    // Backspace key = delete or Delete Key = delete
+    // Backspace or Delete Key = delete
     if (e.key === "Backspace" || e.key === "Delete") {
       fabricCanvas.getActiveObjects().forEach((object) => {
         fabricCanvas.remove(object);
@@ -70,7 +90,7 @@ const Whiteboard = ({
     if (e.ctrlKey && e.key === "c") copy();
     // Ctrl + V = Paste
     if (e.ctrlKey && e.key === "v") paste();
-  }
+  };
 
   return (
     <div
