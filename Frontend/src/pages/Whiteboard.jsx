@@ -42,9 +42,26 @@ const Whiteboard = ({
       isDrawingMode: true,
     });
     setFabricCanvas(canvas);
+    
+    // Handle palm rejection using PointerEvent
+    const handlePointerDown = (event) => {
+      if (event.pointerType === 'pen') {
+        // Enable drawing for pen input
+        canvas.isDrawingMode = true;
+      } else if (event.pointerType === 'touch') {
+        // Disable drawing for touch input (palm rejection)
+        canvas.isDrawingMode = false;
+      }
+    };
+
+    // Add event listener to the canvas DOM element
+    canvasRef.current.addEventListener("pointerdown", handlePointerDown);
 
     return () => {
       canvas.dispose();
+      // Cleanup event listener
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      canvasRef.current.removeEventListener("pointerdown", handlePointerDown);
     };
   }, [canvasRef, setFabricCanvas]);
 
@@ -92,6 +109,7 @@ const Whiteboard = ({
     }
   }, [penWidth, penColor, fabricCanvas]);
 
+  // Update drawing mode based on selected tool.
   useEffect(() => {
     if (fabricCanvas) {
       fabricCanvas.isDrawingMode = drawingMode;
@@ -100,6 +118,7 @@ const Whiteboard = ({
 
   // Handle keyboard shortcuts for actions like undo/redo/copy/paste
   const handleKeyDown = (e) => {
+    // Backspace or Delete Key = delete
     if (e.key === "Backspace" || e.key === "Delete") {
       fabricCanvas.getActiveObjects().forEach((object) => {
         fabricCanvas.remove(object);
