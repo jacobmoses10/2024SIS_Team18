@@ -12,7 +12,7 @@ const HomePage = () => {
   const desktopMode = useMediaQuery({ query: '(min-width: 1224px)' });
   return desktopMode ? (
     <div className="h-screen">
-      <div className="bg-slate-200 h-[500px] flex items-center justify-center ">
+      <div className="bg-slate-100 h-[500px] flex items-center justify-center">
         <div className="flex items-center flex-col">
           <div className="flex items-center justify-center">
             <img className="h-20 w-20" src={mainLogo} alt="" />
@@ -61,7 +61,7 @@ const HomePage = () => {
     </div>
   ) : (
     <div>
-      <div className="bg-slate-200 py-10 flex items-center justify-center ">
+      <div className="bg-slate-100 py-10 flex items-center justify-center">
         <div className="flex items-center flex-col">
           <img className="h-20 w-20" src={mainLogo} alt="" />
           <div className="flex items-center justify-center">

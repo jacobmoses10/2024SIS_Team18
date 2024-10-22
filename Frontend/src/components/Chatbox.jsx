@@ -65,20 +65,22 @@ const Chatbox = ({ messages, onSendMessage, topic, chatVisible, toggleChatVisibi
         </div>
 
         {/* Input of your Message  */}
-        <div className="p-4 border-t flex items-center space-x-2">
+        <form className="p-4 border-t flex items-center space-x-2" onSubmit={e => e.preventDefault()}>
           <input
             className="flex-grow bg-slate-100 border rounded p-2"
             value={input}
+            type="input"
             onChange={(e) => setInput(e.target.value)}
             placeholder="Message..."
           />
 
           <button
             onClick={handleSendMessage}
+            type="submit"
             className="h-10 w-10 p-2 rounded-full flex items-center justify-center hover:bg-slate-200 transition">
             <PaperAirplaneIcon className="h-5 w-5 text-gray-600" />
           </button>
-        </div>
+        </form>
       </div>
     </div>
   ) : (

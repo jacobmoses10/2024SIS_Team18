@@ -17,7 +17,7 @@ const Navbar = ({user, logout}) => {
   const desktopMode = useMediaQuery({ query: '(min-width: 1224px)' });
 
   return desktopMode ? (
-    <div>
+    <div className="bg-white">
       <nav className="p-3">
         <div className="flex items-center justify-between">
           <div>
@@ -100,7 +100,7 @@ const Navbar = ({user, logout}) => {
         <div>
           <h1 className="text-xl font-bold hover:animate-pulse transition">
             <Link to="/">
-              <img className="h-10 w-full" src={mainLogo2} alt=""/>
+              <img className="h-10" src={mainLogo2} alt=""/>
             </Link>
           </h1>
         </div>

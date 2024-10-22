@@ -19,8 +19,8 @@ const About = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col items-center py-10 px-6">
-      <div className="text-center max-w-4xl w-full">
+    <div className="min-h-screen flex flex-col items-center py-10 px-6 bg-slate-100">
+      <div className="text-center max-w-5xl w-full bg-white p-4 shadow-lg rounded-3xl">
         <h1 className="text-4xl font-bold mt-6 mb-4">About Inkwise</h1>
         <p className="text-lg text-gray-600 mb-6">
           Inkwise is a cutting-edge digital workspace designed to empower

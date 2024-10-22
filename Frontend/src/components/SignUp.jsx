@@ -33,7 +33,7 @@ const SignUp = ({setUser}) => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center py-10 px-6 bg-[#f3f4f6]">
+    <div className="min-h-screen flex flex-col items-center justify-center py-10 px-6 bg-slate-100">
       <div className="bg-white rounded-3xl shadow-md max-w-lg w-full p-8">
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
           Create an Account
@@ -73,7 +73,7 @@ const SignUp = ({setUser}) => {
             <button
               className="hover:bg-blue-600 transition flex items-center justify-center space-x-3 border p-3 px-6 rounded-md text-white bg-black cursor-pointer"
               onClick={handleSignUp}
-              type="submit">          
+              >          
               <p>Create Account</p>
             </button>
             <button

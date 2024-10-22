@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/init";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { useMediaQuery } from "react-responsive";
 
 const Whiteboard = ({
   canvasRef,
@@ -35,7 +36,7 @@ const Whiteboard = ({
   saveWhiteBoard,
 }) => {
   const { whiteboardId } = useParams();
-
+  const desktopMode = useMediaQuery({ query: '(min-width: 1224px)' });
   // Initialize the fabric canvas
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -148,15 +149,20 @@ const Whiteboard = ({
 
   return (
     <div
-      className="flex justify-center bg-slate-200 h-screen w-screen"
+      className="flex justify-center bg-slate-200 min-h-screen w-full pb-20"
       onKeyDown={handleKeyDown}
       tabIndex={0}
     >
-      <TransformWrapper disabled={transformDisabled}>
-        <TransformComponent>
-          <canvas ref={canvasRef} className="fixed shadow-lg m-5" />          
-        </TransformComponent>
-      </TransformWrapper>
+      {desktopMode ? (
+        <canvas ref={canvasRef} className="fixed shadow-lg my-4" />
+      ) : (
+        <TransformWrapper disabled={transformDisabled} limitToBounds="false">
+          <TransformComponent>
+            <canvas ref={canvasRef} className="fixed shadow-lg my-4" />          
+          </TransformComponent>
+        </TransformWrapper>
+      )}
+      
 
       <div className="fixed top-20 left-4 bg-fixed rounded-md z-10 shadow-lg">
             <Toolbox
