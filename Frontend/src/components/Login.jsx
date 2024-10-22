@@ -31,7 +31,7 @@ const Login = ({ setUser }) => {
       alert(error);
     }
   }
-
+/*f3f4f6*/
   return (
     <div className="min-h-screen flex flex-col items-center justify-center py-10 px-6 bg-slate-100">
       <div className='bg-white rounded-3xl shadow-md max-w-lg w-full p-8'>
@@ -88,7 +88,7 @@ const Login = ({ setUser }) => {
             <span className="underline text-blue-500">
               <Link to="/signup">Sign Up Here</Link>
             </span>
-          </p>
+            </p>
         </div>
       </div>
       <Footer />
