@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   PaintBrushIcon,
   ServerIcon,
@@ -7,6 +7,7 @@ import {
   CursorArrowRaysIcon,
   ArrowUturnLeftIcon,
   ArrowUturnRightIcon,
+  BookmarkIcon,
 } from "@heroicons/react/24/outline";
 import {
   PaintBrushIcon as PaintBrushIconSolid,
@@ -15,6 +16,8 @@ import {
   BeakerIcon as BeakerIconSolid,
   ArrowDownTrayIcon,
   CpuChipIcon,
+  ChevronUpIcon,
+  ChevronDownIcon,
 } from "@heroicons/react/24/solid";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
@@ -34,11 +37,20 @@ const Toolbox = ({
   redo,
   downloadBoard,
   sliderVisible,
-  setSliderVisible
+  setSliderVisible,
+  saveWhiteBoard
 }) => {
-  return (
+  const [toolbarVisible, setToolbarVisible] = useState(true);
+
+  return toolbarVisible ? (
     <div>
       <div className="items-center bg-white p-2 rounded-md shadow-lg">
+        <div onClick={() => setToolbarVisible(!toolbarVisible)} className="cursor-pointer">
+          <Icons
+            IconComponent={ChevronUpIcon}
+          />
+        </div>
+        
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")} className="cursor-pointer">
           <Icons
@@ -183,9 +195,24 @@ const Toolbox = ({
           <Icons IconComponent={ArrowDownTrayIcon} />
         </div>
 
+        {/* Save Whiteboard*/}
+        <div onClick={() => saveWhiteBoard(true)} className="cursor-pointer">
+          <Icons IconComponent={BookmarkIcon} />
+        </div>
+
         {/* Clear the canvas */}
         <div onClick={() => setClearModal(true)} className="cursor-pointer">
           <Icons IconComponent={TrashIcon} />
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div>
+      <div className="items-center bg-white p-2 rounded-md shadow-lg">
+        <div onClick={() => setToolbarVisible(!toolbarVisible)} className="cursor-pointer">
+          <Icons
+            IconComponent={ChevronDownIcon}
+          />
         </div>
       </div>
     </div>

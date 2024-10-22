@@ -1,5 +1,5 @@
 {
-  "name": "whiteboard-ai",
+  "name": "inkwise",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,9 +18,12 @@
     "fortawesome": "^0.0.1-security",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-firebase-hooks": "^5.1.1",
+    "react-responsive": "^10.0.0",
     "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.5",
+    "react-zoom-pan-pinch": "^3.6.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
