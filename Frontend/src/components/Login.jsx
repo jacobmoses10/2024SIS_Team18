@@ -32,7 +32,7 @@ const Login = ({ setUser }) => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center py-10 px-6 bg-[#f3f4f6]">
+    <div className="min-h-screen flex flex-col items-center justify-center py-10 px-6 bg-slate-100">
       <div className='bg-white rounded-3xl shadow-md max-w-lg w-full p-8'>
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
         Welcome back!
@@ -69,12 +69,14 @@ const Login = ({ setUser }) => {
           </div>
           <div className="p-5  flex flex-col gap-y-4">
             <button
-              className="active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all flex item-centre justify-center space-x-3 border p-2 px-6 rounded-md text-white bg-black cursor-pointer"
-              onClick={handleLogin}>
+              className="hover:bg-blue-600 transition flex items-center justify-center space-x-3 border p-3 px-6 rounded-md text-white bg-black cursor-pointer"
+              onClick={handleLogin}
+              type="submit"
+              >                
               <p>Login</p>
             </button>
             <button
-              className="flex py-3 border-2 border-gray-100 active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all items-center justify-center gap-2"
+              className="flex py-3 border border-gray-100 rounded-md hover:bg-blue-600 hover:text-white transition items-center justify-center gap-2"
               onClick={handleGoogleLogin}>
               <FontAwesomeIcon icon={faGoogle} /> {/* Google icon */}
               <span>Sign in with Google</span>

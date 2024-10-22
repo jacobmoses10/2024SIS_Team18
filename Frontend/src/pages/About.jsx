@@ -19,11 +19,11 @@ const About = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col items-center py-10 px-6">
-      <div className="text-center max-w-4xl w-full">
-        <h1 className="text-4xl font-bold mt-6 mb-4">About Whiteboard AI</h1>
+    <div className="min-h-screen flex flex-col items-center py-10 px-6 bg-slate-100">
+      <div className="text-center max-w-5xl w-full bg-white p-4 shadow-lg rounded-3xl">
+        <h1 className="text-4xl font-bold mt-6 mb-4">About Inkwise</h1>
         <p className="text-lg text-gray-600 mb-6">
-          Whiteboard AI is a cutting-edge digital workspace designed to empower
+          Inkwise is a cutting-edge digital workspace designed to empower
           creativity and collaboration among students, professionals, and anyone
           looking to enhance their brainstorming, note-taking, and artistic
           skills.
@@ -38,7 +38,7 @@ const About = () => {
           Our mission is to make brainstorming and collaboration more intuitive
           and productive through technology. Whether you're a student organizing
           your study notes, a professional planning your next big project, or a
-          team brainstorming new ideas, Whiteboard AI is the tool you need to
+          team brainstorming new ideas, Inkwise is the tool you need to
           bring your ideas to life.
         </p>
         <h2 className="text-3xl md:text-4xl font-semibold mt-10 mb-6">Why Choose Us?</h2>
@@ -54,7 +54,7 @@ const About = () => {
           Our team is made up of passionate engineers, designers, and thinkers
           dedicated to improving the way people communicate and create together.
           We're constantly working to refine and expand the capabilities of
-          Whiteboard AI to meet the needs of our diverse user base.
+          Inkwise to meet the needs of our diverse user base.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <TeamMember name="Jacob Moses" id="13193750" avatar={avatar1} />
@@ -65,7 +65,7 @@ const About = () => {
           <TeamMember name="Osasere Eguaibor" id="13623549" avatar={avatar6} />
         </div>
         <Link to="https://github.com/jacobmoses10/2024SIS_Team18" target="_blank">
-          <button className="bg-black text-white py-3 px-6 rounded-md mt-8 hover:bg-gray-800 transition">
+          <button className="bg-black text-white py-3 px-6 rounded-md mt-8 hover:bg-blue-600 transition">
             Learn More
           </button>
         </Link>

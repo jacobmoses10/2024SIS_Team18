@@ -54,7 +54,7 @@ const BotModal = ({ botModal, setBotModal, handleAISelection, topic }) => {
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-50 px-4 py-3 sm:flex sm:px-6">
+              <div className="bg-gray-50 px-4 py-3 sm:px-6">
                 <button
                   type="button"
                   onClick={() => handleSelection("Mathematics")}
@@ -64,26 +64,26 @@ const BotModal = ({ botModal, setBotModal, handleAISelection, topic }) => {
                 <button
                   type="button"
                   onClick={() => handleSelection("Physics")}
-                  className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">
+                  className="inline-flex w-full justify-center rounded-md bg-red-600 mt-2 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">
                   Physics
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelection("Chemistry")}
-                  className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto">
+                  className="inline-flex w-full justify-center rounded-md bg-green-600 mt-2 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto">
                   Chemistry
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelection("Coding")}
-                  className="inline-flex w-full justify-center rounded-md bg-yellow-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow-500 sm:ml-3 sm:w-auto">
+                  className="inline-flex w-full justify-center rounded-md bg-yellow-600 mt-2 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow-500 sm:ml-3 sm:w-auto">
                   Coding
                 </button>
                 <button
                   type="button"
                   data-autofocus
                   onClick={() => setBotModal(false)}
-                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50  sm:ml-3 sm:mt-0 sm:w-auto">
+                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white mt-2 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50  sm:ml-3 sm:mt-0 sm:w-auto">
                   Cancel
                 </button>
               </div>

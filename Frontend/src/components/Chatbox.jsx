@@ -13,12 +13,11 @@ const Chatbox = ({ messages, onSendMessage, topic, chatVisible, toggleChatVisibi
     setInput(""); // Clear the input field after sending
   };
 
-  const getBadgeStyle = (topic) => {
-    let badgeColor = "blue";
-    if (topic === "Chemistry") badgeColor = "green";
-    if (topic === "Physics") badgeColor = "red";
-    if (topic === "Coding") badgeColor = "yellow";
-    return `bg-${badgeColor}-100 text-${badgeColor}-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
+  const getBadgeStyle = () => {
+    if (topic === "Chemistry") return `bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
+    if (topic === "Physics") return `bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
+    if (topic === "Coding") return `bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
+    return `bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
   }
 
   // Scroll to the bottom of the chatbox whenever messages change
@@ -66,26 +65,28 @@ const Chatbox = ({ messages, onSendMessage, topic, chatVisible, toggleChatVisibi
         </div>
 
         {/* Input of your Message  */}
-        <div className="p-4 border-t flex items-center space-x-2">
+        <form className="p-4 border-t flex items-center space-x-2" onSubmit={e => e.preventDefault()}>
           <input
             className="flex-grow bg-slate-100 border rounded p-2"
             value={input}
+            type="input"
             onChange={(e) => setInput(e.target.value)}
             placeholder="Message..."
           />
 
           <button
             onClick={handleSendMessage}
-            className="h-10 w-10 p-2 rounded-full flex items-center justify-center">
+            type="submit"
+            className="h-10 w-10 p-2 rounded-full flex items-center justify-center hover:bg-slate-200 transition">
             <PaperAirplaneIcon className="h-5 w-5 text-gray-600" />
           </button>
-        </div>
+        </form>
       </div>
     </div>
   ) : (
     <div 
       onClick={toggleChatVisibility} 
-      className="m-4 flex flex-shrink-0 items-center shadow=lg justify-center rounded-full bg-black h-16 w-16 hover:bg-blue-600 cursor-pointer">
+      className="m-4 flex flex-shrink-0 items-center shadow=lg justify-center rounded-full bg-black h-16 w-16 hover:bg-blue-600 transition cursor-pointer">
       <SparklesIcon
         aria-hidden="true"
         className="h-10 w-10 text-white"

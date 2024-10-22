@@ -119,14 +119,14 @@ export function WhiteboardCard({whiteboard, onDelete}) {
   };
 
   return (
-    <div className="w-full h-[250px] border rounded-lg p-4 bg-white m-4 shadow-md hover:shadow-xl transition-shadow hover:cursor-pointer">
+    <div className="w-full border rounded-lg p-4 bg-white shadow-md hover:shadow-xl transition-shadow hover:cursor-pointer">
       <div className="flex flex-col items-center">
         <div
-          className="w-full h-[150px] rounded-lg bg-gray-200 flex justify-center items-center"
+          className="w-full rounded-lg border bg-gray-200 flex justify-center items-center"
           onClick={handleClick}>
           {image ? (
             <img
-              className="p-2 h-full object-contain"
+              className="h-full object-contain"
               src={image}
               alt="Whiteboard Preview"
             />
@@ -139,7 +139,7 @@ export function WhiteboardCard({whiteboard, onDelete}) {
           )}
         </div>
         <div className="py-2 text-center">
-          <h1 className="text-lg sm:text-xl font-bold">
+          <h1 className="text-sm sm:text-md">
             Saved Date: {formattedDate}
           </h1>
         </div>
