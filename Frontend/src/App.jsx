@@ -40,6 +40,7 @@ const App = () => {
   const [fabricCanvas, setFabricCanvas] = useState(null);
   const [clearModal, setClearModal] = useState(false);
   const [clipboard, setClipboard] = useState(null);
+  const [transformDisabled, setTransformDisabled] = useState(false);
   const defaultBackgroundColor = "white";
 
   // Toolbox States
@@ -78,12 +79,15 @@ const App = () => {
     if (tool === "cursor") {
       setPenColor(penColor === defaultBackgroundColor ? "#000000" : penColor);
       setDrawingMode(false);
+      setTransformDisabled(false);
     } else if (tool === "pencil") {
       setPenColor(penColor === defaultBackgroundColor ? "#000000" : penColor);
       setDrawingMode(true);
+      setTransformDisabled(true);
     } else if (tool === "eraser") {
       setPenColor(defaultBackgroundColor);
       setDrawingMode(true);
+      setTransformDisabled(true);
     }
   }, [tool, penColor, defaultBackgroundColor]);
 
@@ -404,6 +408,8 @@ const App = () => {
                     canvasRef={canvasRef}
                     user={user}
                     drawingMode={drawingMode}
+                    transformDisabled={transformDisabled}
+                    setTransformDisabled={setTransformDisabled}
                     tool={tool}
                     setTool={setTool}
                     changePenWidth={changePenWidth}

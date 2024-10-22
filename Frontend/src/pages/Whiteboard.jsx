@@ -4,11 +4,14 @@ import { fabric } from "fabric";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/init";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 const Whiteboard = ({
   canvasRef,
   user,
   drawingMode,
+  transformDisabled,
+  setTransformDisabled,
   tool,
   setTool,
   changePenWidth,
@@ -115,6 +118,7 @@ const Whiteboard = ({
     }
   }, [drawingMode, fabricCanvas]);
 
+
   // Handle keyboard shortcuts for actions like undo/redo/copy/paste
   const handleKeyDown = (e) => {
     // Backspace or Delete Key = delete
@@ -128,7 +132,19 @@ const Whiteboard = ({
     if (e.ctrlKey && e.key === "y") redo();
     if (e.ctrlKey && e.key === "c") copy();
     if (e.ctrlKey && e.key === "v") paste();
-  };
+  }
+
+  // Enable/Disable transform when object is selected.
+  useEffect(() => {
+    if (fabricCanvas) {
+      fabricCanvas.on('selection:created', () => {
+        setTransformDisabled(true);
+      });
+      fabricCanvas.on('selection:cleared', () => {
+        setTransformDisabled(false);
+      });
+    }
+  }, [fabricCanvas, setTransformDisabled]);
 
   return (
     <div
@@ -136,29 +152,33 @@ const Whiteboard = ({
       onKeyDown={handleKeyDown}
       tabIndex={0}
     >
-      <canvas ref={canvasRef} className="fixed shadow-lg m-5" />
+      <TransformWrapper disabled={transformDisabled}>
+        <TransformComponent>
+          <canvas ref={canvasRef} className="fixed shadow-lg m-5" />          
+        </TransformComponent>
+      </TransformWrapper>
 
       <div className="fixed top-20 left-4 bg-fixed rounded-md z-10 shadow-lg">
-        <Toolbox
-          downloadBoard={downloadBoard}
-          tool={tool}
-          setTool={setTool}
-          changePenWidth={changePenWidth}
-          penWidth={penWidth}
-          changePenColor={changePenColor}
-          changeFillColor={changeFillColor}
-          penColor={penColor}
-          addText={addText}
-          addShape={addShape}
-          setClearModal={setClearModal}
-          setBotModal={setBotModal}
-          undo={undo}
-          redo={redo}
-          sliderVisible={sliderVisible}
-          setSliderVisible={setSliderVisible}
-          saveWhiteBoard={saveWhiteBoard}
-        />
-      </div>
+            <Toolbox
+              downloadBoard={downloadBoard}
+              tool={tool}
+              setTool={setTool}
+              changePenWidth={changePenWidth}
+              penWidth={penWidth}
+              changePenColor={changePenColor}
+              changeFillColor={changeFillColor}
+              penColor={penColor}
+              addText={addText}
+              addShape={addShape}
+              setClearModal={setClearModal}
+              setBotModal={setBotModal}
+              undo={undo}
+              redo={redo}
+              sliderVisible={sliderVisible}
+              setSliderVisible={setSliderVisible}
+              saveWhiteBoard={saveWhiteBoard}
+            />
+          </div>
     </div>
   );
 };
