@@ -326,6 +326,9 @@ const App = () => {
     if (topic === "Physics") setPrompt({"topic": topic, "instruction": prompts.physics});
     if (topic === "Chemistry") setPrompt({"topic": topic, "instruction": prompts.chemistry});
     if (topic === "Coding") setPrompt({"topic": topic, "instruction": prompts.coding});
+    if (topic === "Economics") setPrompt({"topic": topic, "instruction": prompts.economics});
+    if (topic === "Music Theory") setPrompt({"topic": topic, "instruction": prompts.music});
+    if (topic === "Visual Art") setPrompt({"topic": topic, "instruction": prompts.art});
     if (!chatVisible) toast.success(`AI model changed to ${topic}`);
   }
 
