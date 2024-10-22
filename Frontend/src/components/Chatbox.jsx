@@ -17,6 +17,9 @@ const Chatbox = ({ messages, onSendMessage, topic, chatVisible, toggleChatVisibi
     if (topic === "Chemistry") return `bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
     if (topic === "Physics") return `bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
     if (topic === "Coding") return `bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
+    if (topic === "Economics") return `bg-orange-100 text-orange-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
+    if (topic === "Music Theory") return `bg-purple-100 text-purple-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
+    if (topic === "Visual Art") return `bg-pink-100 text-pink-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
     return `bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
   }
 
