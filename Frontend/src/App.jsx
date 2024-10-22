@@ -80,7 +80,6 @@ const App = () => {
     model: "gemini-1.5-flash",
     systemInstruction: prompt.instruction,
   });
-  const history = [];
   const chatSession = model.startChat();
   
   // TOOLBOX FUNCTIONS:
