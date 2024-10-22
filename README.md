@@ -1,4 +1,4 @@
-![INKWISE](https://github.com/jacobmoses10/2024SIS_Team18/blob/main/Frontend/src/assets/inkwise_logo2.png)
+![INKWISE](https://github.com/jacobmoses10/2024SIS_Team18/blob/main/Frontend/src/assets/inkwise_logo3.png)
 
 Try it out here → [inkwise.vercel.app](https://inkwise.vercel.app/)
 
