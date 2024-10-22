@@ -13,12 +13,11 @@ const Chatbox = ({ messages, onSendMessage, topic, chatVisible, toggleChatVisibi
     setInput(""); // Clear the input field after sending
   };
 
-  const getBadgeStyle = (topic) => {
-    let badgeColor = "blue";
-    if (topic === "Chemistry") badgeColor = "green";
-    if (topic === "Physics") badgeColor = "red";
-    if (topic === "Coding") badgeColor = "yellow";
-    return `bg-${badgeColor}-100 text-${badgeColor}-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
+  const getBadgeStyle = () => {
+    if (topic === "Chemistry") return `bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
+    if (topic === "Physics") return `bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
+    if (topic === "Coding") return `bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
+    return `bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded cursor-pointer`;
   }
 
   // Scroll to the bottom of the chatbox whenever messages change
