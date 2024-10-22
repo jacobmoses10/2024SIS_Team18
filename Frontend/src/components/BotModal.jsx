@@ -54,7 +54,7 @@ const BotModal = ({ botModal, setBotModal, handleAISelection, topic }) => {
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6">
+              <div className="bg-gray-50 px-4 py-3 sm:px-6 text-center">
                 <button
                   type="button"
                   onClick={() => handleSelection("Mathematics")}
@@ -78,6 +78,24 @@ const BotModal = ({ botModal, setBotModal, handleAISelection, topic }) => {
                   onClick={() => handleSelection("Coding")}
                   className="inline-flex w-full justify-center rounded-md bg-yellow-600 mt-2 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow-500 sm:ml-3 sm:w-auto">
                   Coding
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSelection("Economics")}
+                  className="inline-flex w-full justify-center rounded-md bg-orange-600 mt-2 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 sm:ml-3 sm:w-auto">
+                  Economics
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSelection("Music Theory")}
+                  className="inline-flex w-full justify-center rounded-md bg-purple-600 mt-2 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 sm:ml-3 sm:w-auto">
+                  Music Theory
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSelection("Visual Art")}
+                  className="inline-flex w-full justify-center rounded-md bg-pink-600 mt-2 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 sm:ml-3 sm:w-auto">
+                  Visual Art
                 </button>
                 <button
                   type="button"
