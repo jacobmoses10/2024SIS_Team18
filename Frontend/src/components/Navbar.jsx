@@ -1,6 +1,9 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { useMediaQuery } from "react-responsive";
 import mainLogo2 from'../assets/inkwise_logo2.png';
+import { Bars3Icon } from '@heroicons/react/20/solid';
 
 const Navbar = ({user, logout}) => {
   const handleLogout = async () => {
@@ -11,7 +14,11 @@ const Navbar = ({user, logout}) => {
     }
   };
 
-  return (
+  const desktopMode = useMediaQuery({
+    query: '(min-width: 1224px)'
+    })
+
+  return desktopMode ? (
     <div>
       <nav className="p-3">
         <div className="flex items-center justify-between">
@@ -88,6 +95,87 @@ const Navbar = ({user, logout}) => {
           </div>
         </div>
       </nav>
+    </div>
+  ) : (
+    <div>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-xl font-bold hover:animate-pulse transition">
+            <Link to="/">
+              <img className="h-10 w-full" src={mainLogo2} alt=""/>
+            </Link>
+          </h1>
+        </div>
+        <Menu as="div" className="relative inline-block text-left">
+      <div>
+        <MenuButton className="flex space-x-3 border m-3 p-2 rounded-md text-white bg-black hover:bg-blue-600 transition">
+          <Bars3Icon aria-hidden="true" className="h-6 w-6 text-white" />
+        </MenuButton>
+      </div>
+
+      <MenuItems
+        transition
+        className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+      >
+        <div className="py-1">
+        <MenuItem>
+            <Link to="/">
+              <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+                Home
+              </li>
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link to="/about">
+              <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+                About
+              </li>
+            </Link>
+          </MenuItem>
+          {user ? (
+            <div>
+              <MenuItem>
+                <Link to="/whiteboard">
+                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900r">
+                    Draw
+                  </li>
+                </Link>
+              </MenuItem>           
+              <MenuItem>
+                <Link to="/userwhiteboards">
+                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+                    My Whiteboards
+                  </li>
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900" onClick={handleLogout}>
+                    Logout
+                  </li>
+              </MenuItem>
+            </div>       
+          ) : (
+            <div>
+              <MenuItem>
+                <Link to="/login">
+                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+                    Login
+                  </li>
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="/signup">
+                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+                    Sign Up
+                  </li>
+                </Link>
+              </MenuItem>
+            </div>
+          )}
+        </div>
+      </MenuItems>
+    </Menu>
+      </div>
     </div>
   );
 };
