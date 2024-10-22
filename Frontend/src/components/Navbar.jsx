@@ -14,9 +14,7 @@ const Navbar = ({user, logout}) => {
     }
   };
 
-  const desktopMode = useMediaQuery({
-    query: '(min-width: 1224px)'
-    })
+  const desktopMode = useMediaQuery({ query: '(min-width: 1224px)' });
 
   return desktopMode ? (
     <div>
