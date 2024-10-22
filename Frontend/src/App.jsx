@@ -72,22 +72,6 @@ const App = () => {
     });
     return () => unsubscribe(); // delete subscription
   }, []);
-
-  // TOOLBOX FUNCTIONS:  const [chatVisible, setChatVisible] = useState(false);
-  const [prompt, setPrompt] = useState({"topic": "Mathematics", "instruction": prompts.math});
-  const [botModal, setBotModal] = useState(false);
-  
-
-  // USER AUTHENTICATION:
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((newUser) => {
-      console.log("User state changed:", newUser);
-      setUser(newUser);
-    });
-    return () => unsubscribe(); // delete subscription
-  }, []);
   
   // Initiate AI model
   const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_KEY;
