@@ -4,6 +4,8 @@ import { signUp } from "../firebase/auth";
 import { googleLogin } from "../firebase/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import Footer from "../components/Footer";
+
 
 const SignUp = ({setUser}) => {
   const [email, setEmail] = useState();
@@ -91,6 +93,7 @@ const SignUp = ({setUser}) => {
           </p>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

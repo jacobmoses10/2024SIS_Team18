@@ -32,6 +32,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "./firebase/init";
+import PrivacyPolicy from "./pages/Privacy";
 
 const App = () => {
   // STATE MANAGEMENT:
@@ -394,6 +395,7 @@ const App = () => {
         <Routes>
           <Route path="/signup" element={<SignUp setUser={setUser} />} />
           <Route path="/about" element={<About />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/userwhiteboards" element={<UserCanvases />} />

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { login, googleLogin } from "../firebase/auth";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'; 
+import Footer from "../components/Footer";
 
 const Login = ({ setUser }) => {
   const [email, setEmail] = useState();
@@ -90,6 +91,7 @@ const Login = ({ setUser }) => {
           </p>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
