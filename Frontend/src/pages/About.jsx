@@ -6,6 +6,7 @@ import avatar4 from "../../src/assets/avatar.png";
 import avatar5 from "../../src/assets/avatar.png";
 import avatar6 from "../../src/assets/avatar.png";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const About = () => {
   const TeamMember = ({ name, id, avatar }) => {
@@ -70,6 +71,7 @@ const About = () => {
           </button>
         </Link>
       </div>
+      <Footer />
     </div>
   );
 };

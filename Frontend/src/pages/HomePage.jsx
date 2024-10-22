@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import mainLogo from "../assets/inkwise_logo.png";
+import Footer from "../components/Footer";
 
 const HomePage = () => {
   const desktopMode = useMediaQuery({ query: '(min-width: 1224px)' });
@@ -58,6 +59,7 @@ const HomePage = () => {
           />
         </div>
       </div>
+      <Footer />
     </div>
   ) : (
     <div>
@@ -106,6 +108,7 @@ const HomePage = () => {
           />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
