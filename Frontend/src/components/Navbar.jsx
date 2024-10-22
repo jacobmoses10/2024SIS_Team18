@@ -16,7 +16,7 @@ const Navbar = ({user, logout}) => {
       <nav className="p-3">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold">
+            <h1 className="text-xl font-bold hover:animate-pulse transition">
               <Link to="/">
                 <img className="h-10 w-full" src={mainLogo2} alt=""/>
               </Link>
@@ -54,9 +54,9 @@ const Navbar = ({user, logout}) => {
 
           <div className="flex justify-between items-center">
             {user ? (
-              <div className="px-3">
+              <div className="px-3 ">
                 <li
-                  className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black cursor-pointer"
+                  className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black hover:bg-blue-600 transition cursor-pointer"
                   type="button"
                   onClick={handleLogout}>
                   Logout
@@ -67,7 +67,7 @@ const Navbar = ({user, logout}) => {
                 <div className="px-3">
                   <Link to="/login">
                     <li
-                      className="flex space-x-3 border p-2 px-6 rounded-md"
+                      className="flex space-x-3 border p-2 px-6 rounded-md hover:bg-blue-600 hover:text-white transition"
                       type="button">
                       Login
                     </li>
@@ -77,7 +77,7 @@ const Navbar = ({user, logout}) => {
                 <div className="px-3">
                   <Link to="/signup">
                     <li
-                      className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black"
+                      className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black hover:bg-blue-600 transition"
                       type="button">
                       Sign Up
                     </li>

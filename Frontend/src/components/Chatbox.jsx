@@ -75,7 +75,7 @@ const Chatbox = ({ messages, onSendMessage, topic, chatVisible, toggleChatVisibi
 
           <button
             onClick={handleSendMessage}
-            className="h-10 w-10 p-2 rounded-full flex items-center justify-center">
+            className="h-10 w-10 p-2 rounded-full flex items-center justify-center hover:bg-slate-200 transition">
             <PaperAirplaneIcon className="h-5 w-5 text-gray-600" />
           </button>
         </div>
@@ -84,7 +84,7 @@ const Chatbox = ({ messages, onSendMessage, topic, chatVisible, toggleChatVisibi
   ) : (
     <div 
       onClick={toggleChatVisibility} 
-      className="m-4 flex flex-shrink-0 items-center shadow=lg justify-center rounded-full bg-black h-16 w-16 hover:bg-blue-600 cursor-pointer">
+      className="m-4 flex flex-shrink-0 items-center shadow=lg justify-center rounded-full bg-black h-16 w-16 hover:bg-blue-600 transition cursor-pointer">
       <SparklesIcon
         aria-hidden="true"
         className="h-10 w-10 text-white"

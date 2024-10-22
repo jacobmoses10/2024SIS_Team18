@@ -65,7 +65,7 @@ const About = () => {
           <TeamMember name="Osasere Eguaibor" id="13623549" avatar={avatar6} />
         </div>
         <Link to="https://github.com/jacobmoses10/2024SIS_Team18" target="_blank">
-          <button className="bg-black text-white py-3 px-6 rounded-md mt-8 hover:bg-gray-800 transition">
+          <button className="bg-black text-white py-3 px-6 rounded-md mt-8 hover:bg-blue-600 transition">
             Learn More
           </button>
         </Link>
