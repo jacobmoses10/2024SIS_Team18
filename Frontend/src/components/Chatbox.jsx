@@ -40,7 +40,7 @@ const Chatbox = ({ messages, onSendMessage, topic, chatVisible, toggleChatVisibi
           </div>
         </div>
 
-        <div className="p-4 space-y-4 max-h-96 bg-white overflow-y-auto">
+        <div className="p-4 space-y-4 max-h-96 min-h-96 bg-white overflow-y-auto">
           {/* Display Messages */}
           <div className="space-y-2">
             {messages.map((message, index) => {

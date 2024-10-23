@@ -59,6 +59,7 @@ const App = () => {
     instruction: prompts.math,
   });
   const [botModal, setBotModal] = useState(false);
+  const [chatSession, setChatSession] = useState(null);
 
   // USER AUTHENTICATION:
   const [user, setUser] = useState(null);
@@ -73,15 +74,6 @@ const App = () => {
     });
     return () => unsubscribe(); // delete subscription
   }, []);
-  
-  // Initiate AI model
-  const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_KEY;
-  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
-    systemInstruction: prompt.instruction,
-  });
-  const chatSession = model.startChat();
   
   // TOOLBOX FUNCTIONS:
   // Selected Tool
@@ -272,78 +264,6 @@ const App = () => {
   const undo = () => fabricCanvas.undo();
   const redo = () => fabricCanvas.redo();
 
-  // Function to handle AI requests and responses
-  const handleAIResponse = async (userInput) => {
-    // Create aiRequest array to store chat history
-    const aiRequest = [];
-
-    // Include previous messages as array and push to aiRequest
-    messages.forEach(message => {
-        aiRequest.push({
-            text: message.text, // Each message.text is assumed to be a string
-        });
-    });
-
-    // Include the current user input
-    if (userInput) {
-        aiRequest.push({
-            text: userInput, // Push the current user input
-        });
-    }
-
-    // Add uploaded image
-    const base64Image = fabricCanvas.toDataURL("image/png").split(",")[1];
-    if (base64Image) {
-        aiRequest.push({
-            inlineData: {
-                mimeType: "image/png",
-                data: base64Image,
-            },
-        });
-    }
-
-    try {
-        // Send user request to AI model and save result
-        const result = await chatSession.sendMessage(aiRequest);
-
-        // AI response
-        const aiResponse = await result.response.text();
-
-        // Add the AI message to chatbox
-        const botMessage = { text: aiResponse, sender: "bot" };
-        setMessages((prevMessages) => [...prevMessages, botMessage]);
-
-        // Show notification if chat is not visible
-        if (!chatVisible) toast.success(aiResponse);
-      } catch (error) {
-        console.error("Error fetching AI response:", error);
-    }
-  };
-
-  // Changes AI model based on user selection.
-  const handleAISelection = (topic) => {
-    if (topic === "Mathematics") setPrompt({"topic": topic, "instruction": prompts.math});
-    if (topic === "Physics") setPrompt({"topic": topic, "instruction": prompts.physics});
-    if (topic === "Chemistry") setPrompt({"topic": topic, "instruction": prompts.chemistry});
-    if (topic === "Coding") setPrompt({"topic": topic, "instruction": prompts.coding});
-    if (topic === "Economics") setPrompt({"topic": topic, "instruction": prompts.economics});
-    if (topic === "Music Theory") setPrompt({"topic": topic, "instruction": prompts.music});
-    if (topic === "Visual Art") setPrompt({"topic": topic, "instruction": prompts.art});
-    if (!chatVisible) toast.success(`AI model changed to ${topic}`);
-  }
-
-  // Function to handle user message submission
-  const handleSendMessage = (userInput) => {
-    const newUserMessage = { text: userInput, sender: "user" };
-    setMessages((prevMessages) => [...prevMessages, newUserMessage]);
-    handleAIResponse(userInput); // Call to process AI response and send the image
-  };
-
-  // Function to toggle chat visibility
-  const toggleChatVisibility = () => {
-    setChatVisible((prevVisible) => !prevVisible);
-  };
-
   // Function to save the canvas
   const saveWhiteBoard = async () => {
     if (fabricCanvas && user) {
@@ -391,7 +311,93 @@ const App = () => {
       toast.error("No canvas to save or user not logged in.");
     }
   };
+
+  // AI FUNCTIONS:
+  // Initiate model on start and reset if prompt changes.
+  useEffect(() => {
+    if (chatSession === null) {
+      const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_KEY;
+      const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+      const model = genAI.getGenerativeModel({
+        model: "gemini-1.5-flash",
+        systemInstruction: prompt.instruction,
+      });
+      const session = model.startChat();
+      setChatSession(session);
+      console.log("New Chat Session Started");
+    }
+  }, [chatSession, prompt]);
   
+
+  // Function to handle AI requests and responses
+  const handleAIResponse = async (userInput) => {
+    // Create aiRequest array to send.
+    const aiRequest = [];
+
+    // Include the current user input
+    if (userInput) {
+        aiRequest.push({
+            text: userInput, // Push the current user input
+        });
+    }
+
+    // Add uploaded image
+    const base64Image = fabricCanvas.toDataURL("image/png").split(",")[1];
+    if (base64Image) {
+        aiRequest.push({
+            inlineData: {
+                mimeType: "image/png",
+                data: base64Image,
+            },
+        });
+    }
+
+    try {
+        // Send user request to AI model and save result
+        console.log("Request Sent: ", aiRequest);
+        const result = await chatSession.sendMessage(aiRequest);
+        
+        // AI response
+        const aiResponse = await result.response.text();
+        console.log("Response Received: ", result.response);
+
+        // Add the AI message to chatbox
+        const botMessage = { text: aiResponse, sender: "bot" };
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
+
+        // Show notification if chat is not visible
+        if (!chatVisible) toast.success(aiResponse);
+      } catch (error) {
+        console.error("Error fetching AI response:", error);
+    }
+  };
+
+  // Changes AI model based on user selection.
+  const handleAISelection = (topic) => {
+    if (topic === prompt.topic) return;
+    if (topic === "Mathematics") setPrompt({"topic": topic, "instruction": prompts.math});
+    if (topic === "Physics") setPrompt({"topic": topic, "instruction": prompts.physics});
+    if (topic === "Chemistry") setPrompt({"topic": topic, "instruction": prompts.chemistry});
+    if (topic === "Coding") setPrompt({"topic": topic, "instruction": prompts.coding});
+    if (topic === "Economics") setPrompt({"topic": topic, "instruction": prompts.economics});
+    if (topic === "Music Theory") setPrompt({"topic": topic, "instruction": prompts.music});
+    if (topic === "Visual Art") setPrompt({"topic": topic, "instruction": prompts.art});
+    if (!chatVisible) toast.success(`AI model changed to ${topic}`);
+    setChatSession(null);
+    setMessages([]);
+  }
+
+  // Function to handle user message submission
+  const handleSendMessage = (userInput) => {
+    const newUserMessage = { text: userInput, sender: "user" };
+    setMessages((prevMessages) => [...prevMessages, newUserMessage]);
+    handleAIResponse(userInput); // Call to process AI response and send the image
+  };
+
+  // Function to toggle chat visibility
+  const toggleChatVisibility = () => {
+    setChatVisible((prevVisible) => !prevVisible);
+  };
 
   return (
     <Router>
