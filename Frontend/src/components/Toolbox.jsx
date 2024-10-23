@@ -1,25 +1,6 @@
 import React, { useState } from "react";
-import {
-  PaintBrushIcon,
-  ServerIcon,
-  TrashIcon,
-  PlusIcon,
-  CursorArrowRaysIcon,
-  ArrowUturnLeftIcon,
-  ArrowUturnRightIcon,
-  BookmarkIcon,
-} from "@heroicons/react/24/outline";
-import {
-  PaintBrushIcon as PaintBrushIconSolid,
-  ServerIcon as ServerIconSolid,
-  CursorArrowRaysIcon as CursorArrowRaysIconSolid,
-  BeakerIcon as BeakerIconSolid,
-  ArrowDownTrayIcon,
-  CpuChipIcon,
-  ChevronUpIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/24/solid";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { ArrowClockwise, ArrowCounterClockwise, CaretDown, CaretUp, Download, Eraser, FloppyDisk, HandGrabbing, PaintBrush, PaintBucket, Robot, Shapes, Trash } from "@phosphor-icons/react";
 
 const Toolbox = ({
   tool,
@@ -45,47 +26,34 @@ const Toolbox = ({
   return toolbarVisible ? (
     <div>
       <div className="items-center bg-white p-2 rounded-md shadow-lg">
-        <div onClick={() => setToolbarVisible(!toolbarVisible)} className="cursor-pointer">
-          <Icons
-            IconComponent={ChevronUpIcon}
-          />
+        <div onClick={() => setToolbarVisible(!toolbarVisible)} 
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "undo" ? "bg-gray-200" : ""} hover:bg-gray-200`}>
+        <CaretUp size={32} />
         </div>
         
         {/* Switch to regular cursor/move function */}
-        <div onClick={() => setTool("cursor")} className="cursor-pointer">
-          <Icons
-            IconComponent={
-              tool === "cursor"
-                ? CursorArrowRaysIconSolid
-                : CursorArrowRaysIcon
-            }
-          />
+        <div onClick={() => setTool("cursor")}
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "cursor" ? "bg-gray-200" : ""} hover:bg-gray-200`}>
+          <HandGrabbing size={32} />
         </div>
 
         {/* Set Tool to Pencil */}
-        <div onClick={() => setTool("pencil")} className="cursor-pointer">
-          <Icons
-            IconComponent={
-              tool === "pencil" ? PaintBrushIconSolid : PaintBrushIcon
-            }
-          />
+        <div onClick={() => setTool("pencil")}
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "pencil" ? "bg-gray-200" : ""} hover:bg-gray-200`}>
+        <PaintBrush size={32} />
         </div>
 
         {/* Set Tool to Eraser */}
-        <div onClick={() => setTool("eraser")} className="cursor-pointer">
-          <Icons
-            IconComponent={tool === "eraser" ? ServerIconSolid : ServerIcon}
-          />
+        <div onClick={() => setTool("eraser")} 
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "eraser" ? "bg-gray-200" : ""} hover:bg-gray-200`}>
+        <Eraser size={32} />
         </div>
 
         {/* Pen Width */}
-        <div
-          onClick={() => setSliderVisible(!sliderVisible)}
-          className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 text-center cursor-pointer"
-        >
-          <b>{penWidth}</b>
+        <div onClick={() => setSliderVisible(!sliderVisible)}
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "penwidth" ? "bg-gray-200" : ""} hover:bg-gray-200`}>
+        <b className="text-2xl font-normal leading-none">{penWidth}</b>
         </div>
-
         <div className="w-0 h-0" hidden={!sliderVisible}>
           <input
             type="range"
@@ -100,8 +68,8 @@ const Toolbox = ({
         {/* Add Object Drop-Down Menu */}
         <Menu as="div" className="relative inline-block text-left">
           <div>
-            <MenuButton className="mt-1">
-              <Icons IconComponent={PlusIcon} />
+            <MenuButton className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "shapes" ? "bg-gray-200" : ""} hover:bg-gray-200`}>
+            <Shapes size={32} />
             </MenuButton>
           </div>
           <MenuItems
@@ -170,49 +138,53 @@ const Toolbox = ({
         {/* Change Fill Colour */}
         <div
           onClick={() => changeFillColor()}
-          className="h-10 w-10 hover:bg-gray-100 rounded-md p-2 cursor-pointer"
-        >
-          <BeakerIconSolid className="w-6 h-6" color={penColor} />
+          className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+          <PaintBucket size={32} />
         </div>
 
         {/* Undo last canvas change */}
-        <div onClick={undo} className="cursor-pointer">
-          <Icons IconComponent={ArrowUturnLeftIcon} />
+        <div onClick={undo} 
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        <ArrowCounterClockwise size={32} />
         </div>
 
         {/* Redo last canvas change */}
-        <div onClick={redo} className="cursor-pointer">
-          <Icons IconComponent={ArrowUturnRightIcon} />
+        <div onClick={redo} 
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        <ArrowClockwise size={32} />
         </div>
 
         {/* Select AI Model */}
-        <div onClick={() => setBotModal(true)} className="cursor-pointer">
-          <Icons IconComponent={CpuChipIcon} />
+        <div onClick={() => setBotModal(true)} 
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        <Robot size={32} />
         </div>
         
         {/* Download Board*/}
-        <div onClick={() => downloadBoard()} className="cursor-pointer">
-          <Icons IconComponent={ArrowDownTrayIcon} />
+        <div onClick={() => downloadBoard()} 
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        <Download size={32} />
         </div>
 
         {/* Save Whiteboard*/}
-        <div onClick={() => saveWhiteBoard(true)} className="cursor-pointer">
-          <Icons IconComponent={BookmarkIcon} />
+        <div onClick={() => saveWhiteBoard(true)} 
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        <FloppyDisk size={32} />
         </div>
 
         {/* Clear the canvas */}
-        <div onClick={() => setClearModal(true)} className="cursor-pointer">
-          <Icons IconComponent={TrashIcon} />
+        <div onClick={() => setClearModal(true)} 
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        <Trash size={32} />
         </div>
       </div>
     </div>
   ) : (
     <div>
       <div className="items-center bg-white p-2 rounded-md shadow-lg">
-        <div onClick={() => setToolbarVisible(!toolbarVisible)} className="cursor-pointer">
-          <Icons
-            IconComponent={ChevronDownIcon}
-          />
+        <div onClick={() => setToolbarVisible(!toolbarVisible)} 
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        <CaretDown size={32} />
         </div>
       </div>
     </div>
