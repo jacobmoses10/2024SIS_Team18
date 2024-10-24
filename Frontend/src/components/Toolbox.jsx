@@ -33,21 +33,21 @@ const Toolbox = ({
         
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")}
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "cursor" ? "bg-slate-200" : ""} hover:bg-slate-100`}
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "cursor" && "bg-slate-200"} hover:bg-slate-100`}
         title="Move Tool">
           <HandGrabbing size={32} />
         </div>
 
         {/* Set Tool to Pencil */}
         <div onClick={() => setTool("pencil")}
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "pencil" ? "bg-slate-200" : ""} hover:bg-slate-100`}
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "pencil" && "bg-slate-200"} hover:bg-slate-100`}
         title="Drawing Tool">
         <PaintBrush size={32} />
         </div>
 
         {/* Set Tool to Eraser */}
         <div onClick={() => setTool("eraser")} 
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "eraser" ? "bg-slate-200" : ""} hover:bg-slate-100`}
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "eraser" && "bg-slate-200"} hover:bg-slate-100`}
         title="Eraser">
         <Eraser size={32} />
         </div>

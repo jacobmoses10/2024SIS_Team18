@@ -32,25 +32,25 @@ const Navbar = ({user, logout}) => {
           <div>
             <ul className="flex justify-evenly items-center">
               <Link to="/">
-                <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 ${location.pathname === '/' && `bg-slate-100`} transition cursor-pointer`}>
+                <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${location.pathname === '/' && `bg-black text-white`} transition cursor-pointer`}>
                   Home
                 </li>
               </Link>
               <Link to="/about">
-                <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 ${location.pathname === '/about' && `bg-slate-100`} transition cursor-pointer`}>
+                <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${location.pathname === '/about' && `bg-black text-white`} transition cursor-pointer`}>
                   About
                 </li>
               </Link>
               {user && (
                 <Link to="/whiteboard">
-                  <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 ${location.pathname === '/whiteboard' && `bg-slate-100`} transition cursor-pointer`}>
+                  <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${location.pathname === '/whiteboard' && `bg-black text-white`} transition cursor-pointer`}>
                     Draw
                   </li>
                 </Link>
               )}
               {user && (
                 <Link to="/userwhiteboards">
-                  <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 ${location.pathname === '/userwhiteboards' && `bg-slate-100`} transition cursor-pointer`}>
+                  <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${location.pathname === '/userwhiteboards' && `bg-black text-white`} transition cursor-pointer`}>
                   My Whiteboards
                   </li>
                 </Link>
