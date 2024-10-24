@@ -369,6 +369,8 @@ const App = () => {
         if (!chatVisible) toast.success(aiResponse);
       } catch (error) {
         console.error("Error fetching AI response:", error);
+        const errorMessage = { text: "Sorry, Google Gemini is currently unavailable. Please refresh your browser and try again.", sender: "bot" };
+        setMessages((prevMessages) => [...prevMessages, errorMessage]);
     }
   };
 

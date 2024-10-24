@@ -8,9 +8,9 @@ import Footer from "../components/Footer";
 
 
 const SignUp = ({setUser}) => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [name, setName] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const navigate = useNavigate(); // Add this line
 
   async function handleSignUp() {
@@ -40,13 +40,14 @@ const SignUp = ({setUser}) => {
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
           Create an Account
         </h1>
-        <div className="space-y-6">
+        <form className="space-y-6">
           <div>
             <label className="text-lg font-medium">Full Name</label>
             <input
               className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="text"
               placeholder="Enter Your Name"
+              autoComplete="name"
               value={name}
               onChange={(event) => setName(event.target.value)}
             />
@@ -57,6 +58,7 @@ const SignUp = ({setUser}) => {
               className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="email"
               placeholder="Enter Your Email"
+              autoComplete="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
@@ -67,6 +69,7 @@ const SignUp = ({setUser}) => {
               className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="password"
               placeholder="Enter Your Password"
+              autoComplete="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
@@ -91,7 +94,7 @@ const SignUp = ({setUser}) => {
               <Link to="/login">Login Here</Link>
             </span>
           </p>
-        </div>
+        </form>
       </div>
       <Footer />
     </div>

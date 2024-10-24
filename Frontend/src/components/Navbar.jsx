@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { useMediaQuery } from "react-responsive";
 import mainLogo2 from'../assets/inkwise_logo2.png';
@@ -15,6 +15,7 @@ const Navbar = ({user, logout}) => {
   };
 
   const desktopMode = useMediaQuery({ query: '(min-width: 1224px)' });
+  const location = useLocation();
 
   return desktopMode ? (
     <div className="bg-white">
@@ -31,25 +32,25 @@ const Navbar = ({user, logout}) => {
           <div>
             <ul className="flex justify-evenly items-center">
               <Link to="/">
-                <li className="px-6 font-bold hover:underline cursor-pointer">
+                <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${location.pathname === '/' && `bg-black text-white`} transition cursor-pointer`}>
                   Home
                 </li>
               </Link>
               <Link to="/about">
-                <li className="px-6 font-bold hover:underline cursor-pointer">
+                <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${location.pathname === '/about' && `bg-black text-white`} transition cursor-pointer`}>
                   About
                 </li>
               </Link>
               {user && (
                 <Link to="/whiteboard">
-                  <li className="px-6 font-bold hover:underline cursor-pointer">
+                  <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${location.pathname === '/whiteboard' && `bg-black text-white`} transition cursor-pointer`}>
                     Draw
                   </li>
                 </Link>
               )}
               {user && (
                 <Link to="/userwhiteboards">
-                  <li className="px-6 font-bold hover:underline cursor-pointer">
+                  <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${location.pathname === '/userwhiteboards' && `bg-black text-white`} transition cursor-pointer`}>
                   My Whiteboards
                   </li>
                 </Link>
@@ -118,14 +119,14 @@ const Navbar = ({user, logout}) => {
         <div className="py-1">
         <MenuItem>
             <Link to="/">
-              <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+              <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                 Home
               </li>
             </Link>
           </MenuItem>
           <MenuItem>
             <Link to="/about">
-              <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+              <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                 About
               </li>
             </Link>
@@ -134,20 +135,20 @@ const Navbar = ({user, logout}) => {
             <div>
               <MenuItem>
                 <Link to="/whiteboard">
-                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900r">
+                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                     Draw
                   </li>
                 </Link>
               </MenuItem>           
               <MenuItem>
                 <Link to="/userwhiteboards">
-                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                     My Whiteboards
                   </li>
                 </Link>
               </MenuItem>
               <MenuItem>
-                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900" onClick={handleLogout}>
+                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" onClick={handleLogout}>
                     Logout
                   </li>
               </MenuItem>
@@ -156,14 +157,14 @@ const Navbar = ({user, logout}) => {
             <div>
               <MenuItem>
                 <Link to="/login">
-                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                     Login
                   </li>
                 </Link>
               </MenuItem>
               <MenuItem>
                 <Link to="/signup">
-                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                     Sign Up
                   </li>
                 </Link>

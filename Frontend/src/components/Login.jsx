@@ -6,8 +6,8 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import Footer from "../components/Footer";
 
 const Login = ({ setUser }) => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   async function handleGoogleLogin() {
@@ -39,26 +39,26 @@ const Login = ({ setUser }) => {
         Welcome back!
         </h1>
         <div className='mb-6'>
-          <div>
+          <form>
             <label className="text-lg font-medium">Email</label>
             <input
-              id="email"
               className='w-full border-2 border-gray-100 rounded-xl p-4 mb-3 mt-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500'
               placeholder="Enter Your Email"
               type="email"
+              autoComplete="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
             <label className="text-lg font-medium">Password</label>
             <input
-              id="password"
               className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500'
               placeholder="Enter Your Password"
               type="password"
+              autoComplete="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
-          </div>
+          </form>
           <div>
             <div className="py-4">
               <input type="checkbox" id="remember" className="mr-2" />
