@@ -35,8 +35,8 @@ const SignUp = ({setUser}) => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center py-10 px-6 bg-slate-100">
-      <div className="bg-white rounded-3xl shadow-md max-w-lg w-full p-8">
+    <div className="min-h-screen flex flex-col items-center justify-center py-10 px-6 ">
+      <div className="bg-white max-w-lg w-full p-8">
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
           Create an Account
         </h1>

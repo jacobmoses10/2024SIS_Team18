@@ -11,37 +11,38 @@ import Footer from "../components/Footer";
 
 const HomePage = () => {
   const desktopMode = useMediaQuery({ query: '(min-width: 1224px)' });
-  return desktopMode ? (
-    <div className="h-screen">
-      <div className="bg-slate-100 h-[500px] flex items-center justify-center">
-        <div className="flex items-center flex-col">
-          <div className="flex items-center justify-center">
-            <img className="h-20 w-20" src={mainLogo} alt="" />
-            <h1 className="font-bold text-[50px] p-3">Welcome to Inkwise</h1>
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      {/* Header Section */}
+      <div className="bg-slate-100 flex-1 flex items-center justify-center px-4">
+        <div className="flex items-center flex-col text-center space-y-5">
+          <div className="flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-3">
+            <img className="h-16 w-16 md:h-20 md:w-20" src={mainLogo} alt="Inkwise Logo" />
+            <h1 className="font-bold text-3xl md:text-5xl p-3">Welcome to Inkwise</h1>
           </div>
-          <p className="p-3 text-gray-500 font-bold">
+          <p className="text-gray-500 font-bold max-w-xs md:max-w-md">
             An intuitive whiteboard for students and professionals to brainstorm, take notes, and draw.
           </p>
-          <div className="p-3">
+          <div className="w-full flex justify-center">
             <Link to="/signup">
-              <li
-                className="flex items-center space-x-3 border p-2 px-6 rounded-md text-white bg-black hover:bg-blue-600 transition"
-                type="button">
+              <button className="flex items-center space-x-3 border p-3 px-6 rounded-md text-white bg-black hover:bg-blue-600 transition w-full md:w-auto justify-center">
                 Get Started
-              </li>
+              </button>
             </Link>
           </div>
           <p className="text-gray-500">
             Already have an account?{" "}
-            <span className="underline cursor-pointer text-blue-500">
-              <Link to="/login">Login in Here</Link>
-            </span>
+            <Link to="/login" className="underline text-blue-500">
+              Login Here
+            </Link>
           </p>
         </div>
       </div>
 
-      <div className="flex items-center justify-center py-10">
-        <div className="p-10 flex items-center justify-center space-x-10">
+      {/* Features Section */}
+      <div className="flex flex-col items-center py-10 space-y-10 bg-white px-4 md:px-0">
+        <div className="flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-10">
           <FeatureDescription
             Icon={SparklesIcon}
             title={"Enhance with AI"}
@@ -59,55 +60,7 @@ const HomePage = () => {
           />
         </div>
       </div>
-      <Footer />
-    </div>
-  ) : (
-    <div>
-      <div className="bg-slate-100 py-10 flex items-center justify-center">
-        <div className="flex items-center flex-col">
-          <img className="h-20 w-20" src={mainLogo} alt="" />
-          <div className="flex items-center justify-center">
-            <h1 className="font-bold text-[50px] text-center">Welcome to Inkwise</h1>
-          </div>
-          <p className="p-3 text-gray-500 font-bold text-center">
-            An intuitive whiteboard for students and professionals to brainstorm, take notes, and draw.
-          </p>
-          <div className="p-3">
-            <Link to="/signup">
-              <li
-                className="flex items-center space-x-3 border p-2 px-6 rounded-md text-white bg-black hover:bg-blue-600 transition"
-                type="button">
-                Get Started
-              </li>
-            </Link>
-          </div>
-          <p className="text-gray-500">
-            Already have an account?{" "}
-            <span className="underline cursor-pointer text-blue-500">
-              <Link to="/login">Login in Here</Link>
-            </span>
-          </p>
-        </div>
-      </div>
-      <div className="items-center justify-center py-10">
-        <div className="p-10 items-center justify-center">
-          <FeatureDescription
-            Icon={SparklesIcon}
-            title={"Enhance with AI"}
-            desc={"Utilize AI to brainstorm and organize ideas."}
-          />
-          <FeatureDescription
-            Icon={ArrowDownTrayIcon}
-            title={"Download"}
-            desc={"Download your whiteboard creations with ease."}
-          />
-          <FeatureDescription
-            Icon={DeviceTabletIcon}
-            title={"Multi-Device"}
-            desc={"Access your whiteboard from any device."}
-          />
-        </div>
-      </div>
+
       <Footer />
     </div>
   );
@@ -115,22 +68,20 @@ const HomePage = () => {
 
 export default HomePage;
 
-const FeatureDescription = ({Icon, title, desc}) => {
+const FeatureDescription = ({ Icon, title, desc }) => {
   return (
-    <div className="flex items-center flex-col mb-5">
-      <div className="p-3">
-        <Icons className="text-center" IconComponent={Icon} />
-      </div>
-      <h1 className="font-bold text-[28px] p-3 text-center">{title}</h1>
-      <p className=" mb-4 text-gray-500 text-center">{desc}</p>
+    <div className="flex items-center flex-col text-center space-y-4 max-w-xs md:max-w-none">
+      <Icons IconComponent={Icon} />
+      <h2 className="font-bold text-xl md:text-2xl">{title}</h2>
+      <p className="text-gray-500">{desc}</p>
     </div>
   );
 };
 
-const Icons = ({IconComponent}) => {
+const Icons = ({ IconComponent }) => {
   return (
-    <div className="h-10 w-10">
-      <IconComponent className="text-[50px]" />
+    <div className="h-10 w-10 md:h-12 md:w-12 mb-3">
+      <IconComponent className="h-full w-full text-gray-600" />
     </div>
   );
 };

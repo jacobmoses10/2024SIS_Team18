@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { auth, db } from "../firebase/init";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React, {useEffect, useState} from "react";
+import {auth, db} from "../firebase/init";
+import {useAuthState} from "react-firebase-hooks/auth";
 import {
   collection,
   query,
@@ -9,9 +9,10 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import mainLogo from "../assets/inkwise_logo.png";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
+import {TrashIcon} from "@heroicons/react/24/outline";
 
 const UserWhiteboards = () => {
   const [whiteboards, setWhiteboards] = useState([]);
@@ -70,23 +71,28 @@ const UserWhiteboards = () => {
   };
 
   if (loading) {
-    return <div>Loading whiteboards...</div>;
+    return (
+      <div className="text-center text-gray-500">Loading whiteboards...</div>
+    );
   }
 
   if (error) {
     console.error("Error in useAuthState:", error);
-    return <div>Error: {error.message}</div>;
+    return (
+      <div className="text-center text-red-500">Error: {error.message}</div>
+    );
   }
 
   if (!user) {
-    return <div>Please log in to view your whiteboards.</div>;
+    return (
+      <div className="text-center">Please log in to view your whiteboards.</div>
+    );
   }
 
   return (
     <div className="max-w-screen-lg mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center sm:text-left">
-        Whiteboards
-      </h1>
+      <h2 className="text-2xl mb-8 text-center">My Boards</h2>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {whiteboards.length > 0 ? (
           whiteboards.map((whiteboard) => (
@@ -97,7 +103,7 @@ const UserWhiteboards = () => {
             />
           ))
         ) : (
-          <div>No whiteboards found.</div>
+          <div className="text-gray-500">No whiteboards found.</div>
         )}
       </div>
     </div>
@@ -119,7 +125,7 @@ export function WhiteboardCard({whiteboard, onDelete}) {
   };
 
   return (
-    <div className="w-full border rounded-lg p-4 bg-white shadow-md hover:shadow-xl transition-shadow hover:cursor-pointer">
+    <div className="w-full border rounded-xl p-4 bg-white shadow-lg hover:shadow-xl transition-shadow hover:cursor-pointer">
       <div className="flex flex-col items-center">
         <div
           className="w-full rounded-lg border bg-gray-200 flex justify-center items-center"
@@ -138,16 +144,16 @@ export function WhiteboardCard({whiteboard, onDelete}) {
             />
           )}
         </div>
-        <div className="py-2 text-center">
-          <h1 className="text-sm sm:text-md">
+        <div className="py-3 text-center">
+          <h1 className="text-sm sm:text-md font-semibold">
             Saved Date: {formattedDate}
           </h1>
         </div>
         {/* Add a delete button */}
         <button
-          className="mt-4 bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700"
+          className="mt-4 flex items-center space-x-2 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition"
           onClick={onDelete}>
-          Delete
+          <TrashIcon className="h-5 w-5" />
         </button>
       </div>
     </div>
