@@ -119,14 +119,14 @@ const Navbar = ({user, logout}) => {
         <div className="py-1">
         <MenuItem>
             <Link to="/">
-              <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+              <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                 Home
               </li>
             </Link>
           </MenuItem>
           <MenuItem>
             <Link to="/about">
-              <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+              <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                 About
               </li>
             </Link>
@@ -135,20 +135,20 @@ const Navbar = ({user, logout}) => {
             <div>
               <MenuItem>
                 <Link to="/whiteboard">
-                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900r">
+                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                     Draw
                   </li>
                 </Link>
               </MenuItem>           
               <MenuItem>
                 <Link to="/userwhiteboards">
-                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                     My Whiteboards
                   </li>
                 </Link>
               </MenuItem>
               <MenuItem>
-                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900" onClick={handleLogout}>
+                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" onClick={handleLogout}>
                     Logout
                   </li>
               </MenuItem>
@@ -157,14 +157,14 @@ const Navbar = ({user, logout}) => {
             <div>
               <MenuItem>
                 <Link to="/login">
-                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                     Login
                   </li>
                 </Link>
               </MenuItem>
               <MenuItem>
                 <Link to="/signup">
-                  <li className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">
+                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                     Sign Up
                   </li>
                 </Link>
