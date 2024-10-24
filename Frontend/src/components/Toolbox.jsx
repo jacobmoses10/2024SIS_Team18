@@ -26,32 +26,36 @@ const Toolbox = ({
   return toolbarVisible ? (
     <div>
       <div className="items-center bg-white p-2 rounded-md shadow-lg">
-        <div onClick={() => setToolbarVisible(!toolbarVisible)} 
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "undo" ? "bg-gray-200" : ""} hover:bg-gray-200`}>
+        <div onClick={() => setToolbarVisible(!toolbarVisible)} title="Hide Toolbar" 
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-slate-100`}>
         <CaretUp size={32} />
         </div>
         
         {/* Switch to regular cursor/move function */}
         <div onClick={() => setTool("cursor")}
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "cursor" ? "bg-gray-200" : ""} hover:bg-gray-200`}>
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "cursor" ? "bg-slate-200" : ""} hover:bg-slate-100`}
+        title="Move Tool">
           <HandGrabbing size={32} />
         </div>
 
         {/* Set Tool to Pencil */}
         <div onClick={() => setTool("pencil")}
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "pencil" ? "bg-gray-200" : ""} hover:bg-gray-200`}>
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "pencil" ? "bg-slate-200" : ""} hover:bg-slate-100`}
+        title="Drawing Tool">
         <PaintBrush size={32} />
         </div>
 
         {/* Set Tool to Eraser */}
         <div onClick={() => setTool("eraser")} 
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "eraser" ? "bg-gray-200" : ""} hover:bg-gray-200`}>
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "eraser" ? "bg-slate-200" : ""} hover:bg-slate-100`}
+        title="Eraser">
         <Eraser size={32} />
         </div>
 
         {/* Pen Width */}
         <div onClick={() => setSliderVisible(!sliderVisible)}
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "penwidth" ? "bg-gray-200" : ""} hover:bg-gray-200`}>
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-slate-100`}
+        title="Change Size">
         <b className="text-2xl font-normal leading-none">{penWidth}</b>
         </div>
         <div className="w-0 h-0" hidden={!sliderVisible}>
@@ -68,7 +72,8 @@ const Toolbox = ({
         {/* Add Object Drop-Down Menu */}
         <Menu as="div" className="relative inline-block text-left">
           <div>
-            <MenuButton className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center ${tool === "shapes" ? "bg-gray-200" : ""} hover:bg-gray-200`}>
+            <MenuButton className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-slate-100`}
+            title="Add Object">
             <Shapes size={32} />
             </MenuButton>
           </div>
@@ -125,6 +130,7 @@ const Toolbox = ({
           <div
             className="w-5 h-5 border-2 border-black rounded relative"
             style={{ backgroundColor: penColor }} // Apply selected pen color
+            title="Change Colour"
           >
             <input
               type="color"
@@ -138,43 +144,50 @@ const Toolbox = ({
         {/* Change Fill Colour */}
         <div
           onClick={() => changeFillColor()}
-          className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+          className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-slate-100`}
+          title="Fill Selected">
           <PaintBucket size={32} />
         </div>
 
         {/* Undo last canvas change */}
         <div onClick={undo} 
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-slate-100`}
+        title="Undo">
         <ArrowCounterClockwise size={32} />
         </div>
 
         {/* Redo last canvas change */}
         <div onClick={redo} 
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-slate-100`}
+        title="Redo">
         <ArrowClockwise size={32} />
         </div>
 
         {/* Select AI Model */}
         <div onClick={() => setBotModal(true)} 
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-slate-100`}
+        title="Change AI Model">
         <Robot size={32} />
         </div>
         
         {/* Download Board*/}
         <div onClick={() => downloadBoard()} 
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-slate-100`}
+        title="Download">
         <Download size={32} />
         </div>
 
         {/* Save Whiteboard*/}
         <div onClick={() => saveWhiteBoard(true)} 
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-slate-100`}
+        title="Save">
         <FloppyDisk size={32} />
         </div>
 
         {/* Clear the canvas */}
         <div onClick={() => setClearModal(true)} 
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-slate-100`}
+        title="Clear All">
         <Trash size={32} />
         </div>
       </div>
@@ -183,7 +196,8 @@ const Toolbox = ({
     <div>
       <div className="items-center bg-white p-2 rounded-md shadow-lg">
         <div onClick={() => setToolbarVisible(!toolbarVisible)} 
-        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-gray-200`}>
+        className={`cursor-pointer p-2 rounded-md h-10 w-10 flex justify-center items-center hover:bg-slate-100`}
+        title="Show Toolbar">
         <CaretDown size={32} />
         </div>
       </div>
@@ -192,11 +206,3 @@ const Toolbox = ({
 };
 
 export default Toolbox;
-
-const Icons = ({ IconComponent }) => {
-  return (
-    <div className="h-10 w-10 hover:bg-gray-100 rounded-md p-2">
-      <IconComponent className="w-6 h-6" />
-    </div>
-  );
-};
