@@ -37,7 +37,7 @@ const Whiteboard = ({
 }) => {
   const { whiteboardId } = useParams();
   const desktopMode = useMediaQuery({ query: '(min-width: 1224px)' });
-  console.log("Desktop Mode: ", desktopMode);
+
   // Initialize the fabric canvas
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -195,17 +195,3 @@ const Whiteboard = ({
 };
 
 export default Whiteboard;
-
-/*
-
-{desktopMode ? (
-        <canvas ref={canvasRef} className="fixed shadow-lg my-4" />
-      ) : (
-        <TransformWrapper disabled={transformDisabled} limitToBounds="false">
-          <TransformComponent>
-            <canvas ref={canvasRef} className="fixed shadow-lg my-4" />          
-          </TransformComponent>
-        </TransformWrapper>
-      )}
-
-*/
