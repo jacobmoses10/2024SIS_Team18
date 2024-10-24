@@ -1,9 +1,9 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { useMediaQuery } from "react-responsive";
-import mainLogo2 from'../assets/inkwise_logo2.png';
-import { Bars3Icon } from '@heroicons/react/20/solid';
+import {Link, useLocation} from "react-router-dom";
+import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
+import {useMediaQuery} from "react-responsive";
+import mainLogo2 from "../assets/inkwise_logo2.png";
+import {Bars3Icon} from "@heroicons/react/20/solid";
 
 const Navbar = ({user, logout}) => {
   const handleLogout = async () => {
@@ -14,53 +14,67 @@ const Navbar = ({user, logout}) => {
     }
   };
 
-  const desktopMode = useMediaQuery({ query: '(min-width: 1224px)' });
+  const desktopMode = useMediaQuery({query: "(min-width: 1224px)"});
   const location = useLocation();
 
   return desktopMode ? (
-    <div className="bg-white">
+    <div className="bg-white max-w-[1200px] mx-auto">
       <nav className="p-3">
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex items-center  justify-between ">
+          <div className="flex-1 flex justify-center">
             <h1 className="text-xl font-bold hover:animate-pulse transition">
               <Link to="/">
-                <img className="h-10 w-full" src={mainLogo2} alt=""/>
+                <img className="h-10 w-full" src={mainLogo2} alt="" />
               </Link>
             </h1>
           </div>
 
-          <div>
-            <ul className="flex justify-evenly items-center">
+          <div className="flex-1">
+            <ul className="flex justify-center items-center">
               <Link to="/">
-                <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${location.pathname === '/' && `bg-black text-white`} transition cursor-pointer`}>
+                <li
+                  className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${
+                    location.pathname === "/" && `bg-black text-white`
+                  } transition cursor-pointer`}>
                   Home
                 </li>
               </Link>
               <Link to="/about">
-                <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${location.pathname === '/about' && `bg-black text-white`} transition cursor-pointer`}>
+                <li
+                  className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${
+                    location.pathname === "/about" && `bg-black text-white`
+                  } transition cursor-pointer`}>
                   About
                 </li>
               </Link>
               {user && (
                 <Link to="/whiteboard">
-                  <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${location.pathname === '/whiteboard' && `bg-black text-white`} transition cursor-pointer`}>
+                  <li
+                    className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${
+                      location.pathname === "/whiteboard" &&
+                      `bg-black text-white`
+                    } transition cursor-pointer`}>
                     Draw
                   </li>
                 </Link>
               )}
               {user && (
                 <Link to="/userwhiteboards">
-                  <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${location.pathname === '/userwhiteboards' && `bg-black text-white`} transition cursor-pointer`}>
-                  My Whiteboards
+                  <li
+                    className={`px-2 mx-1 font-bold py-1 rounded-md hover:bg-slate-100 hover:text-black ${
+                      location.pathname === "/userwhiteboards" &&
+                      `bg-black text-white`
+                    } transition cursor-pointer whitespace-nowrap`}>
+                    My Boards
                   </li>
                 </Link>
               )}
             </ul>
           </div>
 
-          <div className="flex justify-between items-center">
+          <div className="flex-1 flex justify-end items-center">
             {user ? (
-              <div className="px-3 ">
+              <div className="px-3">
                 <li
                   className="flex space-x-3 border p-2 px-6 rounded-md text-white bg-black hover:bg-blue-600 transition cursor-pointer"
                   type="button"
@@ -101,79 +115,80 @@ const Navbar = ({user, logout}) => {
         <div>
           <h1 className="text-xl font-bold hover:animate-pulse transition">
             <Link to="/">
-              <img className="h-10" src={mainLogo2} alt=""/>
+              <img className="h-10" src={mainLogo2} alt="" />
             </Link>
           </h1>
         </div>
         <Menu as="div" className="relative inline-block text-left">
-      <div>
-        <MenuButton className="flex space-x-3 border m-3 p-2 rounded-md text-white bg-black hover:bg-blue-600 transition">
-          <Bars3Icon aria-hidden="true" className="h-6 w-6 text-white" />
-        </MenuButton>
-      </div>
+          <div>
+            <MenuButton className="flex space-x-3 border m-3 p-2 rounded-md text-white bg-black hover:bg-blue-600 transition">
+              <Bars3Icon aria-hidden="true" className="h-6 w-6 text-white" />
+            </MenuButton>
+          </div>
 
-      <MenuItems
-        transition
-        className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-      >
-        <div className="py-1">
-        <MenuItem>
-            <Link to="/">
-              <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-                Home
-              </li>
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <Link to="/about">
-              <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-                About
-              </li>
-            </Link>
-          </MenuItem>
-          {user ? (
-            <div>
+          <MenuItems
+            transition
+            className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in">
+            <div className="py-1">
               <MenuItem>
-                <Link to="/whiteboard">
+                <Link to="/">
                   <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-                    Draw
-                  </li>
-                </Link>
-              </MenuItem>           
-              <MenuItem>
-                <Link to="/userwhiteboards">
-                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-                    My Whiteboards
+                    Home
                   </li>
                 </Link>
               </MenuItem>
               <MenuItem>
-                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" onClick={handleLogout}>
-                    Logout
-                  </li>
-              </MenuItem>
-            </div>       
-          ) : (
-            <div>
-              <MenuItem>
-                <Link to="/login">
+                <Link to="/about">
                   <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-                    Login
+                    About
                   </li>
                 </Link>
               </MenuItem>
-              <MenuItem>
-                <Link to="/signup">
-                  <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-                    Sign Up
-                  </li>
-                </Link>
-              </MenuItem>
+              {user ? (
+                <div>
+                  <MenuItem>
+                    <Link to="/whiteboard">
+                      <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                        Draw
+                      </li>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link to="/userwhiteboards">
+                      <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                        My Boards
+                      </li>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <li
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      onClick={handleLogout}>
+                      Logout
+                    </li>
+                  </MenuItem>
+                </div>
+              ) : (
+                <div>
+                  <MenuItem>
+                    <Link to="/login">
+                      <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                        Login
+                      </li>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link to="/signup">
+                      <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                        Sign Up
+                      </li>
+                    </Link>
+                  </MenuItem>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </MenuItems>
-    </Menu>
+          </MenuItems>
+        </Menu>
       </div>
     </div>
   );
