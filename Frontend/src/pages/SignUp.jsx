@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signUp } from "../firebase/auth";
-import { googleLogin } from "../firebase/auth";
+import { signUp, googleLogin } from "../firebase/auth"; // Combine imports from the same file
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import Footer from "../components/Footer";
 
-
-const SignUp = ({setUser}) => {
+const SignUp = ({ setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const navigate = useNavigate(); // Add this line
+  const navigate = useNavigate();
 
-  async function handleSignUp() {
+  async function handleSignUp(event) {
+    event.preventDefault(); // Prevent the default form submission
     try {
       const userCredential = await signUp(email, password);
       setUser(userCredential.user);
+      navigate("/whiteboard"); // Navigate after signup
     } catch (error) {
       console.log(error);
       alert(error);
@@ -40,7 +40,7 @@ const SignUp = ({setUser}) => {
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
           Create an Account
         </h1>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSignUp}>
           <div>
             <label className="text-lg font-medium">Full Name</label>
             <input
@@ -77,15 +77,17 @@ const SignUp = ({setUser}) => {
           <div className="p-5 flex flex-col gap-y-4">
             <button
               className="hover:bg-blue-600 transition flex items-center justify-center space-x-3 border p-3 px-6 rounded-md text-white bg-black cursor-pointer"
-              onClick={handleSignUp}
-              >          
+              type="submit"
+            >
               <p>Create Account</p>
             </button>
             <button
               className="flex py-3 border border-gray-100 rounded-md hover:bg-blue-600 hover:text-white transition items-center justify-center gap-2"
-              onClick={handleGoogleLogin}>
-              <FontAwesomeIcon icon={faGoogle} /> {/* Google icon */}
-              <span>Sign in with Google</span>
+              onClick={handleGoogleLogin}
+              type="button" // Change to button to avoid form submission
+            >
+              <FontAwesomeIcon icon={faGoogle} />
+              <span>Sign Up with Google</span>
             </button>
           </div>
           <p className="text-center text-gray-500">
