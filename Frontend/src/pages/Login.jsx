@@ -12,14 +12,15 @@ const Login = ({ setUser }) => {
 
   async function handleGoogleLogin() {
     try {
-      const userCredential = await googleLogin();
-      setUser(userCredential);
-      navigate("/whiteboard");
+      const userCredential = await googleLogin(); 
+      setUser(userCredential);  
+      navigate("/whiteboard");  
     } catch (error) {
       console.log(error);
       alert(error);
     }
   }
+  
 
   async function handleLogin() {
     try {
@@ -36,7 +37,7 @@ const Login = ({ setUser }) => {
     <div className="min-h-screen flex flex-col items-center justify-center py-10 px-6 ">
       <div className='bg-white max-w-lg w-full p-8'>
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
-        Welcome back!
+        Login
         </h1>
         <div className='mb-6'>
           <form>
