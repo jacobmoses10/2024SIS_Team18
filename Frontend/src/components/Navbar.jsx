@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { useMediaQuery } from "react-responsive";
 import mainLogo2 from'../assets/inkwise_logo2.png';
@@ -15,6 +15,7 @@ const Navbar = ({user, logout}) => {
   };
 
   const desktopMode = useMediaQuery({ query: '(min-width: 1224px)' });
+  const location = useLocation();
 
   return desktopMode ? (
     <div className="bg-white">
@@ -31,25 +32,25 @@ const Navbar = ({user, logout}) => {
           <div>
             <ul className="flex justify-evenly items-center">
               <Link to="/">
-                <li className="px-6 font-bold hover:underline cursor-pointer">
+                <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 ${location.pathname === '/' && `bg-slate-100`} transition cursor-pointer`}>
                   Home
                 </li>
               </Link>
               <Link to="/about">
-                <li className="px-6 font-bold hover:underline cursor-pointer">
+                <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 ${location.pathname === '/about' && `bg-slate-100`} transition cursor-pointer`}>
                   About
                 </li>
               </Link>
               {user && (
                 <Link to="/whiteboard">
-                  <li className="px-6 font-bold hover:underline cursor-pointer">
+                  <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 ${location.pathname === '/whiteboard' && `bg-slate-100`} transition cursor-pointer`}>
                     Draw
                   </li>
                 </Link>
               )}
               {user && (
                 <Link to="/userwhiteboards">
-                  <li className="px-6 font-bold hover:underline cursor-pointer">
+                  <li className={`px-4 mx-2 font-bold py-1 rounded-md hover:bg-slate-100 ${location.pathname === '/userwhiteboards' && `bg-slate-100`} transition cursor-pointer`}>
                   My Whiteboards
                   </li>
                 </Link>
